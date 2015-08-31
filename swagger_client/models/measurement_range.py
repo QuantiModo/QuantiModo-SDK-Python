@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 """
@@ -15,7 +14,10 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Ref: https://github.com/swagger-api/swagger-codegen
 """
+
 from pprint import pformat
 from six import iteritems
 
@@ -27,7 +29,7 @@ class MeasurementRange(object):
     """
     def __init__(self):
         """
-        Swagger model
+        MeasurementRange - a model defined in Swagger
 
         :param dict swaggerTypes: The key is attribute name
                                   and the value is attribute type.
@@ -44,49 +46,76 @@ class MeasurementRange(object):
             'upper_limit': 'upperLimit'
         }
 
-        self._lower_limit = None    # The timestamp of the earliest measurement for a user.
-        self._upper_limit = None    # The timestamp of the most recent measurement for a user.
+        self._lower_limit = None
+        self._upper_limit = None
 
     @property
     def lower_limit(self):
+        """
+        Gets the lower_limit of this MeasurementRange.
+        The timestamp of the earliest measurement for a user.
+
+        :return: The lower_limit of this MeasurementRange.
+        :rtype: int
+        """
         return self._lower_limit
 
     @lower_limit.setter
     def lower_limit(self, lower_limit):
+        """
+        Sets the lower_limit of this MeasurementRange.
+        The timestamp of the earliest measurement for a user.
+
+        :param lower_limit: The lower_limit of this MeasurementRange.
+        :type: int
+        """
         self._lower_limit = lower_limit
 
     @property
     def upper_limit(self):
+        """
+        Gets the upper_limit of this MeasurementRange.
+        The timestamp of the most recent measurement for a user.
+
+        :return: The upper_limit of this MeasurementRange.
+        :rtype: int
+        """
         return self._upper_limit
 
     @upper_limit.setter
     def upper_limit(self, upper_limit):
+        """
+        Sets the upper_limit of this MeasurementRange.
+        The timestamp of the most recent measurement for a user.
+
+        :param upper_limit: The upper_limit of this MeasurementRange.
+        :type: int
+        """
         self._upper_limit = upper_limit
 
     def to_dict(self):
         """
-        Return model properties dict
+        Returns the model properties as a dict
         """
         result = {}
 
-        for name, prop in iteritems(self.__dict__):
-            if name == "attribute_map" or name == "swagger_types":
-                continue
-            if isinstance(prop, list):
-                result[name[1:]] = list(map(
+        for attr, _ in iteritems(self.swagger_types):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    prop
+                    value
                 ))
-            elif hasattr(prop, "to_dict"):
-                result[name[1:]] = prop.to_dict()
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
             else:
-                result[name[1:]] = prop
+                result[attr] = value
 
         return result
 
     def to_str(self):
         """
-        Return model properties str
+        Returns the string representation of the model
         """
         return pformat(self.to_dict())
 

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 """
@@ -15,7 +14,10 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Ref: https://github.com/swagger-api/swagger-codegen
 """
+
 from pprint import pformat
 from six import iteritems
 
@@ -27,7 +29,7 @@ class Variable(object):
     """
     def __init__(self):
         """
-        Swagger model
+        Variable - a model defined in Swagger
 
         :param dict swaggerTypes: The key is attribute name
                                   and the value is attribute type.
@@ -98,106 +100,232 @@ class Variable(object):
             'last_source': 'lastSource'
         }
 
-        self._id = None    # Variable ID
-        self._name = None    # User-defined variable display name.
-        self._original_name = None    # Name used when the variable was originally created in the `variables` table.
-        self._category = None    # Variable category like Mood, Sleep, Physical Activity, Treatment, Symptom, etc.
-        self._unit = None    # Abbreviated name of the default unit for the variable
-        self._sources = None    # Comma-separated list of source names to limit variables to those sources
-        self._minimum_value = None    # Minimum reasonable value for this variable (uses default unit)
-        self._maximum_value = None    # Maximum reasonable value for this variable (uses default unit)
-        self._combination_operation = None    # How to aggregate measurements over time.
-        self._filling_value = None    # Value for replacing null measurements
-        self._join_with = None    # The Variable this Variable should be joined with. If the variable is joined with some other variable then it is not shown to user in the list of variables.
-        self._joined_variables = None    # Array of Variables that are joined with this Variable
-        self._parent = None    # Id of the parent variable if this variable has any parent
-        self._sub_variables = None    # Array of Variables that are sub variables to this Variable
-        self._onset_delay = None    # How long it takes for a measurement in this variable to take effect
-        self._duration_of_action = None    # How long the effect of a measurement in this variable lasts
-        self._earliest_measurement_time = None    # Earliest measurement time
-        self._latest_measurement_time = None    # Latest measurement time
-        self._updated = None    # When this variable or its settings were last updated
-        self._cause_only = None    # A value of 1 indicates that this variable is generally a cause in a causal relationship.  An example of a causeOnly variable would be a variable such as Cloud Cover which would generally not be influenced by the behaviour of the user.
-        self._number_of_correlations = None    # Number of correlations
-        self._outcome = None    # Outcome variables (those with `outcome` == 1) are variables for which a human would generally want to identify the influencing factors.  These include symptoms of illness, physique, mood, cognitive performance, etc.  Generally correlation calculations are only performed on outcome variables.
-        self._measurements_at_last_analysis = None    # The number of measurements that a given user had for this variable the last time a correlation calculation was performed. Generally correlation values are only updated once the current number of measurements for a variable is more than 10% greater than the measurementsAtLastAnalysis.  This avoids a computationally-demanding recalculation when there&#39;s not enough new data to make a significant difference in the correlation.
-        self._number_of_measurements = None    # Number of measurements
-        self._last_unit = None    # Last unit
-        self._last_value = None    # Last value
-        self._most_common_value = None    # Most common value
-        self._most_common_unit = None    # Most common unit
-        self._last_source = None    # Last source
+        self._id = None
+        self._name = None
+        self._original_name = None
+        self._category = None
+        self._unit = None
+        self._sources = None
+        self._minimum_value = None
+        self._maximum_value = None
+        self._combination_operation = None
+        self._filling_value = None
+        self._join_with = None
+        self._joined_variables = None
+        self._parent = None
+        self._sub_variables = None
+        self._onset_delay = None
+        self._duration_of_action = None
+        self._earliest_measurement_time = None
+        self._latest_measurement_time = None
+        self._updated = None
+        self._cause_only = None
+        self._number_of_correlations = None
+        self._outcome = None
+        self._measurements_at_last_analysis = None
+        self._number_of_measurements = None
+        self._last_unit = None
+        self._last_value = None
+        self._most_common_value = None
+        self._most_common_unit = None
+        self._last_source = None
 
     @property
     def id(self):
+        """
+        Gets the id of this Variable.
+        Variable ID
+
+        :return: The id of this Variable.
+        :rtype: int
+        """
         return self._id
 
     @id.setter
     def id(self, id):
+        """
+        Sets the id of this Variable.
+        Variable ID
+
+        :param id: The id of this Variable.
+        :type: int
+        """
         self._id = id
 
     @property
     def name(self):
+        """
+        Gets the name of this Variable.
+        User-defined variable display name.
+
+        :return: The name of this Variable.
+        :rtype: str
+        """
         return self._name
 
     @name.setter
     def name(self, name):
+        """
+        Sets the name of this Variable.
+        User-defined variable display name.
+
+        :param name: The name of this Variable.
+        :type: str
+        """
         self._name = name
 
     @property
     def original_name(self):
+        """
+        Gets the original_name of this Variable.
+        Name used when the variable was originally created in the `variables` table.
+
+        :return: The original_name of this Variable.
+        :rtype: str
+        """
         return self._original_name
 
     @original_name.setter
     def original_name(self, original_name):
+        """
+        Sets the original_name of this Variable.
+        Name used when the variable was originally created in the `variables` table.
+
+        :param original_name: The original_name of this Variable.
+        :type: str
+        """
         self._original_name = original_name
 
     @property
     def category(self):
+        """
+        Gets the category of this Variable.
+        Variable category like Mood, Sleep, Physical Activity, Treatment, Symptom, etc.
+
+        :return: The category of this Variable.
+        :rtype: str
+        """
         return self._category
 
     @category.setter
     def category(self, category):
+        """
+        Sets the category of this Variable.
+        Variable category like Mood, Sleep, Physical Activity, Treatment, Symptom, etc.
+
+        :param category: The category of this Variable.
+        :type: str
+        """
         self._category = category
 
     @property
     def unit(self):
+        """
+        Gets the unit of this Variable.
+        Abbreviated name of the default unit for the variable
+
+        :return: The unit of this Variable.
+        :rtype: str
+        """
         return self._unit
 
     @unit.setter
     def unit(self, unit):
+        """
+        Sets the unit of this Variable.
+        Abbreviated name of the default unit for the variable
+
+        :param unit: The unit of this Variable.
+        :type: str
+        """
         self._unit = unit
 
     @property
     def sources(self):
+        """
+        Gets the sources of this Variable.
+        Comma-separated list of source names to limit variables to those sources
+
+        :return: The sources of this Variable.
+        :rtype: str
+        """
         return self._sources
 
     @sources.setter
     def sources(self, sources):
+        """
+        Sets the sources of this Variable.
+        Comma-separated list of source names to limit variables to those sources
+
+        :param sources: The sources of this Variable.
+        :type: str
+        """
         self._sources = sources
 
     @property
     def minimum_value(self):
+        """
+        Gets the minimum_value of this Variable.
+        Minimum reasonable value for this variable (uses default unit)
+
+        :return: The minimum_value of this Variable.
+        :rtype: float
+        """
         return self._minimum_value
 
     @minimum_value.setter
     def minimum_value(self, minimum_value):
+        """
+        Sets the minimum_value of this Variable.
+        Minimum reasonable value for this variable (uses default unit)
+
+        :param minimum_value: The minimum_value of this Variable.
+        :type: float
+        """
         self._minimum_value = minimum_value
 
     @property
     def maximum_value(self):
+        """
+        Gets the maximum_value of this Variable.
+        Maximum reasonable value for this variable (uses default unit)
+
+        :return: The maximum_value of this Variable.
+        :rtype: float
+        """
         return self._maximum_value
 
     @maximum_value.setter
     def maximum_value(self, maximum_value):
+        """
+        Sets the maximum_value of this Variable.
+        Maximum reasonable value for this variable (uses default unit)
+
+        :param maximum_value: The maximum_value of this Variable.
+        :type: float
+        """
         self._maximum_value = maximum_value
 
     @property
     def combination_operation(self):
+        """
+        Gets the combination_operation of this Variable.
+        How to aggregate measurements over time.
+
+        :return: The combination_operation of this Variable.
+        :rtype: str
+        """
         return self._combination_operation
 
     @combination_operation.setter
     def combination_operation(self, combination_operation):
+        """
+        Sets the combination_operation of this Variable.
+        How to aggregate measurements over time.
+
+        :param combination_operation: The combination_operation of this Variable.
+        :type: str
+        """
         allowed_values = ["MEAN", "SUM"]
         if combination_operation not in allowed_values:
             raise ValueError(
@@ -208,188 +336,467 @@ class Variable(object):
 
     @property
     def filling_value(self):
+        """
+        Gets the filling_value of this Variable.
+        Value for replacing null measurements
+
+        :return: The filling_value of this Variable.
+        :rtype: float
+        """
         return self._filling_value
 
     @filling_value.setter
     def filling_value(self, filling_value):
+        """
+        Sets the filling_value of this Variable.
+        Value for replacing null measurements
+
+        :param filling_value: The filling_value of this Variable.
+        :type: float
+        """
         self._filling_value = filling_value
 
     @property
     def join_with(self):
+        """
+        Gets the join_with of this Variable.
+        The Variable this Variable should be joined with. If the variable is joined with some other variable then it is not shown to user in the list of variables.
+
+        :return: The join_with of this Variable.
+        :rtype: str
+        """
         return self._join_with
 
     @join_with.setter
     def join_with(self, join_with):
+        """
+        Sets the join_with of this Variable.
+        The Variable this Variable should be joined with. If the variable is joined with some other variable then it is not shown to user in the list of variables.
+
+        :param join_with: The join_with of this Variable.
+        :type: str
+        """
         self._join_with = join_with
 
     @property
     def joined_variables(self):
+        """
+        Gets the joined_variables of this Variable.
+        Array of Variables that are joined with this Variable
+
+        :return: The joined_variables of this Variable.
+        :rtype: list[Variable]
+        """
         return self._joined_variables
 
     @joined_variables.setter
     def joined_variables(self, joined_variables):
+        """
+        Sets the joined_variables of this Variable.
+        Array of Variables that are joined with this Variable
+
+        :param joined_variables: The joined_variables of this Variable.
+        :type: list[Variable]
+        """
         self._joined_variables = joined_variables
 
     @property
     def parent(self):
+        """
+        Gets the parent of this Variable.
+        Id of the parent variable if this variable has any parent
+
+        :return: The parent of this Variable.
+        :rtype: int
+        """
         return self._parent
 
     @parent.setter
     def parent(self, parent):
+        """
+        Sets the parent of this Variable.
+        Id of the parent variable if this variable has any parent
+
+        :param parent: The parent of this Variable.
+        :type: int
+        """
         self._parent = parent
 
     @property
     def sub_variables(self):
+        """
+        Gets the sub_variables of this Variable.
+        Array of Variables that are sub variables to this Variable
+
+        :return: The sub_variables of this Variable.
+        :rtype: list[Variable]
+        """
         return self._sub_variables
 
     @sub_variables.setter
     def sub_variables(self, sub_variables):
+        """
+        Sets the sub_variables of this Variable.
+        Array of Variables that are sub variables to this Variable
+
+        :param sub_variables: The sub_variables of this Variable.
+        :type: list[Variable]
+        """
         self._sub_variables = sub_variables
 
     @property
     def onset_delay(self):
+        """
+        Gets the onset_delay of this Variable.
+        How long it takes for a measurement in this variable to take effect
+
+        :return: The onset_delay of this Variable.
+        :rtype: int
+        """
         return self._onset_delay
 
     @onset_delay.setter
     def onset_delay(self, onset_delay):
+        """
+        Sets the onset_delay of this Variable.
+        How long it takes for a measurement in this variable to take effect
+
+        :param onset_delay: The onset_delay of this Variable.
+        :type: int
+        """
         self._onset_delay = onset_delay
 
     @property
     def duration_of_action(self):
+        """
+        Gets the duration_of_action of this Variable.
+        How long the effect of a measurement in this variable lasts
+
+        :return: The duration_of_action of this Variable.
+        :rtype: int
+        """
         return self._duration_of_action
 
     @duration_of_action.setter
     def duration_of_action(self, duration_of_action):
+        """
+        Sets the duration_of_action of this Variable.
+        How long the effect of a measurement in this variable lasts
+
+        :param duration_of_action: The duration_of_action of this Variable.
+        :type: int
+        """
         self._duration_of_action = duration_of_action
 
     @property
     def earliest_measurement_time(self):
+        """
+        Gets the earliest_measurement_time of this Variable.
+        Earliest measurement time
+
+        :return: The earliest_measurement_time of this Variable.
+        :rtype: int
+        """
         return self._earliest_measurement_time
 
     @earliest_measurement_time.setter
     def earliest_measurement_time(self, earliest_measurement_time):
+        """
+        Sets the earliest_measurement_time of this Variable.
+        Earliest measurement time
+
+        :param earliest_measurement_time: The earliest_measurement_time of this Variable.
+        :type: int
+        """
         self._earliest_measurement_time = earliest_measurement_time
 
     @property
     def latest_measurement_time(self):
+        """
+        Gets the latest_measurement_time of this Variable.
+        Latest measurement time
+
+        :return: The latest_measurement_time of this Variable.
+        :rtype: int
+        """
         return self._latest_measurement_time
 
     @latest_measurement_time.setter
     def latest_measurement_time(self, latest_measurement_time):
+        """
+        Sets the latest_measurement_time of this Variable.
+        Latest measurement time
+
+        :param latest_measurement_time: The latest_measurement_time of this Variable.
+        :type: int
+        """
         self._latest_measurement_time = latest_measurement_time
 
     @property
     def updated(self):
+        """
+        Gets the updated of this Variable.
+        When this variable or its settings were last updated
+
+        :return: The updated of this Variable.
+        :rtype: int
+        """
         return self._updated
 
     @updated.setter
     def updated(self, updated):
+        """
+        Sets the updated of this Variable.
+        When this variable or its settings were last updated
+
+        :param updated: The updated of this Variable.
+        :type: int
+        """
         self._updated = updated
 
     @property
     def cause_only(self):
+        """
+        Gets the cause_only of this Variable.
+        A value of 1 indicates that this variable is generally a cause in a causal relationship.  An example of a causeOnly variable would be a variable such as Cloud Cover which would generally not be influenced by the behaviour of the user.
+
+        :return: The cause_only of this Variable.
+        :rtype: int
+        """
         return self._cause_only
 
     @cause_only.setter
     def cause_only(self, cause_only):
+        """
+        Sets the cause_only of this Variable.
+        A value of 1 indicates that this variable is generally a cause in a causal relationship.  An example of a causeOnly variable would be a variable such as Cloud Cover which would generally not be influenced by the behaviour of the user.
+
+        :param cause_only: The cause_only of this Variable.
+        :type: int
+        """
         self._cause_only = cause_only
 
     @property
     def number_of_correlations(self):
+        """
+        Gets the number_of_correlations of this Variable.
+        Number of correlations
+
+        :return: The number_of_correlations of this Variable.
+        :rtype: int
+        """
         return self._number_of_correlations
 
     @number_of_correlations.setter
     def number_of_correlations(self, number_of_correlations):
+        """
+        Sets the number_of_correlations of this Variable.
+        Number of correlations
+
+        :param number_of_correlations: The number_of_correlations of this Variable.
+        :type: int
+        """
         self._number_of_correlations = number_of_correlations
 
     @property
     def outcome(self):
+        """
+        Gets the outcome of this Variable.
+        Outcome variables (those with `outcome` == 1) are variables for which a human would generally want to identify the influencing factors.  These include symptoms of illness, physique, mood, cognitive performance, etc.  Generally correlation calculations are only performed on outcome variables.
+
+        :return: The outcome of this Variable.
+        :rtype: int
+        """
         return self._outcome
 
     @outcome.setter
     def outcome(self, outcome):
+        """
+        Sets the outcome of this Variable.
+        Outcome variables (those with `outcome` == 1) are variables for which a human would generally want to identify the influencing factors.  These include symptoms of illness, physique, mood, cognitive performance, etc.  Generally correlation calculations are only performed on outcome variables.
+
+        :param outcome: The outcome of this Variable.
+        :type: int
+        """
         self._outcome = outcome
 
     @property
     def measurements_at_last_analysis(self):
+        """
+        Gets the measurements_at_last_analysis of this Variable.
+        The number of measurements that a given user had for this variable the last time a correlation calculation was performed. Generally correlation values are only updated once the current number of measurements for a variable is more than 10% greater than the measurementsAtLastAnalysis.  This avoids a computationally-demanding recalculation when there's not enough new data to make a significant difference in the correlation.
+
+        :return: The measurements_at_last_analysis of this Variable.
+        :rtype: int
+        """
         return self._measurements_at_last_analysis
 
     @measurements_at_last_analysis.setter
     def measurements_at_last_analysis(self, measurements_at_last_analysis):
+        """
+        Sets the measurements_at_last_analysis of this Variable.
+        The number of measurements that a given user had for this variable the last time a correlation calculation was performed. Generally correlation values are only updated once the current number of measurements for a variable is more than 10% greater than the measurementsAtLastAnalysis.  This avoids a computationally-demanding recalculation when there's not enough new data to make a significant difference in the correlation.
+
+        :param measurements_at_last_analysis: The measurements_at_last_analysis of this Variable.
+        :type: int
+        """
         self._measurements_at_last_analysis = measurements_at_last_analysis
 
     @property
     def number_of_measurements(self):
+        """
+        Gets the number_of_measurements of this Variable.
+        Number of measurements
+
+        :return: The number_of_measurements of this Variable.
+        :rtype: int
+        """
         return self._number_of_measurements
 
     @number_of_measurements.setter
     def number_of_measurements(self, number_of_measurements):
+        """
+        Sets the number_of_measurements of this Variable.
+        Number of measurements
+
+        :param number_of_measurements: The number_of_measurements of this Variable.
+        :type: int
+        """
         self._number_of_measurements = number_of_measurements
 
     @property
     def last_unit(self):
+        """
+        Gets the last_unit of this Variable.
+        Last unit
+
+        :return: The last_unit of this Variable.
+        :rtype: int
+        """
         return self._last_unit
 
     @last_unit.setter
     def last_unit(self, last_unit):
+        """
+        Sets the last_unit of this Variable.
+        Last unit
+
+        :param last_unit: The last_unit of this Variable.
+        :type: int
+        """
         self._last_unit = last_unit
 
     @property
     def last_value(self):
+        """
+        Gets the last_value of this Variable.
+        Last value
+
+        :return: The last_value of this Variable.
+        :rtype: int
+        """
         return self._last_value
 
     @last_value.setter
     def last_value(self, last_value):
+        """
+        Sets the last_value of this Variable.
+        Last value
+
+        :param last_value: The last_value of this Variable.
+        :type: int
+        """
         self._last_value = last_value
 
     @property
     def most_common_value(self):
+        """
+        Gets the most_common_value of this Variable.
+        Most common value
+
+        :return: The most_common_value of this Variable.
+        :rtype: int
+        """
         return self._most_common_value
 
     @most_common_value.setter
     def most_common_value(self, most_common_value):
+        """
+        Sets the most_common_value of this Variable.
+        Most common value
+
+        :param most_common_value: The most_common_value of this Variable.
+        :type: int
+        """
         self._most_common_value = most_common_value
 
     @property
     def most_common_unit(self):
+        """
+        Gets the most_common_unit of this Variable.
+        Most common unit
+
+        :return: The most_common_unit of this Variable.
+        :rtype: int
+        """
         return self._most_common_unit
 
     @most_common_unit.setter
     def most_common_unit(self, most_common_unit):
+        """
+        Sets the most_common_unit of this Variable.
+        Most common unit
+
+        :param most_common_unit: The most_common_unit of this Variable.
+        :type: int
+        """
         self._most_common_unit = most_common_unit
 
     @property
     def last_source(self):
+        """
+        Gets the last_source of this Variable.
+        Last source
+
+        :return: The last_source of this Variable.
+        :rtype: int
+        """
         return self._last_source
 
     @last_source.setter
     def last_source(self, last_source):
+        """
+        Sets the last_source of this Variable.
+        Last source
+
+        :param last_source: The last_source of this Variable.
+        :type: int
+        """
         self._last_source = last_source
 
     def to_dict(self):
         """
-        Return model properties dict
+        Returns the model properties as a dict
         """
         result = {}
 
-        for name, prop in iteritems(self.__dict__):
-            if name == "attribute_map" or name == "swagger_types":
-                continue
-            if isinstance(prop, list):
-                result[name[1:]] = list(map(
+        for attr, _ in iteritems(self.swagger_types):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    prop
+                    value
                 ))
-            elif hasattr(prop, "to_dict"):
-                result[name[1:]] = prop.to_dict()
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
             else:
-                result[name[1:]] = prop
+                result[attr] = value
 
         return result
 
     def to_str(self):
         """
-        Return model properties str
+        Returns the string representation of the model
         """
         return pformat(self.to_dict())
 

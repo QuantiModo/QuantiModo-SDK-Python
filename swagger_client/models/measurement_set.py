@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 """
@@ -15,7 +14,10 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Ref: https://github.com/swagger-api/swagger-codegen
 """
+
 from pprint import pformat
 from six import iteritems
 
@@ -27,7 +29,7 @@ class MeasurementSet(object):
     """
     def __init__(self):
         """
-        Swagger model
+        MeasurementSet - a model defined in Swagger
 
         :param dict swaggerTypes: The key is attribute name
                                   and the value is attribute type.
@@ -52,51 +54,121 @@ class MeasurementSet(object):
             'unit': 'unit'
         }
 
-        self._measurements = None    # Array of timestamps, values, and optional notes
-        self._name = None    # ORIGINAL name of the variable for which we are creating the measurement records
-        self._source = None    # Name of the application or device used to record the measurement values
-        self._category = None    # Variable category name
-        self._combination_operation = None    # Way to aggregate measurements over time. Options are \&quot;MEAN\&quot; or \&quot;SUM\&quot;
-        self._unit = None    # Unit of measurement
+        self._measurements = None
+        self._name = None
+        self._source = None
+        self._category = None
+        self._combination_operation = None
+        self._unit = None
 
     @property
     def measurements(self):
+        """
+        Gets the measurements of this MeasurementSet.
+        Array of timestamps, values, and optional notes
+
+        :return: The measurements of this MeasurementSet.
+        :rtype: list[ValueObject]
+        """
         return self._measurements
 
     @measurements.setter
     def measurements(self, measurements):
+        """
+        Sets the measurements of this MeasurementSet.
+        Array of timestamps, values, and optional notes
+
+        :param measurements: The measurements of this MeasurementSet.
+        :type: list[ValueObject]
+        """
         self._measurements = measurements
 
     @property
     def name(self):
+        """
+        Gets the name of this MeasurementSet.
+        ORIGINAL name of the variable for which we are creating the measurement records
+
+        :return: The name of this MeasurementSet.
+        :rtype: str
+        """
         return self._name
 
     @name.setter
     def name(self, name):
+        """
+        Sets the name of this MeasurementSet.
+        ORIGINAL name of the variable for which we are creating the measurement records
+
+        :param name: The name of this MeasurementSet.
+        :type: str
+        """
         self._name = name
 
     @property
     def source(self):
+        """
+        Gets the source of this MeasurementSet.
+        Name of the application or device used to record the measurement values
+
+        :return: The source of this MeasurementSet.
+        :rtype: str
+        """
         return self._source
 
     @source.setter
     def source(self, source):
+        """
+        Sets the source of this MeasurementSet.
+        Name of the application or device used to record the measurement values
+
+        :param source: The source of this MeasurementSet.
+        :type: str
+        """
         self._source = source
 
     @property
     def category(self):
+        """
+        Gets the category of this MeasurementSet.
+        Variable category name
+
+        :return: The category of this MeasurementSet.
+        :rtype: str
+        """
         return self._category
 
     @category.setter
     def category(self, category):
+        """
+        Sets the category of this MeasurementSet.
+        Variable category name
+
+        :param category: The category of this MeasurementSet.
+        :type: str
+        """
         self._category = category
 
     @property
     def combination_operation(self):
+        """
+        Gets the combination_operation of this MeasurementSet.
+        Way to aggregate measurements over time. Options are \"MEAN\" or \"SUM\"
+
+        :return: The combination_operation of this MeasurementSet.
+        :rtype: str
+        """
         return self._combination_operation
 
     @combination_operation.setter
     def combination_operation(self, combination_operation):
+        """
+        Sets the combination_operation of this MeasurementSet.
+        Way to aggregate measurements over time. Options are \"MEAN\" or \"SUM\"
+
+        :param combination_operation: The combination_operation of this MeasurementSet.
+        :type: str
+        """
         allowed_values = ["MEAN", "SUM"]
         if combination_operation not in allowed_values:
             raise ValueError(
@@ -107,36 +179,49 @@ class MeasurementSet(object):
 
     @property
     def unit(self):
+        """
+        Gets the unit of this MeasurementSet.
+        Unit of measurement
+
+        :return: The unit of this MeasurementSet.
+        :rtype: str
+        """
         return self._unit
 
     @unit.setter
     def unit(self, unit):
+        """
+        Sets the unit of this MeasurementSet.
+        Unit of measurement
+
+        :param unit: The unit of this MeasurementSet.
+        :type: str
+        """
         self._unit = unit
 
     def to_dict(self):
         """
-        Return model properties dict
+        Returns the model properties as a dict
         """
         result = {}
 
-        for name, prop in iteritems(self.__dict__):
-            if name == "attribute_map" or name == "swagger_types":
-                continue
-            if isinstance(prop, list):
-                result[name[1:]] = list(map(
+        for attr, _ in iteritems(self.swagger_types):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    prop
+                    value
                 ))
-            elif hasattr(prop, "to_dict"):
-                result[name[1:]] = prop.to_dict()
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
             else:
-                result[name[1:]] = prop
+                result[attr] = value
 
         return result
 
     def to_str(self):
         """
-        Return model properties str
+        Returns the string representation of the model
         """
         return pformat(self.to_dict())
 

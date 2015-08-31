@@ -3,6 +3,8 @@ from __future__ import absolute_import
 # import models into model package
 from .common_response import CommonResponse
 from .connector import Connector
+from .connector_info import ConnectorInfo
+from .connector_info_history_item import ConnectorInfoHistoryItem
 from .conversion_step import ConversionStep
 from .correlation import Correlation
 from .json_error_response import JsonErrorResponse
@@ -24,6 +26,6 @@ from .user_token_successful_response_inner_user_field import UserTokenSuccessful
 from .value_object import ValueObject
 from .variable import Variable
 from .variable_category import VariableCategory
-from .variable_user_settings import VariableUserSettings
+from .user_variables import UserVariables
 from .variable_new import VariableNew
 from .variables_new import VariablesNew

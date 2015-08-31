@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 """
@@ -15,7 +14,10 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Ref: https://github.com/swagger-api/swagger-codegen
 """
+
 from pprint import pformat
 from six import iteritems
 
@@ -27,7 +29,7 @@ class ConversionStep(object):
     """
     def __init__(self):
         """
-        Swagger model
+        ConversionStep - a model defined in Swagger
 
         :param dict swaggerTypes: The key is attribute name
                                   and the value is attribute type.
@@ -44,15 +46,29 @@ class ConversionStep(object):
             'value': 'value'
         }
 
-        self._operation = None    # ADD or MULTIPLY
-        self._value = None    # This specifies the order of conversion steps starting with 0
+        self._operation = None
+        self._value = None
 
     @property
     def operation(self):
+        """
+        Gets the operation of this ConversionStep.
+        ADD or MULTIPLY
+
+        :return: The operation of this ConversionStep.
+        :rtype: str
+        """
         return self._operation
 
     @operation.setter
     def operation(self, operation):
+        """
+        Sets the operation of this ConversionStep.
+        ADD or MULTIPLY
+
+        :param operation: The operation of this ConversionStep.
+        :type: str
+        """
         allowed_values = ["MULTIPLY", "ADD"]
         if operation not in allowed_values:
             raise ValueError(
@@ -63,36 +79,49 @@ class ConversionStep(object):
 
     @property
     def value(self):
+        """
+        Gets the value of this ConversionStep.
+        This specifies the order of conversion steps starting with 0
+
+        :return: The value of this ConversionStep.
+        :rtype: float
+        """
         return self._value
 
     @value.setter
     def value(self, value):
+        """
+        Sets the value of this ConversionStep.
+        This specifies the order of conversion steps starting with 0
+
+        :param value: The value of this ConversionStep.
+        :type: float
+        """
         self._value = value
 
     def to_dict(self):
         """
-        Return model properties dict
+        Returns the model properties as a dict
         """
         result = {}
 
-        for name, prop in iteritems(self.__dict__):
-            if name == "attribute_map" or name == "swagger_types":
-                continue
-            if isinstance(prop, list):
-                result[name[1:]] = list(map(
+        for attr, _ in iteritems(self.swagger_types):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    prop
+                    value
                 ))
-            elif hasattr(prop, "to_dict"):
-                result[name[1:]] = prop.to_dict()
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
             else:
-                result[name[1:]] = prop
+                result[attr] = value
 
         return result
 
     def to_str(self):
         """
-        Return model properties str
+        Returns the string representation of the model
         """
         return pformat(self.to_dict())
 

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 """
@@ -15,7 +14,10 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Ref: https://github.com/swagger-api/swagger-codegen
 """
+
 from pprint import pformat
 from six import iteritems
 
@@ -27,7 +29,7 @@ class Connector(object):
     """
     def __init__(self):
         """
-        Swagger model
+        Connector - a model defined in Swagger
 
         :param dict swaggerTypes: The key is attribute name
                                   and the value is attribute type.
@@ -43,7 +45,7 @@ class Connector(object):
             'connected': 'str',
             'connect_instructions': 'str',
             'last_update': 'int',
-            'latest_data': 'int',
+            'total_measurements_in_last_update': 'int',
             'no_data_yet': 'bool'
         }
 
@@ -56,125 +58,264 @@ class Connector(object):
             'connected': 'connected',
             'connect_instructions': 'connectInstructions',
             'last_update': 'lastUpdate',
-            'latest_data': 'latestData',
+            'total_measurements_in_last_update': 'totalMeasurementsInLastUpdate',
             'no_data_yet': 'noDataYet'
         }
 
-        self._id = None    # Connector ID number
-        self._name = None    # Connector lowercase system name
-        self._display_name = None    # Connector pretty display name
-        self._image = None    # URL to the image of the connector logo
-        self._get_it_url = None    # URL to a site where one can get this device or application
-        self._connected = None    # True if the authenticated user has this connector enabled
-        self._connect_instructions = None    # URL and parameters used when connecting to a service
-        self._last_update = None    # Epoch timestamp of last sync
-        self._latest_data = None    # Number of measurements obtained during latest update
-        self._no_data_yet = None    # True if user has no measurements for this connector
+        self._id = None
+        self._name = None
+        self._display_name = None
+        self._image = None
+        self._get_it_url = None
+        self._connected = None
+        self._connect_instructions = None
+        self._last_update = None
+        self._total_measurements_in_last_update = None
+        self._no_data_yet = None
 
     @property
     def id(self):
+        """
+        Gets the id of this Connector.
+        Connector ID number
+
+        :return: The id of this Connector.
+        :rtype: int
+        """
         return self._id
 
     @id.setter
     def id(self, id):
+        """
+        Sets the id of this Connector.
+        Connector ID number
+
+        :param id: The id of this Connector.
+        :type: int
+        """
         self._id = id
 
     @property
     def name(self):
+        """
+        Gets the name of this Connector.
+        Connector lowercase system name
+
+        :return: The name of this Connector.
+        :rtype: str
+        """
         return self._name
 
     @name.setter
     def name(self, name):
+        """
+        Sets the name of this Connector.
+        Connector lowercase system name
+
+        :param name: The name of this Connector.
+        :type: str
+        """
         self._name = name
 
     @property
     def display_name(self):
+        """
+        Gets the display_name of this Connector.
+        Connector pretty display name
+
+        :return: The display_name of this Connector.
+        :rtype: str
+        """
         return self._display_name
 
     @display_name.setter
     def display_name(self, display_name):
+        """
+        Sets the display_name of this Connector.
+        Connector pretty display name
+
+        :param display_name: The display_name of this Connector.
+        :type: str
+        """
         self._display_name = display_name
 
     @property
     def image(self):
+        """
+        Gets the image of this Connector.
+        URL to the image of the connector logo
+
+        :return: The image of this Connector.
+        :rtype: str
+        """
         return self._image
 
     @image.setter
     def image(self, image):
+        """
+        Sets the image of this Connector.
+        URL to the image of the connector logo
+
+        :param image: The image of this Connector.
+        :type: str
+        """
         self._image = image
 
     @property
     def get_it_url(self):
+        """
+        Gets the get_it_url of this Connector.
+        URL to a site where one can get this device or application
+
+        :return: The get_it_url of this Connector.
+        :rtype: str
+        """
         return self._get_it_url
 
     @get_it_url.setter
     def get_it_url(self, get_it_url):
+        """
+        Sets the get_it_url of this Connector.
+        URL to a site where one can get this device or application
+
+        :param get_it_url: The get_it_url of this Connector.
+        :type: str
+        """
         self._get_it_url = get_it_url
 
     @property
     def connected(self):
+        """
+        Gets the connected of this Connector.
+        True if the authenticated user has this connector enabled
+
+        :return: The connected of this Connector.
+        :rtype: str
+        """
         return self._connected
 
     @connected.setter
     def connected(self, connected):
+        """
+        Sets the connected of this Connector.
+        True if the authenticated user has this connector enabled
+
+        :param connected: The connected of this Connector.
+        :type: str
+        """
         self._connected = connected
 
     @property
     def connect_instructions(self):
+        """
+        Gets the connect_instructions of this Connector.
+        URL and parameters used when connecting to a service
+
+        :return: The connect_instructions of this Connector.
+        :rtype: str
+        """
         return self._connect_instructions
 
     @connect_instructions.setter
     def connect_instructions(self, connect_instructions):
+        """
+        Sets the connect_instructions of this Connector.
+        URL and parameters used when connecting to a service
+
+        :param connect_instructions: The connect_instructions of this Connector.
+        :type: str
+        """
         self._connect_instructions = connect_instructions
 
     @property
     def last_update(self):
+        """
+        Gets the last_update of this Connector.
+        Epoch timestamp of last sync
+
+        :return: The last_update of this Connector.
+        :rtype: int
+        """
         return self._last_update
 
     @last_update.setter
     def last_update(self, last_update):
+        """
+        Sets the last_update of this Connector.
+        Epoch timestamp of last sync
+
+        :param last_update: The last_update of this Connector.
+        :type: int
+        """
         self._last_update = last_update
 
     @property
-    def latest_data(self):
-        return self._latest_data
+    def total_measurements_in_last_update(self):
+        """
+        Gets the total_measurements_in_last_update of this Connector.
+        Number of measurements obtained during latest update
 
-    @latest_data.setter
-    def latest_data(self, latest_data):
-        self._latest_data = latest_data
+        :return: The total_measurements_in_last_update of this Connector.
+        :rtype: int
+        """
+        return self._total_measurements_in_last_update
+
+    @total_measurements_in_last_update.setter
+    def total_measurements_in_last_update(self, total_measurements_in_last_update):
+        """
+        Sets the total_measurements_in_last_update of this Connector.
+        Number of measurements obtained during latest update
+
+        :param total_measurements_in_last_update: The total_measurements_in_last_update of this Connector.
+        :type: int
+        """
+        self._total_measurements_in_last_update = total_measurements_in_last_update
 
     @property
     def no_data_yet(self):
+        """
+        Gets the no_data_yet of this Connector.
+        True if user has no measurements for this connector
+
+        :return: The no_data_yet of this Connector.
+        :rtype: bool
+        """
         return self._no_data_yet
 
     @no_data_yet.setter
     def no_data_yet(self, no_data_yet):
+        """
+        Sets the no_data_yet of this Connector.
+        True if user has no measurements for this connector
+
+        :param no_data_yet: The no_data_yet of this Connector.
+        :type: bool
+        """
         self._no_data_yet = no_data_yet
 
     def to_dict(self):
         """
-        Return model properties dict
+        Returns the model properties as a dict
         """
         result = {}
 
-        for name, prop in iteritems(self.__dict__):
-            if name == "attribute_map" or name == "swagger_types":
-                continue
-            if isinstance(prop, list):
-                result[name[1:]] = list(map(
+        for attr, _ in iteritems(self.swagger_types):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    prop
+                    value
                 ))
-            elif hasattr(prop, "to_dict"):
-                result[name[1:]] = prop.to_dict()
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
             else:
-                result[name[1:]] = prop
+                result[attr] = value
 
         return result
 
     def to_str(self):
         """
-        Return model properties str
+        Returns the string representation of the model
         """
         return pformat(self.to_dict())
 

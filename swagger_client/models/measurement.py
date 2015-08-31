@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 """
@@ -15,7 +14,10 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Ref: https://github.com/swagger-api/swagger-codegen
 """
+
 from pprint import pformat
 from six import iteritems
 
@@ -27,7 +29,7 @@ class Measurement(object):
     """
     def __init__(self):
         """
-        Swagger model
+        Measurement - a model defined in Swagger
 
         :param dict swaggerTypes: The key is attribute name
                                   and the value is attribute type.
@@ -41,7 +43,7 @@ class Measurement(object):
             'value': 'float',
             'unit': 'str',
             'stored_value': 'float',
-            'stored_unit': 'str'
+            'stored_abbreviated_unit_name': 'str'
         }
 
         self.attribute_map = {
@@ -51,97 +53,194 @@ class Measurement(object):
             'value': 'value',
             'unit': 'unit',
             'stored_value': 'storedValue',
-            'stored_unit': 'storedUnit'
+            'stored_abbreviated_unit_name': 'storedAbbreviatedUnitName'
         }
 
-        self._variable = None    # ORIGINAL Name of the variable for which we are creating the measurement records
-        self._source = None    # Application or device used to record the measurement values
-        self._timestamp = None    # Timestamp for the measurement event in epoch time
-        self._value = None    # Converted measurement value in requested unit
-        self._unit = None    # Unit of measurement as requested in GET request
-        self._stored_value = None    # Measurement value in the unit as orignally submitted
-        self._stored_unit = None    # Unit of measurement as originally submitted
+        self._variable = None
+        self._source = None
+        self._timestamp = None
+        self._value = None
+        self._unit = None
+        self._stored_value = None
+        self._stored_abbreviated_unit_name = None
 
     @property
     def variable(self):
+        """
+        Gets the variable of this Measurement.
+        ORIGINAL Name of the variable for which we are creating the measurement records
+
+        :return: The variable of this Measurement.
+        :rtype: str
+        """
         return self._variable
 
     @variable.setter
     def variable(self, variable):
+        """
+        Sets the variable of this Measurement.
+        ORIGINAL Name of the variable for which we are creating the measurement records
+
+        :param variable: The variable of this Measurement.
+        :type: str
+        """
         self._variable = variable
 
     @property
     def source(self):
+        """
+        Gets the source of this Measurement.
+        Application or device used to record the measurement values
+
+        :return: The source of this Measurement.
+        :rtype: str
+        """
         return self._source
 
     @source.setter
     def source(self, source):
+        """
+        Sets the source of this Measurement.
+        Application or device used to record the measurement values
+
+        :param source: The source of this Measurement.
+        :type: str
+        """
         self._source = source
 
     @property
     def timestamp(self):
+        """
+        Gets the timestamp of this Measurement.
+        Timestamp for the measurement event in epoch time
+
+        :return: The timestamp of this Measurement.
+        :rtype: int
+        """
         return self._timestamp
 
     @timestamp.setter
     def timestamp(self, timestamp):
+        """
+        Sets the timestamp of this Measurement.
+        Timestamp for the measurement event in epoch time
+
+        :param timestamp: The timestamp of this Measurement.
+        :type: int
+        """
         self._timestamp = timestamp
 
     @property
     def value(self):
+        """
+        Gets the value of this Measurement.
+        Converted measurement value in requested unit
+
+        :return: The value of this Measurement.
+        :rtype: float
+        """
         return self._value
 
     @value.setter
     def value(self, value):
+        """
+        Sets the value of this Measurement.
+        Converted measurement value in requested unit
+
+        :param value: The value of this Measurement.
+        :type: float
+        """
         self._value = value
 
     @property
     def unit(self):
+        """
+        Gets the unit of this Measurement.
+        Unit of measurement as requested in GET request
+
+        :return: The unit of this Measurement.
+        :rtype: str
+        """
         return self._unit
 
     @unit.setter
     def unit(self, unit):
+        """
+        Sets the unit of this Measurement.
+        Unit of measurement as requested in GET request
+
+        :param unit: The unit of this Measurement.
+        :type: str
+        """
         self._unit = unit
 
     @property
     def stored_value(self):
+        """
+        Gets the stored_value of this Measurement.
+        Measurement value in the unit as orignally submitted
+
+        :return: The stored_value of this Measurement.
+        :rtype: float
+        """
         return self._stored_value
 
     @stored_value.setter
     def stored_value(self, stored_value):
+        """
+        Sets the stored_value of this Measurement.
+        Measurement value in the unit as orignally submitted
+
+        :param stored_value: The stored_value of this Measurement.
+        :type: float
+        """
         self._stored_value = stored_value
 
     @property
-    def stored_unit(self):
-        return self._stored_unit
+    def stored_abbreviated_unit_name(self):
+        """
+        Gets the stored_abbreviated_unit_name of this Measurement.
+        Unit of measurement as originally submitted
 
-    @stored_unit.setter
-    def stored_unit(self, stored_unit):
-        self._stored_unit = stored_unit
+        :return: The stored_abbreviated_unit_name of this Measurement.
+        :rtype: str
+        """
+        return self._stored_abbreviated_unit_name
+
+    @stored_abbreviated_unit_name.setter
+    def stored_abbreviated_unit_name(self, stored_abbreviated_unit_name):
+        """
+        Sets the stored_abbreviated_unit_name of this Measurement.
+        Unit of measurement as originally submitted
+
+        :param stored_abbreviated_unit_name: The stored_abbreviated_unit_name of this Measurement.
+        :type: str
+        """
+        self._stored_abbreviated_unit_name = stored_abbreviated_unit_name
 
     def to_dict(self):
         """
-        Return model properties dict
+        Returns the model properties as a dict
         """
         result = {}
 
-        for name, prop in iteritems(self.__dict__):
-            if name == "attribute_map" or name == "swagger_types":
-                continue
-            if isinstance(prop, list):
-                result[name[1:]] = list(map(
+        for attr, _ in iteritems(self.swagger_types):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    prop
+                    value
                 ))
-            elif hasattr(prop, "to_dict"):
-                result[name[1:]] = prop.to_dict()
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
             else:
-                result[name[1:]] = prop
+                result[attr] = value
 
         return result
 
     def to_str(self):
         """
-        Return model properties str
+        Returns the string representation of the model
         """
         return pformat(self.to_dict())
 

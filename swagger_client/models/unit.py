@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 """
@@ -15,7 +14,10 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Ref: https://github.com/swagger-api/swagger-codegen
 """
+
 from pprint import pformat
 from six import iteritems
 
@@ -27,7 +29,7 @@ class Unit(object):
     """
     def __init__(self):
         """
-        Swagger model
+        Unit - a model defined in Swagger
 
         :param dict swaggerTypes: The key is attribute name
                                   and the value is attribute type.
@@ -52,35 +54,77 @@ class Unit(object):
             'conversion_steps': 'conversionSteps'
         }
 
-        self._name = None    # Unit name
-        self._abbreviated_name = None    # Unit abbreviation
-        self._category = None    # Unit category
-        self._minimum = None    # Unit minimum value
-        self._maximum = None    # Unit maximum value
-        self._conversion_steps = None    # Conversion steps list
+        self._name = None
+        self._abbreviated_name = None
+        self._category = None
+        self._minimum = None
+        self._maximum = None
+        self._conversion_steps = None
 
     @property
     def name(self):
+        """
+        Gets the name of this Unit.
+        Unit name
+
+        :return: The name of this Unit.
+        :rtype: str
+        """
         return self._name
 
     @name.setter
     def name(self, name):
+        """
+        Sets the name of this Unit.
+        Unit name
+
+        :param name: The name of this Unit.
+        :type: str
+        """
         self._name = name
 
     @property
     def abbreviated_name(self):
+        """
+        Gets the abbreviated_name of this Unit.
+        Unit abbreviation
+
+        :return: The abbreviated_name of this Unit.
+        :rtype: str
+        """
         return self._abbreviated_name
 
     @abbreviated_name.setter
     def abbreviated_name(self, abbreviated_name):
+        """
+        Sets the abbreviated_name of this Unit.
+        Unit abbreviation
+
+        :param abbreviated_name: The abbreviated_name of this Unit.
+        :type: str
+        """
         self._abbreviated_name = abbreviated_name
 
     @property
     def category(self):
+        """
+        Gets the category of this Unit.
+        Unit category
+
+        :return: The category of this Unit.
+        :rtype: str
+        """
         return self._category
 
     @category.setter
     def category(self, category):
+        """
+        Sets the category of this Unit.
+        Unit category
+
+        :param category: The category of this Unit.
+        :type: str
+        """
         allowed_values = ["Distance", "Duration", "Energy", "Frequency", "Miscellany", "Pressure", "Proportion", "Rating", "Temperature", "Volume", "Weight"]
         if category not in allowed_values:
             raise ValueError(
@@ -91,52 +135,93 @@ class Unit(object):
 
     @property
     def minimum(self):
+        """
+        Gets the minimum of this Unit.
+        Unit minimum value
+
+        :return: The minimum of this Unit.
+        :rtype: float
+        """
         return self._minimum
 
     @minimum.setter
     def minimum(self, minimum):
+        """
+        Sets the minimum of this Unit.
+        Unit minimum value
+
+        :param minimum: The minimum of this Unit.
+        :type: float
+        """
         self._minimum = minimum
 
     @property
     def maximum(self):
+        """
+        Gets the maximum of this Unit.
+        Unit maximum value
+
+        :return: The maximum of this Unit.
+        :rtype: float
+        """
         return self._maximum
 
     @maximum.setter
     def maximum(self, maximum):
+        """
+        Sets the maximum of this Unit.
+        Unit maximum value
+
+        :param maximum: The maximum of this Unit.
+        :type: float
+        """
         self._maximum = maximum
 
     @property
     def conversion_steps(self):
+        """
+        Gets the conversion_steps of this Unit.
+        Conversion steps list
+
+        :return: The conversion_steps of this Unit.
+        :rtype: list[ConversionStep]
+        """
         return self._conversion_steps
 
     @conversion_steps.setter
     def conversion_steps(self, conversion_steps):
+        """
+        Sets the conversion_steps of this Unit.
+        Conversion steps list
+
+        :param conversion_steps: The conversion_steps of this Unit.
+        :type: list[ConversionStep]
+        """
         self._conversion_steps = conversion_steps
 
     def to_dict(self):
         """
-        Return model properties dict
+        Returns the model properties as a dict
         """
         result = {}
 
-        for name, prop in iteritems(self.__dict__):
-            if name == "attribute_map" or name == "swagger_types":
-                continue
-            if isinstance(prop, list):
-                result[name[1:]] = list(map(
+        for attr, _ in iteritems(self.swagger_types):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    prop
+                    value
                 ))
-            elif hasattr(prop, "to_dict"):
-                result[name[1:]] = prop.to_dict()
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
             else:
-                result[name[1:]] = prop
+                result[attr] = value
 
         return result
 
     def to_str(self):
         """
-        Return model properties str
+        Returns the string representation of the model
         """
         return pformat(self.to_dict())
 

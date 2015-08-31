@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 """
@@ -15,7 +14,10 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Ref: https://github.com/swagger-api/swagger-codegen
 """
+
 from pprint import pformat
 from six import iteritems
 
@@ -27,7 +29,7 @@ class VariableNew(object):
     """
     def __init__(self):
         """
-        Swagger model
+        VariableNew - a model defined in Swagger
 
         :param dict swaggerTypes: The key is attribute name
                                   and the value is attribute type.
@@ -50,42 +52,98 @@ class VariableNew(object):
             'parent': 'parent'
         }
 
-        self._name = None    # User-defined variable display name.
-        self._category = None    # Variable category like Mood, Sleep, Physical Activity, Treatment, Symptom, etc.
-        self._unit = None    # Abbreviated name of the default unit for the variable
-        self._combination_operation = None    # How to aggregate measurements over time.
-        self._parent = None    # Parent
+        self._name = None
+        self._category = None
+        self._unit = None
+        self._combination_operation = None
+        self._parent = None
 
     @property
     def name(self):
+        """
+        Gets the name of this VariableNew.
+        User-defined variable display name.
+
+        :return: The name of this VariableNew.
+        :rtype: str
+        """
         return self._name
 
     @name.setter
     def name(self, name):
+        """
+        Sets the name of this VariableNew.
+        User-defined variable display name.
+
+        :param name: The name of this VariableNew.
+        :type: str
+        """
         self._name = name
 
     @property
     def category(self):
+        """
+        Gets the category of this VariableNew.
+        Variable category like Mood, Sleep, Physical Activity, Treatment, Symptom, etc.
+
+        :return: The category of this VariableNew.
+        :rtype: str
+        """
         return self._category
 
     @category.setter
     def category(self, category):
+        """
+        Sets the category of this VariableNew.
+        Variable category like Mood, Sleep, Physical Activity, Treatment, Symptom, etc.
+
+        :param category: The category of this VariableNew.
+        :type: str
+        """
         self._category = category
 
     @property
     def unit(self):
+        """
+        Gets the unit of this VariableNew.
+        Abbreviated name of the default unit for the variable
+
+        :return: The unit of this VariableNew.
+        :rtype: str
+        """
         return self._unit
 
     @unit.setter
     def unit(self, unit):
+        """
+        Sets the unit of this VariableNew.
+        Abbreviated name of the default unit for the variable
+
+        :param unit: The unit of this VariableNew.
+        :type: str
+        """
         self._unit = unit
 
     @property
     def combination_operation(self):
+        """
+        Gets the combination_operation of this VariableNew.
+        How to aggregate measurements over time.
+
+        :return: The combination_operation of this VariableNew.
+        :rtype: str
+        """
         return self._combination_operation
 
     @combination_operation.setter
     def combination_operation(self, combination_operation):
+        """
+        Sets the combination_operation of this VariableNew.
+        How to aggregate measurements over time.
+
+        :param combination_operation: The combination_operation of this VariableNew.
+        :type: str
+        """
         allowed_values = ["MEAN", "SUM"]
         if combination_operation not in allowed_values:
             raise ValueError(
@@ -96,36 +154,49 @@ class VariableNew(object):
 
     @property
     def parent(self):
+        """
+        Gets the parent of this VariableNew.
+        Parent
+
+        :return: The parent of this VariableNew.
+        :rtype: str
+        """
         return self._parent
 
     @parent.setter
     def parent(self, parent):
+        """
+        Sets the parent of this VariableNew.
+        Parent
+
+        :param parent: The parent of this VariableNew.
+        :type: str
+        """
         self._parent = parent
 
     def to_dict(self):
         """
-        Return model properties dict
+        Returns the model properties as a dict
         """
         result = {}
 
-        for name, prop in iteritems(self.__dict__):
-            if name == "attribute_map" or name == "swagger_types":
-                continue
-            if isinstance(prop, list):
-                result[name[1:]] = list(map(
+        for attr, _ in iteritems(self.swagger_types):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    prop
+                    value
                 ))
-            elif hasattr(prop, "to_dict"):
-                result[name[1:]] = prop.to_dict()
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
             else:
-                result[name[1:]] = prop
+                result[attr] = value
 
         return result
 
     def to_str(self):
         """
-        Return model properties str
+        Returns the string representation of the model
         """
         return pformat(self.to_dict())
 

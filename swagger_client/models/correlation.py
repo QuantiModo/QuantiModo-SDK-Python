@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 """
@@ -15,7 +14,10 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Ref: https://github.com/swagger-api/swagger-codegen
 """
+
 from pprint import pformat
 from six import iteritems
 
@@ -27,7 +29,7 @@ class Correlation(object):
     """
     def __init__(self):
         """
-        Swagger model
+        Correlation - a model defined in Swagger
 
         :param dict swaggerTypes: The key is attribute name
                                   and the value is attribute type.
@@ -66,148 +68,329 @@ class Correlation(object):
             'effect_category': 'effectCategory'
         }
 
-        self._correlation_coefficient = None    # Pearson correlation coefficient between cause and effect measurements
-        self._cause = None    # ORIGINAL variable name of the cause variable for which the user desires correlations.
-        self._effect = None    # ORIGINAL variable name of the effect variable for which the user desires correlations.
-        self._onset_delay = None    # User estimated or default time after cause measurement before a perceivable effect is observed
-        self._duration_of_action = None    # Time over which the cause is expected to produce a perceivable effect following the onset delay
-        self._number_of_pairs = None    # Number of points that went into the correlation calculation
-        self._effect_size = None    # Magnitude of the effects of a cause indicating whether it&#39;s practically meaningful.
-        self._statistical_significance = None    # A function of the effect size and sample size
-        self._timestamp = None    # Time at which correlation was calculated
-        self._reverse_correlation = None    # Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation.
-        self._causality_factor = None    # 
-        self._cause_category = None    # Variable category of the cause variable.
-        self._effect_category = None    # Variable category of the effect variable.
+        self._correlation_coefficient = None
+        self._cause = None
+        self._effect = None
+        self._onset_delay = None
+        self._duration_of_action = None
+        self._number_of_pairs = None
+        self._effect_size = None
+        self._statistical_significance = None
+        self._timestamp = None
+        self._reverse_correlation = None
+        self._causality_factor = None
+        self._cause_category = None
+        self._effect_category = None
 
     @property
     def correlation_coefficient(self):
+        """
+        Gets the correlation_coefficient of this Correlation.
+        Pearson correlation coefficient between cause and effect measurements
+
+        :return: The correlation_coefficient of this Correlation.
+        :rtype: Number
+        """
         return self._correlation_coefficient
 
     @correlation_coefficient.setter
     def correlation_coefficient(self, correlation_coefficient):
+        """
+        Sets the correlation_coefficient of this Correlation.
+        Pearson correlation coefficient between cause and effect measurements
+
+        :param correlation_coefficient: The correlation_coefficient of this Correlation.
+        :type: Number
+        """
         self._correlation_coefficient = correlation_coefficient
 
     @property
     def cause(self):
+        """
+        Gets the cause of this Correlation.
+        ORIGINAL variable name of the cause variable for which the user desires correlations.
+
+        :return: The cause of this Correlation.
+        :rtype: str
+        """
         return self._cause
 
     @cause.setter
     def cause(self, cause):
+        """
+        Sets the cause of this Correlation.
+        ORIGINAL variable name of the cause variable for which the user desires correlations.
+
+        :param cause: The cause of this Correlation.
+        :type: str
+        """
         self._cause = cause
 
     @property
     def effect(self):
+        """
+        Gets the effect of this Correlation.
+        ORIGINAL variable name of the effect variable for which the user desires correlations.
+
+        :return: The effect of this Correlation.
+        :rtype: str
+        """
         return self._effect
 
     @effect.setter
     def effect(self, effect):
+        """
+        Sets the effect of this Correlation.
+        ORIGINAL variable name of the effect variable for which the user desires correlations.
+
+        :param effect: The effect of this Correlation.
+        :type: str
+        """
         self._effect = effect
 
     @property
     def onset_delay(self):
+        """
+        Gets the onset_delay of this Correlation.
+        User estimated or default time after cause measurement before a perceivable effect is observed
+
+        :return: The onset_delay of this Correlation.
+        :rtype: float
+        """
         return self._onset_delay
 
     @onset_delay.setter
     def onset_delay(self, onset_delay):
+        """
+        Sets the onset_delay of this Correlation.
+        User estimated or default time after cause measurement before a perceivable effect is observed
+
+        :param onset_delay: The onset_delay of this Correlation.
+        :type: float
+        """
         self._onset_delay = onset_delay
 
     @property
     def duration_of_action(self):
+        """
+        Gets the duration_of_action of this Correlation.
+        Time over which the cause is expected to produce a perceivable effect following the onset delay
+
+        :return: The duration_of_action of this Correlation.
+        :rtype: Number
+        """
         return self._duration_of_action
 
     @duration_of_action.setter
     def duration_of_action(self, duration_of_action):
+        """
+        Sets the duration_of_action of this Correlation.
+        Time over which the cause is expected to produce a perceivable effect following the onset delay
+
+        :param duration_of_action: The duration_of_action of this Correlation.
+        :type: Number
+        """
         self._duration_of_action = duration_of_action
 
     @property
     def number_of_pairs(self):
+        """
+        Gets the number_of_pairs of this Correlation.
+        Number of points that went into the correlation calculation
+
+        :return: The number_of_pairs of this Correlation.
+        :rtype: Number
+        """
         return self._number_of_pairs
 
     @number_of_pairs.setter
     def number_of_pairs(self, number_of_pairs):
+        """
+        Sets the number_of_pairs of this Correlation.
+        Number of points that went into the correlation calculation
+
+        :param number_of_pairs: The number_of_pairs of this Correlation.
+        :type: Number
+        """
         self._number_of_pairs = number_of_pairs
 
     @property
     def effect_size(self):
+        """
+        Gets the effect_size of this Correlation.
+        Magnitude of the effects of a cause indicating whether it's practically meaningful.
+
+        :return: The effect_size of this Correlation.
+        :rtype: str
+        """
         return self._effect_size
 
     @effect_size.setter
     def effect_size(self, effect_size):
+        """
+        Sets the effect_size of this Correlation.
+        Magnitude of the effects of a cause indicating whether it's practically meaningful.
+
+        :param effect_size: The effect_size of this Correlation.
+        :type: str
+        """
         self._effect_size = effect_size
 
     @property
     def statistical_significance(self):
+        """
+        Gets the statistical_significance of this Correlation.
+        A function of the effect size and sample size
+
+        :return: The statistical_significance of this Correlation.
+        :rtype: str
+        """
         return self._statistical_significance
 
     @statistical_significance.setter
     def statistical_significance(self, statistical_significance):
+        """
+        Sets the statistical_significance of this Correlation.
+        A function of the effect size and sample size
+
+        :param statistical_significance: The statistical_significance of this Correlation.
+        :type: str
+        """
         self._statistical_significance = statistical_significance
 
     @property
     def timestamp(self):
+        """
+        Gets the timestamp of this Correlation.
+        Time at which correlation was calculated
+
+        :return: The timestamp of this Correlation.
+        :rtype: Number
+        """
         return self._timestamp
 
     @timestamp.setter
     def timestamp(self, timestamp):
+        """
+        Sets the timestamp of this Correlation.
+        Time at which correlation was calculated
+
+        :param timestamp: The timestamp of this Correlation.
+        :type: Number
+        """
         self._timestamp = timestamp
 
     @property
     def reverse_correlation(self):
+        """
+        Gets the reverse_correlation of this Correlation.
+        Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation.
+
+        :return: The reverse_correlation of this Correlation.
+        :rtype: Number
+        """
         return self._reverse_correlation
 
     @reverse_correlation.setter
     def reverse_correlation(self, reverse_correlation):
+        """
+        Sets the reverse_correlation of this Correlation.
+        Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation.
+
+        :param reverse_correlation: The reverse_correlation of this Correlation.
+        :type: Number
+        """
         self._reverse_correlation = reverse_correlation
 
     @property
     def causality_factor(self):
+        """
+        Gets the causality_factor of this Correlation.
+        
+
+        :return: The causality_factor of this Correlation.
+        :rtype: Number
+        """
         return self._causality_factor
 
     @causality_factor.setter
     def causality_factor(self, causality_factor):
+        """
+        Sets the causality_factor of this Correlation.
+        
+
+        :param causality_factor: The causality_factor of this Correlation.
+        :type: Number
+        """
         self._causality_factor = causality_factor
 
     @property
     def cause_category(self):
+        """
+        Gets the cause_category of this Correlation.
+        Variable category of the cause variable.
+
+        :return: The cause_category of this Correlation.
+        :rtype: str
+        """
         return self._cause_category
 
     @cause_category.setter
     def cause_category(self, cause_category):
+        """
+        Sets the cause_category of this Correlation.
+        Variable category of the cause variable.
+
+        :param cause_category: The cause_category of this Correlation.
+        :type: str
+        """
         self._cause_category = cause_category
 
     @property
     def effect_category(self):
+        """
+        Gets the effect_category of this Correlation.
+        Variable category of the effect variable.
+
+        :return: The effect_category of this Correlation.
+        :rtype: str
+        """
         return self._effect_category
 
     @effect_category.setter
     def effect_category(self, effect_category):
+        """
+        Sets the effect_category of this Correlation.
+        Variable category of the effect variable.
+
+        :param effect_category: The effect_category of this Correlation.
+        :type: str
+        """
         self._effect_category = effect_category
 
     def to_dict(self):
         """
-        Return model properties dict
+        Returns the model properties as a dict
         """
         result = {}
 
-        for name, prop in iteritems(self.__dict__):
-            if name == "attribute_map" or name == "swagger_types":
-                continue
-            if isinstance(prop, list):
-                result[name[1:]] = list(map(
+        for attr, _ in iteritems(self.swagger_types):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    prop
+                    value
                 ))
-            elif hasattr(prop, "to_dict"):
-                result[name[1:]] = prop.to_dict()
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
             else:
-                result[name[1:]] = prop
+                result[attr] = value
 
         return result
 
     def to_str(self):
         """
-        Return model properties str
+        Returns the string representation of the model
         """
         return pformat(self.to_dict())
 

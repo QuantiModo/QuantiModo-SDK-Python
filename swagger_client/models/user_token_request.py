@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 """
@@ -15,7 +14,10 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Ref: https://github.com/swagger-api/swagger-codegen
 """
+
 from pprint import pformat
 from six import iteritems
 
@@ -27,7 +29,7 @@ class UserTokenRequest(object):
     """
     def __init__(self):
         """
-        Swagger model
+        UserTokenRequest - a model defined in Swagger
 
         :param dict swaggerTypes: The key is attribute name
                                   and the value is attribute type.
@@ -45,48 +47,75 @@ class UserTokenRequest(object):
         }
 
         self._user = None
-        self._organization_access_token = None    # Organization Access token
+        self._organization_access_token = None
 
     @property
     def user(self):
+        """
+        Gets the user of this UserTokenRequest.
+
+
+        :return: The user of this UserTokenRequest.
+        :rtype: UserTokenRequestInnerUserField
+        """
         return self._user
 
     @user.setter
     def user(self, user):
+        """
+        Sets the user of this UserTokenRequest.
+
+
+        :param user: The user of this UserTokenRequest.
+        :type: UserTokenRequestInnerUserField
+        """
         self._user = user
 
     @property
     def organization_access_token(self):
+        """
+        Gets the organization_access_token of this UserTokenRequest.
+        Organization Access token
+
+        :return: The organization_access_token of this UserTokenRequest.
+        :rtype: str
+        """
         return self._organization_access_token
 
     @organization_access_token.setter
     def organization_access_token(self, organization_access_token):
+        """
+        Sets the organization_access_token of this UserTokenRequest.
+        Organization Access token
+
+        :param organization_access_token: The organization_access_token of this UserTokenRequest.
+        :type: str
+        """
         self._organization_access_token = organization_access_token
 
     def to_dict(self):
         """
-        Return model properties dict
+        Returns the model properties as a dict
         """
         result = {}
 
-        for name, prop in iteritems(self.__dict__):
-            if name == "attribute_map" or name == "swagger_types":
-                continue
-            if isinstance(prop, list):
-                result[name[1:]] = list(map(
+        for attr, _ in iteritems(self.swagger_types):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    prop
+                    value
                 ))
-            elif hasattr(prop, "to_dict"):
-                result[name[1:]] = prop.to_dict()
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
             else:
-                result[name[1:]] = prop
+                result[attr] = value
 
         return result
 
     def to_str(self):
         """
-        Return model properties str
+        Returns the string representation of the model
         """
         return pformat(self.to_dict())
 

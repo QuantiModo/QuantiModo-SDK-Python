@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 """
@@ -15,7 +14,10 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Ref: https://github.com/swagger-api/swagger-codegen
 """
+
 from pprint import pformat
 from six import iteritems
 
@@ -27,7 +29,7 @@ class PostCorrelation(object):
     """
     def __init__(self):
         """
-        Swagger model
+        PostCorrelation - a model defined in Swagger
 
         :param dict swaggerTypes: The key is attribute name
                                   and the value is attribute type.
@@ -48,67 +50,122 @@ class PostCorrelation(object):
             'vote': 'vote'
         }
 
-        self._cause = None    # Cause variable name
-        self._effect = None    # Effect variable name
-        self._correlation = None    # Correlation value
-        self._vote = None    # Vote: 0 or 1
+        self._cause = None
+        self._effect = None
+        self._correlation = None
+        self._vote = None
 
     @property
     def cause(self):
+        """
+        Gets the cause of this PostCorrelation.
+        Cause variable name
+
+        :return: The cause of this PostCorrelation.
+        :rtype: str
+        """
         return self._cause
 
     @cause.setter
     def cause(self, cause):
+        """
+        Sets the cause of this PostCorrelation.
+        Cause variable name
+
+        :param cause: The cause of this PostCorrelation.
+        :type: str
+        """
         self._cause = cause
 
     @property
     def effect(self):
+        """
+        Gets the effect of this PostCorrelation.
+        Effect variable name
+
+        :return: The effect of this PostCorrelation.
+        :rtype: str
+        """
         return self._effect
 
     @effect.setter
     def effect(self, effect):
+        """
+        Sets the effect of this PostCorrelation.
+        Effect variable name
+
+        :param effect: The effect of this PostCorrelation.
+        :type: str
+        """
         self._effect = effect
 
     @property
     def correlation(self):
+        """
+        Gets the correlation of this PostCorrelation.
+        Correlation value
+
+        :return: The correlation of this PostCorrelation.
+        :rtype: float
+        """
         return self._correlation
 
     @correlation.setter
     def correlation(self, correlation):
+        """
+        Sets the correlation of this PostCorrelation.
+        Correlation value
+
+        :param correlation: The correlation of this PostCorrelation.
+        :type: float
+        """
         self._correlation = correlation
 
     @property
     def vote(self):
+        """
+        Gets the vote of this PostCorrelation.
+        Vote: 0 or 1
+
+        :return: The vote of this PostCorrelation.
+        :rtype: int
+        """
         return self._vote
 
     @vote.setter
     def vote(self, vote):
+        """
+        Sets the vote of this PostCorrelation.
+        Vote: 0 or 1
+
+        :param vote: The vote of this PostCorrelation.
+        :type: int
+        """
         self._vote = vote
 
     def to_dict(self):
         """
-        Return model properties dict
+        Returns the model properties as a dict
         """
         result = {}
 
-        for name, prop in iteritems(self.__dict__):
-            if name == "attribute_map" or name == "swagger_types":
-                continue
-            if isinstance(prop, list):
-                result[name[1:]] = list(map(
+        for attr, _ in iteritems(self.swagger_types):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    prop
+                    value
                 ))
-            elif hasattr(prop, "to_dict"):
-                result[name[1:]] = prop.to_dict()
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
             else:
-                result[name[1:]] = prop
+                result[attr] = value
 
         return result
 
     def to_str(self):
         """
-        Return model properties str
+        Returns the string representation of the model
         """
         return pformat(self.to_dict())
 

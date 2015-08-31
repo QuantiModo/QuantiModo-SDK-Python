@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 """
@@ -15,7 +14,10 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Ref: https://github.com/swagger-api/swagger-codegen
 """
+
 from pprint import pformat
 from six import iteritems
 
@@ -27,7 +29,7 @@ class CommonResponse(object):
     """
     def __init__(self):
         """
-        Swagger model
+        CommonResponse - a model defined in Swagger
 
         :param dict swaggerTypes: The key is attribute name
                                   and the value is attribute type.
@@ -46,58 +48,99 @@ class CommonResponse(object):
             'success': 'success'
         }
 
-        self._status = None    # Status code
-        self._message = None    # Message
+        self._status = None
+        self._message = None
         self._success = None
 
     @property
     def status(self):
+        """
+        Gets the status of this CommonResponse.
+        Status code
+
+        :return: The status of this CommonResponse.
+        :rtype: int
+        """
         return self._status
 
     @status.setter
     def status(self, status):
+        """
+        Sets the status of this CommonResponse.
+        Status code
+
+        :param status: The status of this CommonResponse.
+        :type: int
+        """
         self._status = status
 
     @property
     def message(self):
+        """
+        Gets the message of this CommonResponse.
+        Message
+
+        :return: The message of this CommonResponse.
+        :rtype: str
+        """
         return self._message
 
     @message.setter
     def message(self, message):
+        """
+        Sets the message of this CommonResponse.
+        Message
+
+        :param message: The message of this CommonResponse.
+        :type: str
+        """
         self._message = message
 
     @property
     def success(self):
+        """
+        Gets the success of this CommonResponse.
+
+
+        :return: The success of this CommonResponse.
+        :rtype: bool
+        """
         return self._success
 
     @success.setter
     def success(self, success):
+        """
+        Sets the success of this CommonResponse.
+
+
+        :param success: The success of this CommonResponse.
+        :type: bool
+        """
         self._success = success
 
     def to_dict(self):
         """
-        Return model properties dict
+        Returns the model properties as a dict
         """
         result = {}
 
-        for name, prop in iteritems(self.__dict__):
-            if name == "attribute_map" or name == "swagger_types":
-                continue
-            if isinstance(prop, list):
-                result[name[1:]] = list(map(
+        for attr, _ in iteritems(self.swagger_types):
+            value = getattr(self, attr)
+            if isinstance(value, list):
+                result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    prop
+                    value
                 ))
-            elif hasattr(prop, "to_dict"):
-                result[name[1:]] = prop.to_dict()
+            elif hasattr(value, "to_dict"):
+                result[attr] = value.to_dict()
             else:
-                result[name[1:]] = prop
+                result[attr] = value
 
         return result
 
     def to_str(self):
         """
-        Return model properties str
+        Returns the string representation of the model
         """
         return pformat(self.to_dict())
 
