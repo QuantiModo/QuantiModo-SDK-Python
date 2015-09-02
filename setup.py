@@ -21,7 +21,7 @@ setup(
     name=NAME,
     version=VERSION,
     description="QuantiModo",
-    author_email="foo@example.com",
+    author_email="",
     url="",
     keywords=["Swagger", "QuantiModo"],
     install_requires=REQUIRES,
