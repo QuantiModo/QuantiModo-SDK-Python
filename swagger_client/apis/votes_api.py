@@ -42,10 +42,10 @@ class VotesApi(object):
             self.api_client = api_client
         else:
             if not config.api_client:
-                config.api_client = ApiClient('https://localhost/api')
+                config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def v1_votes_post(self, cause, effect, **kwargs):
+    def v1_votes_post(self, cause, effect, correlation, **kwargs):
         """
         Post or update vote
         This is to enable users to indicate their opinion on the plausibility of a causal relationship between a treatment and outcome. QuantiModo incorporates crowd-sourced plausibility estimations into their algorithm. This is done allowing user to indicate their view of the plausibility of each relationship with thumbs up/down buttons placed next to each prediction.
@@ -56,12 +56,13 @@ class VotesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v1_votes_post(cause, effect, callback=callback_function)
+        >>> thread = api.v1_votes_post(cause, effect, correlation, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cause: Cause variable name (required)
         :param str effect: Effect variable name (required)
+        :param float correlation: Correlation value (required)
         :param bool vote: Vote: 0 (for implausible) or 1 (for plausible)
         :return: CommonResponse
                  If the method is called asynchronously,
@@ -73,8 +74,11 @@ class VotesApi(object):
         # verify the required parameter 'effect' is set
         if effect is None:
             raise ValueError("Missing the required parameter `effect` when calling `v1_votes_post`")
+        # verify the required parameter 'correlation' is set
+        if correlation is None:
+            raise ValueError("Missing the required parameter `correlation` when calling `v1_votes_post`")
 
-        all_params = ['cause', 'effect', 'vote']
+        all_params = ['cause', 'effect', 'correlation', 'vote']
         all_params.append('callback')
 
         params = locals()
@@ -97,6 +101,8 @@ class VotesApi(object):
             query_params['cause'] = params['cause']
         if 'effect' in params:
             query_params['effect'] = params['effect']
+        if 'correlation' in params:
+            query_params['correlation'] = params['correlation']
         if 'vote' in params:
             query_params['vote'] = params['vote']
 

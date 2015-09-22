@@ -153,6 +153,12 @@ class Unit(object):
         :param minimum: The minimum of this Unit.
         :type: float
         """
+        allowed_values = ["-Infinity"]
+        if minimum not in allowed_values:
+            raise ValueError(
+                "Invalid value for `minimum`, must be one of {0}"
+                .format(allowed_values)
+            )
         self._minimum = minimum
 
     @property
@@ -175,6 +181,12 @@ class Unit(object):
         :param maximum: The maximum of this Unit.
         :type: float
         """
+        allowed_values = ["Infinity"]
+        if maximum not in allowed_values:
+            raise ValueError(
+                "Invalid value for `maximum`, must be one of {0}"
+                .format(allowed_values)
+            )
         self._maximum = maximum
 
     @property

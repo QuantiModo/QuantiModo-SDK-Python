@@ -41,7 +41,8 @@ class Variable(object):
             'name': 'str',
             'original_name': 'str',
             'category': 'str',
-            'unit': 'str',
+            'abbreviated_unit_name': 'str',
+            'abbreviated_unit_id': 'int',
             'sources': 'str',
             'minimum_value': 'float',
             'maximum_value': 'float',
@@ -61,10 +62,10 @@ class Variable(object):
             'outcome': 'int',
             'measurements_at_last_analysis': 'int',
             'number_of_measurements': 'int',
-            'last_unit': 'int',
+            'last_unit': 'str',
             'last_value': 'int',
             'most_common_value': 'int',
-            'most_common_unit': 'int',
+            'most_common_unit': 'str',
             'last_source': 'int'
         }
 
@@ -73,7 +74,8 @@ class Variable(object):
             'name': 'name',
             'original_name': 'originalName',
             'category': 'category',
-            'unit': 'unit',
+            'abbreviated_unit_name': 'abbreviatedUnitName',
+            'abbreviated_unit_id': 'abbreviatedUnitId',
             'sources': 'sources',
             'minimum_value': 'minimumValue',
             'maximum_value': 'maximumValue',
@@ -104,7 +106,8 @@ class Variable(object):
         self._name = None
         self._original_name = None
         self._category = None
-        self._unit = None
+        self._abbreviated_unit_name = None
+        self._abbreviated_unit_id = None
         self._sources = None
         self._minimum_value = None
         self._maximum_value = None
@@ -219,26 +222,48 @@ class Variable(object):
         self._category = category
 
     @property
-    def unit(self):
+    def abbreviated_unit_name(self):
         """
-        Gets the unit of this Variable.
+        Gets the abbreviated_unit_name of this Variable.
         Abbreviated name of the default unit for the variable
 
-        :return: The unit of this Variable.
+        :return: The abbreviated_unit_name of this Variable.
         :rtype: str
         """
-        return self._unit
+        return self._abbreviated_unit_name
 
-    @unit.setter
-    def unit(self, unit):
+    @abbreviated_unit_name.setter
+    def abbreviated_unit_name(self, abbreviated_unit_name):
         """
-        Sets the unit of this Variable.
+        Sets the abbreviated_unit_name of this Variable.
         Abbreviated name of the default unit for the variable
 
-        :param unit: The unit of this Variable.
+        :param abbreviated_unit_name: The abbreviated_unit_name of this Variable.
         :type: str
         """
-        self._unit = unit
+        self._abbreviated_unit_name = abbreviated_unit_name
+
+    @property
+    def abbreviated_unit_id(self):
+        """
+        Gets the abbreviated_unit_id of this Variable.
+        Id of the default unit for the variable
+
+        :return: The abbreviated_unit_id of this Variable.
+        :rtype: int
+        """
+        return self._abbreviated_unit_id
+
+    @abbreviated_unit_id.setter
+    def abbreviated_unit_id(self, abbreviated_unit_id):
+        """
+        Sets the abbreviated_unit_id of this Variable.
+        Id of the default unit for the variable
+
+        :param abbreviated_unit_id: The abbreviated_unit_id of this Variable.
+        :type: int
+        """
+        self._abbreviated_unit_id = abbreviated_unit_id
 
     @property
     def sources(self):
@@ -671,7 +696,7 @@ class Variable(object):
         Last unit
 
         :return: The last_unit of this Variable.
-        :rtype: int
+        :rtype: str
         """
         return self._last_unit
 
@@ -682,7 +707,7 @@ class Variable(object):
         Last unit
 
         :param last_unit: The last_unit of this Variable.
-        :type: int
+        :type: str
         """
         self._last_unit = last_unit
 
@@ -737,7 +762,7 @@ class Variable(object):
         Most common unit
 
         :return: The most_common_unit of this Variable.
-        :rtype: int
+        :rtype: str
         """
         return self._most_common_unit
 
@@ -748,7 +773,7 @@ class Variable(object):
         Most common unit
 
         :param most_common_unit: The most_common_unit of this Variable.
-        :type: int
+        :type: str
         """
         self._most_common_unit = most_common_unit
 

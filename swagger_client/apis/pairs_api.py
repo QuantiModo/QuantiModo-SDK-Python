@@ -42,10 +42,10 @@ class PairsApi(object):
             self.api_client = api_client
         else:
             if not config.api_client:
-                config.api_client = ApiClient('https://localhost/api')
+                config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def pairs_get(self, cause, effect, **kwargs):
+    def v1_pairs_get(self, cause, effect, **kwargs):
         """
         Get pairs
         Pairs cause measurements with effect measurements grouped over the duration of action after the onset delay.
@@ -56,7 +56,7 @@ class PairsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.pairs_get(cause, effect, callback=callback_function)
+        >>> thread = api.v1_pairs_get(cause, effect, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -79,10 +79,10 @@ class PairsApi(object):
         """
         # verify the required parameter 'cause' is set
         if cause is None:
-            raise ValueError("Missing the required parameter `cause` when calling `pairs_get`")
+            raise ValueError("Missing the required parameter `cause` when calling `v1_pairs_get`")
         # verify the required parameter 'effect' is set
         if effect is None:
-            raise ValueError("Missing the required parameter `effect` when calling `pairs_get`")
+            raise ValueError("Missing the required parameter `effect` when calling `v1_pairs_get`")
 
         all_params = ['cause', 'effect', 'cause_source', 'cause_unit', 'delay', 'duration', 'effect_source', 'effect_unit', 'end_time', 'start_time', 'limit', 'offset', 'sort']
         all_params.append('callback')
@@ -92,12 +92,12 @@ class PairsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method pairs_get" % key
+                    " to method v1_pairs_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/pairs'.replace('{format}', 'json')
+        resource_path = '/v1/pairs'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}

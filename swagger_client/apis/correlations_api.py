@@ -42,10 +42,10 @@ class CorrelationsApi(object):
             self.api_client = api_client
         else:
             if not config.api_client:
-                config.api_client = ApiClient('https://localhost/api')
+                config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def correlations_get(self, **kwargs):
+    def v1_correlations_get(self, **kwargs):
         """
         Get correlations
         Get correlations.<br>Supported filter parameters:<br><ul><li><b>correlationCoefficient</b> - Pearson correlation coefficient between cause and effect after lagging by onset delay and grouping by duration of action</li><li><b>onsetDelay</b> - The number of seconds which pass following a cause measurement before an effect would likely be observed.</li><li><b>durationOfAction</b> - The time in seconds over which the cause would be expected to exert a measurable effect. We have selected a default value for each variable. This default value may be replaced by a user specified by adjusting their variable user settings.</li><li><b>lastUpdated</b> - The time that this measurement was last updated in the UTC format \"YYYY-MM-DDThh:mm:ss\"</li></ul><br>
@@ -56,7 +56,7 @@ class CorrelationsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.correlations_get(callback=callback_function)
+        >>> thread = api.v1_correlations_get(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -78,12 +78,12 @@ class CorrelationsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method correlations_get" % key
+                    " to method v1_correlations_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/correlations'.replace('{format}', 'json')
+        resource_path = '/v1/correlations'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
@@ -132,94 +132,10 @@ class CorrelationsApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def public_correlations_search_search_get(self, search, effect_or_cause, **kwargs):
-        """
-        Get average correlations for variables containing search term
-        Returns the average correlations from all users for all public variables that contain the characters in the search query. Returns average of all users public variable correlations with a specified cause or effect.
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.public_correlations_search_search_get(search, effect_or_cause, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str search: Name of the variable that you want to know the causes or effects of. (required)
-        :param str effect_or_cause: Specifies whether to return the effects or causes of the searched variable. (required)
-        :return: list[Correlation]
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        # verify the required parameter 'search' is set
-        if search is None:
-            raise ValueError("Missing the required parameter `search` when calling `public_correlations_search_search_get`")
-        # verify the required parameter 'effect_or_cause' is set
-        if effect_or_cause is None:
-            raise ValueError("Missing the required parameter `effect_or_cause` when calling `public_correlations_search_search_get`")
-
-        all_params = ['search', 'effect_or_cause']
-        all_params.append('callback')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method public_correlations_search_search_get" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-        resource_path = '/public/correlations/search/{search}'.replace('{format}', 'json')
-        method = 'GET'
-
-        path_params = {}
-        if 'search' in params:
-            path_params['search'] = params['search']
-
-        query_params = {}
-        if 'effect_or_cause' in params:
-            query_params['effectOrCause'] = params['effect_or_cause']
-
-        header_params = {}
-
-        form_params = {}
-        files = {}
-
-        body_params = None
-
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-        if not header_params['Accept']:
-            del header_params['Accept']
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type([])
-
-        # Authentication setting
-        auth_settings = ['oauth2']
-
-        response = self.api_client.call_api(resource_path, method,
-                                            path_params,
-                                            query_params,
-                                            header_params,
-                                            body=body_params,
-                                            post_params=form_params,
-                                            files=files,
-                                            response_type='list[Correlation]',
-                                            auth_settings=auth_settings,
-                                            callback=params.get('callback'))
-        return response
-
     def v1_correlations_post(self, body, **kwargs):
         """
-        Add correlation or/and vote for it
-        Add correlation or/and vote for it
+        Store or Update a Correlation
+        Add correlation
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -296,8 +212,8 @@ class CorrelationsApi(object):
 
     def v1_organizations_organization_id_users_user_id_variables_variable_name_causes_get(self, organization_id, user_id, variable_name, organization_token, **kwargs):
         """
-        Search user correlations for a given effect
-        Returns average of all correlations and votes for all user cause variables for a given effect. If parameter \"include_public\" is used, it also returns public correlations. User correlation overwrites or supersedes public correlation.
+        Search user correlations for a given cause
+        Returns average of all correlations and votes for all user cause variables for a given cause. If parameter \"include_public\" is used, it also returns public correlations. User correlation overwrites or supersedes public correlation.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -488,6 +404,90 @@ class CorrelationsApi(object):
                                             post_params=form_params,
                                             files=files,
                                             response_type='list[CommonResponse]',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
+    def v1_public_correlations_search_search_get(self, search, effect_or_cause, **kwargs):
+        """
+        Get average correlations for variables containing search term
+        Returns the average correlations from all users for all public variables that contain the characters in the search query. Returns average of all users public variable correlations with a specified cause or effect.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.v1_public_correlations_search_search_get(search, effect_or_cause, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str search: Name of the variable that you want to know the causes or effects of. (required)
+        :param str effect_or_cause: Specifies whether to return the effects or causes of the searched variable. (required)
+        :return: list[Correlation]
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        # verify the required parameter 'search' is set
+        if search is None:
+            raise ValueError("Missing the required parameter `search` when calling `v1_public_correlations_search_search_get`")
+        # verify the required parameter 'effect_or_cause' is set
+        if effect_or_cause is None:
+            raise ValueError("Missing the required parameter `effect_or_cause` when calling `v1_public_correlations_search_search_get`")
+
+        all_params = ['search', 'effect_or_cause']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method v1_public_correlations_search_search_get" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        resource_path = '/v1/public/correlations/search/{search}'.replace('{format}', 'json')
+        method = 'GET'
+
+        path_params = {}
+        if 'search' in params:
+            path_params['search'] = params['search']
+
+        query_params = {}
+        if 'effect_or_cause' in params:
+            query_params['effectOrCause'] = params['effect_or_cause']
+
+        header_params = {}
+
+        form_params = {}
+        files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type([])
+
+        # Authentication setting
+        auth_settings = ['oauth2']
+
+        response = self.api_client.call_api(resource_path, method,
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=files,
+                                            response_type='list[Correlation]',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -804,7 +804,7 @@ class CorrelationsApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def v1_votes_post(self, cause, effect, **kwargs):
+    def v1_votes_post(self, cause, effect, correlation, **kwargs):
         """
         Post or update vote
         This is to enable users to indicate their opinion on the plausibility of a causal relationship between a treatment and outcome. QuantiModo incorporates crowd-sourced plausibility estimations into their algorithm. This is done allowing user to indicate their view of the plausibility of each relationship with thumbs up/down buttons placed next to each prediction.
@@ -815,12 +815,13 @@ class CorrelationsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v1_votes_post(cause, effect, callback=callback_function)
+        >>> thread = api.v1_votes_post(cause, effect, correlation, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cause: Cause variable name (required)
         :param str effect: Effect variable name (required)
+        :param float correlation: Correlation value (required)
         :param bool vote: Vote: 0 (for implausible) or 1 (for plausible)
         :return: CommonResponse
                  If the method is called asynchronously,
@@ -832,8 +833,11 @@ class CorrelationsApi(object):
         # verify the required parameter 'effect' is set
         if effect is None:
             raise ValueError("Missing the required parameter `effect` when calling `v1_votes_post`")
+        # verify the required parameter 'correlation' is set
+        if correlation is None:
+            raise ValueError("Missing the required parameter `correlation` when calling `v1_votes_post`")
 
-        all_params = ['cause', 'effect', 'vote']
+        all_params = ['cause', 'effect', 'correlation', 'vote']
         all_params.append('callback')
 
         params = locals()
@@ -856,6 +860,8 @@ class CorrelationsApi(object):
             query_params['cause'] = params['cause']
         if 'effect' in params:
             query_params['effect'] = params['effect']
+        if 'correlation' in params:
+            query_params['correlation'] = params['correlation']
         if 'vote' in params:
             query_params['vote'] = params['vote']
 

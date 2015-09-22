@@ -42,10 +42,10 @@ class MeasurementsApi(object):
             self.api_client = api_client
         else:
             if not config.api_client:
-                config.api_client = ApiClient('https://localhost/api')
+                config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def measurement_sources_get(self, **kwargs):
+    def v1_measurement_sources_get(self, **kwargs):
         """
         Get measurement sources
         Returns a list of all the apps from which measurement data is obtained.
@@ -56,7 +56,7 @@ class MeasurementsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.measurement_sources_get(callback=callback_function)
+        >>> thread = api.v1_measurement_sources_get(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -73,12 +73,12 @@ class MeasurementsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method measurement_sources_get" % key
+                    " to method v1_measurement_sources_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/measurementSources'.replace('{format}', 'json')
+        resource_path = '/v1/measurementSources'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
@@ -117,7 +117,7 @@ class MeasurementsApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def measurement_sources_post(self, name, **kwargs):
+    def v1_measurement_sources_post(self, name, **kwargs):
         """
         Add a data source
         Add a life-tracking app or device to the QuantiModo list of data sources.
@@ -128,7 +128,7 @@ class MeasurementsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.measurement_sources_post(name, callback=callback_function)
+        >>> thread = api.v1_measurement_sources_post(name, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -139,7 +139,7 @@ class MeasurementsApi(object):
         """
         # verify the required parameter 'name' is set
         if name is None:
-            raise ValueError("Missing the required parameter `name` when calling `measurement_sources_post`")
+            raise ValueError("Missing the required parameter `name` when calling `v1_measurement_sources_post`")
 
         all_params = ['name']
         all_params.append('callback')
@@ -149,12 +149,12 @@ class MeasurementsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method measurement_sources_post" % key
+                    " to method v1_measurement_sources_post" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/measurementSources'.replace('{format}', 'json')
+        resource_path = '/v1/measurementSources'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
@@ -195,7 +195,7 @@ class MeasurementsApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def measurements_get(self, variable_name, **kwargs):
+    def v1_measurements_get(self, **kwargs):
         """
         Get measurements for this user
         Measurements are any value that can be recorded like daily steps, a mood rating, or apples eaten. <br>Supported filter parameters:<br><ul><li><b>value</b> - Value of measurement</li><li><b>lastUpdated</b> - The time that this measurement was created or last updated in the UTC format \"YYYY-MM-DDThh:mm:ss\"</li></ul><br>
@@ -206,11 +206,11 @@ class MeasurementsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.measurements_get(variable_name, callback=callback_function)
+        >>> thread = api.v1_measurements_get(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str variable_name: Name of the variable you want measurements for (required)
+        :param str variable_name: Name of the variable you want measurements for
         :param str unit: The unit your want the measurements in
         :param str start_time: The lower limit of measurements returned (Epoch)
         :param str end_time: The upper limit of measurements returned (Epoch)
@@ -223,9 +223,6 @@ class MeasurementsApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'variable_name' is set
-        if variable_name is None:
-            raise ValueError("Missing the required parameter `variable_name` when calling `measurements_get`")
 
         all_params = ['variable_name', 'unit', 'start_time', 'end_time', 'grouping_width', 'grouping_timezone', 'limit', 'offset', 'sort']
         all_params.append('callback')
@@ -235,12 +232,12 @@ class MeasurementsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method measurements_get" % key
+                    " to method v1_measurements_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/measurements'.replace('{format}', 'json')
+        resource_path = '/v1/measurements'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
@@ -297,7 +294,7 @@ class MeasurementsApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def measurements_v2_post(self, measurements, **kwargs):
+    def v1_measurements_post(self, measurements, **kwargs):
         """
         Post a new set or update existing measurements to the database
         You can submit or update multiple measurements in a \"measurements\" sub-array.  If the variable these measurements correspond to does not already exist in the database, it will be automatically added.  The request body should look something like [{\"measurements\":[{\"timestamp\":1406419860,\"value\":\"1\",\"note\":\"I am a note about back pain.\"},{\"timestamp\":1406519865,\"value\":\"3\",\"note\":\"I am another note about back pain.\"}],\"name\":\"Back Pain\",\"source\":\"QuantiModo\",\"category\":\"Symptoms\",\"combinationOperation\":\"MEAN\",\"unit\":\"/5\"}]
@@ -308,7 +305,7 @@ class MeasurementsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.measurements_v2_post(measurements, callback=callback_function)
+        >>> thread = api.v1_measurements_post(measurements, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -319,7 +316,7 @@ class MeasurementsApi(object):
         """
         # verify the required parameter 'measurements' is set
         if measurements is None:
-            raise ValueError("Missing the required parameter `measurements` when calling `measurements_v2_post`")
+            raise ValueError("Missing the required parameter `measurements` when calling `v1_measurements_post`")
 
         all_params = ['measurements']
         all_params.append('callback')
@@ -329,12 +326,12 @@ class MeasurementsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method measurements_v2_post" % key
+                    " to method v1_measurements_post" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/measurements/v2'.replace('{format}', 'json')
+        resource_path = '/v1/measurements'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
@@ -375,7 +372,109 @@ class MeasurementsApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def measurements_range_get(self, **kwargs):
+    def v1_measurements_daily_get(self, variable_name, **kwargs):
+        """
+        Get daily measurements for this user
+        Measurements are any value that can be recorded like daily steps, a mood rating, or apples eaten. <br>Supported filter parameters:<br><ul><li><b>value</b> - Value of measurement</li><li><b>lastUpdated</b> - The time that this measurement was created or last updated in the UTC format \"YYYY-MM-DDThh:mm:ss\"</li></ul><br>
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.v1_measurements_daily_get(variable_name, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str variable_name: Name of the variable you want measurements for (required)
+        :param str abbreviated_unit_name: The unit your want the measurements in
+        :param str start_time: The lower limit of measurements returned (Iso8601)
+        :param str end_time: The upper limit of measurements returned (Iso8601)
+        :param int grouping_width: The time (in seconds) over which measurements are grouped together
+        :param str grouping_timezone: The time (in seconds) over which measurements are grouped together
+        :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0.
+        :param int offset: Now suppose you wanted to show results 11-20. You'd set the offset to 10 and the limit to 10.
+        :param int sort: Sort by given field. If the field is prefixed with `-, it will sort in descending order.
+        :return: Measurement
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        # verify the required parameter 'variable_name' is set
+        if variable_name is None:
+            raise ValueError("Missing the required parameter `variable_name` when calling `v1_measurements_daily_get`")
+
+        all_params = ['variable_name', 'abbreviated_unit_name', 'start_time', 'end_time', 'grouping_width', 'grouping_timezone', 'limit', 'offset', 'sort']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method v1_measurements_daily_get" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        resource_path = '/v1/measurements/daily'.replace('{format}', 'json')
+        method = 'GET'
+
+        path_params = {}
+
+        query_params = {}
+        if 'variable_name' in params:
+            query_params['variableName'] = params['variable_name']
+        if 'abbreviated_unit_name' in params:
+            query_params['abbreviatedUnitName'] = params['abbreviated_unit_name']
+        if 'start_time' in params:
+            query_params['startTime'] = params['start_time']
+        if 'end_time' in params:
+            query_params['endTime'] = params['end_time']
+        if 'grouping_width' in params:
+            query_params['groupingWidth'] = params['grouping_width']
+        if 'grouping_timezone' in params:
+            query_params['groupingTimezone'] = params['grouping_timezone']
+        if 'limit' in params:
+            query_params['limit'] = params['limit']
+        if 'offset' in params:
+            query_params['offset'] = params['offset']
+        if 'sort' in params:
+            query_params['sort'] = params['sort']
+
+        header_params = {}
+
+        form_params = {}
+        files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type([])
+
+        # Authentication setting
+        auth_settings = ['oauth2']
+
+        response = self.api_client.call_api(resource_path, method,
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=files,
+                                            response_type='Measurement',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
+    def v1_measurements_range_get(self, **kwargs):
         """
         Get measurements range for this user
         Get Unix time-stamp (epoch time) of the user's first and last measurements taken.
@@ -386,7 +485,7 @@ class MeasurementsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.measurements_range_get(callback=callback_function)
+        >>> thread = api.v1_measurements_range_get(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -405,12 +504,12 @@ class MeasurementsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method measurements_range_get" % key
+                    " to method v1_measurements_range_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/measurementsRange'.replace('{format}', 'json')
+        resource_path = '/v1/measurementsRange'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}

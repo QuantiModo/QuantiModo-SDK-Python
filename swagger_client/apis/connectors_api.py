@@ -42,13 +42,166 @@ class ConnectorsApi(object):
             self.api_client = api_client
         else:
             if not config.api_client:
-                config.api_client = ApiClient('https://localhost/api')
+                config.api_client = ApiClient()
             self.api_client = config.api_client
+
+    def v1_connect_js_get(self, **kwargs):
+        """
+        Get embeddable connect javascript
+        Get embeddable connect javascript. Usage:\n\n  - Embedding in applications with popups for 3rd-party authentication\nwindows.\n\n    Use `qmSetupInPopup` function after connecting `connect.js`.\n\n  - Embedding in applications with popups for 3rd-party authentication\nwindows.\n\n    Requires a selector to block. It will be embedded in this block.\n\n    Use `qmSetupOnPage` function after connecting `connect.js`.\n\n  - Embedding in mobile applications without popups for 3rd-party\nauthentication.\n\n    Use `qmSetupOnMobile` function after connecting `connect.js`.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.v1_connect_js_get(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str t: User token
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['t']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method v1_connect_js_get" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        resource_path = '/v1/connect.js'.replace('{format}', 'json')
+        method = 'GET'
+
+        path_params = {}
+
+        query_params = {}
+        if 't' in params:
+            query_params['t'] = params['t']
+
+        header_params = {}
+
+        form_params = {}
+        files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/x-javascript'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type([])
+
+        # Authentication setting
+        auth_settings = []
+
+        response = self.api_client.call_api(resource_path, method,
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=files,
+                                            response_type=None,
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
+    def v1_connect_mobile_get(self, t, **kwargs):
+        """
+        Mobile connect page
+        Mobile connect page
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.v1_connect_mobile_get(t, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str t: User token (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        # verify the required parameter 't' is set
+        if t is None:
+            raise ValueError("Missing the required parameter `t` when calling `v1_connect_mobile_get`")
+
+        all_params = ['t']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method v1_connect_mobile_get" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        resource_path = '/v1/connect/mobile'.replace('{format}', 'json')
+        method = 'GET'
+
+        path_params = {}
+
+        query_params = {}
+        if 't' in params:
+            query_params['t'] = params['t']
+
+        header_params = {}
+
+        form_params = {}
+        files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['text/html'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type([])
+
+        # Authentication setting
+        auth_settings = []
+
+        response = self.api_client.call_api(resource_path, method,
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=files,
+                                            response_type=None,
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
 
     def v1_connectors_list_get(self, **kwargs):
         """
         List of Connectors
-        Returns a list of all available connectors. A connector pulls data from other data providers using their API or a screenscraper.
+        A connector pulls data from other data providers using their API or a screenscraper. Returns a list of all available connectors and information about them such as their id, name, whether the user has provided access, logo url, connection instructions, and the update history.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -191,6 +344,213 @@ class ConnectorsApi(object):
                                             post_params=form_params,
                                             files=files,
                                             response_type=None,
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
+    def v1_connectors_connector_connect_instructions_get(self, connector, parameters, url, use_popup, **kwargs):
+        """
+        Connection Instructions
+        Returns instructions that describe what parameters and endpoint to use to connect to the given data provider.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.v1_connectors_connector_connect_instructions_get(connector, parameters, url, use_popup, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str connector: Lowercase system name of the source application or device. Get a list of available connectors from the /connectors/list endpoint. (required)
+        :param str parameters: JSON Array of Parameters for the request to enable connector. (required)
+        :param str url: URL which should be used to enable the connector. (required)
+        :param bool use_popup: Should use popup when enabling connector (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        # verify the required parameter 'connector' is set
+        if connector is None:
+            raise ValueError("Missing the required parameter `connector` when calling `v1_connectors_connector_connect_instructions_get`")
+        # verify the required parameter 'parameters' is set
+        if parameters is None:
+            raise ValueError("Missing the required parameter `parameters` when calling `v1_connectors_connector_connect_instructions_get`")
+        # verify the required parameter 'url' is set
+        if url is None:
+            raise ValueError("Missing the required parameter `url` when calling `v1_connectors_connector_connect_instructions_get`")
+        # verify the required parameter 'use_popup' is set
+        if use_popup is None:
+            raise ValueError("Missing the required parameter `use_popup` when calling `v1_connectors_connector_connect_instructions_get`")
+
+        all_params = ['connector', 'parameters', 'url', 'use_popup']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method v1_connectors_connector_connect_instructions_get" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        resource_path = '/v1/connectors/{connector}/connectInstructions'.replace('{format}', 'json')
+        method = 'GET'
+
+        path_params = {}
+        if 'connector' in params:
+            path_params['connector'] = params['connector']
+
+        query_params = {}
+        if 'parameters' in params:
+            query_params['parameters'] = params['parameters']
+        if 'url' in params:
+            query_params['url'] = params['url']
+        if 'use_popup' in params:
+            query_params['usePopup'] = params['use_popup']
+
+        header_params = {}
+
+        form_params = {}
+        files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type([])
+
+        # Authentication setting
+        auth_settings = ['oauth2']
+
+        response = self.api_client.call_api(resource_path, method,
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=files,
+                                            response_type=None,
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
+    def v1_connectors_connector_connect_parameter_get(self, connector, display_name, key, placeholder, type, use_popup, **kwargs):
+        """
+        Connect Parameter
+        Returns instructions that describe what parameters and endpoint to use to connect to the given data provider.
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.v1_connectors_connector_connect_parameter_get(connector, display_name, key, placeholder, type, use_popup, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str connector: Lowercase system name of the source application or device. Get a list of available connectors from the /connectors/list endpoint. (required)
+        :param str display_name: Name of the parameter that is user visible in the form (required)
+        :param str key: Name of the property that the user has to enter such as username or password Connector (used in HTTP request) (required)
+        :param str placeholder: Placeholder hint value for the parameter input tag. (required)
+        :param str type: Type of input field such as those found here http://www.w3schools.com/tags/tag_input.asp (required)
+        :param bool use_popup: Should use popup when enabling connector (required)
+        :param str default_value: Default parameter value
+        :return: ConnectorInstruction
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        # verify the required parameter 'connector' is set
+        if connector is None:
+            raise ValueError("Missing the required parameter `connector` when calling `v1_connectors_connector_connect_parameter_get`")
+        # verify the required parameter 'display_name' is set
+        if display_name is None:
+            raise ValueError("Missing the required parameter `display_name` when calling `v1_connectors_connector_connect_parameter_get`")
+        # verify the required parameter 'key' is set
+        if key is None:
+            raise ValueError("Missing the required parameter `key` when calling `v1_connectors_connector_connect_parameter_get`")
+        # verify the required parameter 'placeholder' is set
+        if placeholder is None:
+            raise ValueError("Missing the required parameter `placeholder` when calling `v1_connectors_connector_connect_parameter_get`")
+        # verify the required parameter 'type' is set
+        if type is None:
+            raise ValueError("Missing the required parameter `type` when calling `v1_connectors_connector_connect_parameter_get`")
+        # verify the required parameter 'use_popup' is set
+        if use_popup is None:
+            raise ValueError("Missing the required parameter `use_popup` when calling `v1_connectors_connector_connect_parameter_get`")
+
+        all_params = ['connector', 'display_name', 'key', 'placeholder', 'type', 'use_popup', 'default_value']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method v1_connectors_connector_connect_parameter_get" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        resource_path = '/v1/connectors/{connector}/connectParameter'.replace('{format}', 'json')
+        method = 'GET'
+
+        path_params = {}
+        if 'connector' in params:
+            path_params['connector'] = params['connector']
+
+        query_params = {}
+        if 'default_value' in params:
+            query_params['defaultValue'] = params['default_value']
+        if 'display_name' in params:
+            query_params['displayName'] = params['display_name']
+        if 'key' in params:
+            query_params['key'] = params['key']
+        if 'placeholder' in params:
+            query_params['placeholder'] = params['placeholder']
+        if 'type' in params:
+            query_params['type'] = params['type']
+        if 'use_popup' in params:
+            query_params['usePopup'] = params['use_popup']
+
+        header_params = {}
+
+        form_params = {}
+        files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type([])
+
+        # Authentication setting
+        auth_settings = ['oauth2']
+
+        response = self.api_client.call_api(resource_path, method,
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=files,
+                                            response_type='ConnectorInstruction',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response

@@ -42,8 +42,8 @@ class UserVariables(object):
             'duration_of_action': 'int',
             'filling_value': 'int',
             'join_with': 'str',
-            'maximum_value': 'float',
-            'minimum_value': 'float',
+            'maximum_allowed_value': 'float',
+            'minimum_allowed_value': 'float',
             'name': 'str',
             'onset_delay': 'int',
             'unit': 'str'
@@ -55,8 +55,8 @@ class UserVariables(object):
             'duration_of_action': 'durationOfAction',
             'filling_value': 'fillingValue',
             'join_with': 'joinWith',
-            'maximum_value': 'maximumValue',
-            'minimum_value': 'minimumValue',
+            'maximum_allowed_value': 'maximumAllowedValue',
+            'minimum_allowed_value': 'minimumAllowedValue',
             'name': 'name',
             'onset_delay': 'onsetDelay',
             'unit': 'unit'
@@ -67,8 +67,8 @@ class UserVariables(object):
         self._duration_of_action = None
         self._filling_value = None
         self._join_with = None
-        self._maximum_value = None
-        self._minimum_value = None
+        self._maximum_allowed_value = None
+        self._minimum_allowed_value = None
         self._name = None
         self._onset_delay = None
         self._unit = None
@@ -184,48 +184,48 @@ class UserVariables(object):
         self._join_with = join_with
 
     @property
-    def maximum_value(self):
+    def maximum_allowed_value(self):
         """
-        Gets the maximum_value of this UserVariables.
-        maximumValue
+        Gets the maximum_allowed_value of this UserVariables.
+        maximumAllowedValue
 
-        :return: The maximum_value of this UserVariables.
+        :return: The maximum_allowed_value of this UserVariables.
         :rtype: float
         """
-        return self._maximum_value
+        return self._maximum_allowed_value
 
-    @maximum_value.setter
-    def maximum_value(self, maximum_value):
+    @maximum_allowed_value.setter
+    def maximum_allowed_value(self, maximum_allowed_value):
         """
-        Sets the maximum_value of this UserVariables.
-        maximumValue
+        Sets the maximum_allowed_value of this UserVariables.
+        maximumAllowedValue
 
-        :param maximum_value: The maximum_value of this UserVariables.
+        :param maximum_allowed_value: The maximum_allowed_value of this UserVariables.
         :type: float
         """
-        self._maximum_value = maximum_value
+        self._maximum_allowed_value = maximum_allowed_value
 
     @property
-    def minimum_value(self):
+    def minimum_allowed_value(self):
         """
-        Gets the minimum_value of this UserVariables.
-        minimumValue
+        Gets the minimum_allowed_value of this UserVariables.
+        minimumAllowedValue
 
-        :return: The minimum_value of this UserVariables.
+        :return: The minimum_allowed_value of this UserVariables.
         :rtype: float
         """
-        return self._minimum_value
+        return self._minimum_allowed_value
 
-    @minimum_value.setter
-    def minimum_value(self, minimum_value):
+    @minimum_allowed_value.setter
+    def minimum_allowed_value(self, minimum_allowed_value):
         """
-        Sets the minimum_value of this UserVariables.
-        minimumValue
+        Sets the minimum_allowed_value of this UserVariables.
+        minimumAllowedValue
 
-        :param minimum_value: The minimum_value of this UserVariables.
+        :param minimum_allowed_value: The minimum_allowed_value of this UserVariables.
         :type: float
         """
-        self._minimum_value = minimum_value
+        self._minimum_allowed_value = minimum_allowed_value
 
     @property
     def name(self):

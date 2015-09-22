@@ -40,29 +40,47 @@ class Measurement(object):
             'variable': 'str',
             'source': 'str',
             'timestamp': 'int',
+            'start_time': 'str',
+            'human_time': 'HumanTime',
             'value': 'float',
             'unit': 'str',
+            'original_value': 'int',
             'stored_value': 'float',
-            'stored_abbreviated_unit_name': 'str'
+            'stored_abbreviated_unit_name': 'str',
+            'original_abbreviated_unit_name': 'str',
+            'abbreviated_unit_name': 'str',
+            'note': 'str'
         }
 
         self.attribute_map = {
             'variable': 'variable',
             'source': 'source',
             'timestamp': 'timestamp',
+            'start_time': 'startTime',
+            'human_time': 'humanTime',
             'value': 'value',
             'unit': 'unit',
+            'original_value': 'originalValue',
             'stored_value': 'storedValue',
-            'stored_abbreviated_unit_name': 'storedAbbreviatedUnitName'
+            'stored_abbreviated_unit_name': 'storedAbbreviatedUnitName',
+            'original_abbreviated_unit_name': 'originalAbbreviatedUnitName',
+            'abbreviated_unit_name': 'abbreviatedUnitName',
+            'note': 'note'
         }
 
         self._variable = None
         self._source = None
         self._timestamp = None
+        self._start_time = None
+        self._human_time = None
         self._value = None
         self._unit = None
+        self._original_value = None
         self._stored_value = None
         self._stored_abbreviated_unit_name = None
+        self._original_abbreviated_unit_name = None
+        self._abbreviated_unit_name = None
+        self._note = None
 
     @property
     def variable(self):
@@ -131,6 +149,50 @@ class Measurement(object):
         self._timestamp = timestamp
 
     @property
+    def start_time(self):
+        """
+        Gets the start_time of this Measurement.
+        Start Time for the measurement event in ISO 8601
+
+        :return: The start_time of this Measurement.
+        :rtype: str
+        """
+        return self._start_time
+
+    @start_time.setter
+    def start_time(self, start_time):
+        """
+        Sets the start_time of this Measurement.
+        Start Time for the measurement event in ISO 8601
+
+        :param start_time: The start_time of this Measurement.
+        :type: str
+        """
+        self._start_time = start_time
+
+    @property
+    def human_time(self):
+        """
+        Gets the human_time of this Measurement.
+        Start Time for the measurement event in ISO 8601
+
+        :return: The human_time of this Measurement.
+        :rtype: HumanTime
+        """
+        return self._human_time
+
+    @human_time.setter
+    def human_time(self, human_time):
+        """
+        Sets the human_time of this Measurement.
+        Start Time for the measurement event in ISO 8601
+
+        :param human_time: The human_time of this Measurement.
+        :type: HumanTime
+        """
+        self._human_time = human_time
+
+    @property
     def value(self):
         """
         Gets the value of this Measurement.
@@ -175,6 +237,28 @@ class Measurement(object):
         self._unit = unit
 
     @property
+    def original_value(self):
+        """
+        Gets the original_value of this Measurement.
+        Original value
+
+        :return: The original_value of this Measurement.
+        :rtype: int
+        """
+        return self._original_value
+
+    @original_value.setter
+    def original_value(self, original_value):
+        """
+        Sets the original_value of this Measurement.
+        Original value
+
+        :param original_value: The original_value of this Measurement.
+        :type: int
+        """
+        self._original_value = original_value
+
+    @property
     def stored_value(self):
         """
         Gets the stored_value of this Measurement.
@@ -217,6 +301,72 @@ class Measurement(object):
         :type: str
         """
         self._stored_abbreviated_unit_name = stored_abbreviated_unit_name
+
+    @property
+    def original_abbreviated_unit_name(self):
+        """
+        Gets the original_abbreviated_unit_name of this Measurement.
+        Original Unit of measurement as originally submitted
+
+        :return: The original_abbreviated_unit_name of this Measurement.
+        :rtype: str
+        """
+        return self._original_abbreviated_unit_name
+
+    @original_abbreviated_unit_name.setter
+    def original_abbreviated_unit_name(self, original_abbreviated_unit_name):
+        """
+        Sets the original_abbreviated_unit_name of this Measurement.
+        Original Unit of measurement as originally submitted
+
+        :param original_abbreviated_unit_name: The original_abbreviated_unit_name of this Measurement.
+        :type: str
+        """
+        self._original_abbreviated_unit_name = original_abbreviated_unit_name
+
+    @property
+    def abbreviated_unit_name(self):
+        """
+        Gets the abbreviated_unit_name of this Measurement.
+        Unit of measurement as originally submitted
+
+        :return: The abbreviated_unit_name of this Measurement.
+        :rtype: str
+        """
+        return self._abbreviated_unit_name
+
+    @abbreviated_unit_name.setter
+    def abbreviated_unit_name(self, abbreviated_unit_name):
+        """
+        Sets the abbreviated_unit_name of this Measurement.
+        Unit of measurement as originally submitted
+
+        :param abbreviated_unit_name: The abbreviated_unit_name of this Measurement.
+        :type: str
+        """
+        self._abbreviated_unit_name = abbreviated_unit_name
+
+    @property
+    def note(self):
+        """
+        Gets the note of this Measurement.
+        Note of measurement
+
+        :return: The note of this Measurement.
+        :rtype: str
+        """
+        return self._note
+
+    @note.setter
+    def note(self, note):
+        """
+        Sets the note of this Measurement.
+        Note of measurement
+
+        :param note: The note of this Measurement.
+        :type: str
+        """
+        self._note = note
 
     def to_dict(self):
         """

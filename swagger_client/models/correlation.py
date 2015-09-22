@@ -37,25 +37,36 @@ class Correlation(object):
                                   and the value is json key in definition.
         """
         self.swagger_types = {
-            'correlation_coefficient': 'Number',
+            'correlation_coefficient': 'float',
             'cause': 'str',
+            'original_cause': 'str',
             'effect': 'str',
+            'original_effect': 'str',
             'onset_delay': 'float',
-            'duration_of_action': 'Number',
-            'number_of_pairs': 'Number',
+            'duration_of_action': 'float',
+            'number_of_pairs': 'float',
             'effect_size': 'str',
             'statistical_significance': 'str',
-            'timestamp': 'Number',
-            'reverse_correlation': 'Number',
-            'causality_factor': 'Number',
+            'timestamp': 'float',
+            'reverse_correlation': 'float',
+            'causality_factor': 'float',
             'cause_category': 'str',
-            'effect_category': 'str'
+            'effect_category': 'str',
+            'value_predicting_high_outcome': 'float',
+            'value_predicting_low_outcome': 'float',
+            'optimal_pearson_product': 'float',
+            'average_vote': 'float',
+            'user_vote': 'float',
+            'cause_unit': 'str',
+            'cause_unit_id': 'int'
         }
 
         self.attribute_map = {
             'correlation_coefficient': 'correlationCoefficient',
             'cause': 'cause',
+            'original_cause': 'originalCause',
             'effect': 'effect',
+            'original_effect': 'originalEffect',
             'onset_delay': 'onsetDelay',
             'duration_of_action': 'durationOfAction',
             'number_of_pairs': 'numberOfPairs',
@@ -65,12 +76,21 @@ class Correlation(object):
             'reverse_correlation': 'reverseCorrelation',
             'causality_factor': 'causalityFactor',
             'cause_category': 'causeCategory',
-            'effect_category': 'effectCategory'
+            'effect_category': 'effectCategory',
+            'value_predicting_high_outcome': 'valuePredictingHighOutcome',
+            'value_predicting_low_outcome': 'valuePredictingLowOutcome',
+            'optimal_pearson_product': 'optimalPearsonProduct',
+            'average_vote': 'averageVote',
+            'user_vote': 'userVote',
+            'cause_unit': 'causeUnit',
+            'cause_unit_id': 'causeUnitId'
         }
 
         self._correlation_coefficient = None
         self._cause = None
+        self._original_cause = None
         self._effect = None
+        self._original_effect = None
         self._onset_delay = None
         self._duration_of_action = None
         self._number_of_pairs = None
@@ -81,6 +101,13 @@ class Correlation(object):
         self._causality_factor = None
         self._cause_category = None
         self._effect_category = None
+        self._value_predicting_high_outcome = None
+        self._value_predicting_low_outcome = None
+        self._optimal_pearson_product = None
+        self._average_vote = None
+        self._user_vote = None
+        self._cause_unit = None
+        self._cause_unit_id = None
 
     @property
     def correlation_coefficient(self):
@@ -89,7 +116,7 @@ class Correlation(object):
         Pearson correlation coefficient between cause and effect measurements
 
         :return: The correlation_coefficient of this Correlation.
-        :rtype: Number
+        :rtype: float
         """
         return self._correlation_coefficient
 
@@ -100,7 +127,7 @@ class Correlation(object):
         Pearson correlation coefficient between cause and effect measurements
 
         :param correlation_coefficient: The correlation_coefficient of this Correlation.
-        :type: Number
+        :type: float
         """
         self._correlation_coefficient = correlation_coefficient
 
@@ -127,6 +154,28 @@ class Correlation(object):
         self._cause = cause
 
     @property
+    def original_cause(self):
+        """
+        Gets the original_cause of this Correlation.
+        original name of the cause.
+
+        :return: The original_cause of this Correlation.
+        :rtype: str
+        """
+        return self._original_cause
+
+    @original_cause.setter
+    def original_cause(self, original_cause):
+        """
+        Sets the original_cause of this Correlation.
+        original name of the cause.
+
+        :param original_cause: The original_cause of this Correlation.
+        :type: str
+        """
+        self._original_cause = original_cause
+
+    @property
     def effect(self):
         """
         Gets the effect of this Correlation.
@@ -147,6 +196,28 @@ class Correlation(object):
         :type: str
         """
         self._effect = effect
+
+    @property
+    def original_effect(self):
+        """
+        Gets the original_effect of this Correlation.
+        effect variable original name.
+
+        :return: The original_effect of this Correlation.
+        :rtype: str
+        """
+        return self._original_effect
+
+    @original_effect.setter
+    def original_effect(self, original_effect):
+        """
+        Sets the original_effect of this Correlation.
+        effect variable original name.
+
+        :param original_effect: The original_effect of this Correlation.
+        :type: str
+        """
+        self._original_effect = original_effect
 
     @property
     def onset_delay(self):
@@ -177,7 +248,7 @@ class Correlation(object):
         Time over which the cause is expected to produce a perceivable effect following the onset delay
 
         :return: The duration_of_action of this Correlation.
-        :rtype: Number
+        :rtype: float
         """
         return self._duration_of_action
 
@@ -188,7 +259,7 @@ class Correlation(object):
         Time over which the cause is expected to produce a perceivable effect following the onset delay
 
         :param duration_of_action: The duration_of_action of this Correlation.
-        :type: Number
+        :type: float
         """
         self._duration_of_action = duration_of_action
 
@@ -199,7 +270,7 @@ class Correlation(object):
         Number of points that went into the correlation calculation
 
         :return: The number_of_pairs of this Correlation.
-        :rtype: Number
+        :rtype: float
         """
         return self._number_of_pairs
 
@@ -210,7 +281,7 @@ class Correlation(object):
         Number of points that went into the correlation calculation
 
         :param number_of_pairs: The number_of_pairs of this Correlation.
-        :type: Number
+        :type: float
         """
         self._number_of_pairs = number_of_pairs
 
@@ -265,7 +336,7 @@ class Correlation(object):
         Time at which correlation was calculated
 
         :return: The timestamp of this Correlation.
-        :rtype: Number
+        :rtype: float
         """
         return self._timestamp
 
@@ -276,7 +347,7 @@ class Correlation(object):
         Time at which correlation was calculated
 
         :param timestamp: The timestamp of this Correlation.
-        :type: Number
+        :type: float
         """
         self._timestamp = timestamp
 
@@ -287,7 +358,7 @@ class Correlation(object):
         Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation.
 
         :return: The reverse_correlation of this Correlation.
-        :rtype: Number
+        :rtype: float
         """
         return self._reverse_correlation
 
@@ -298,7 +369,7 @@ class Correlation(object):
         Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation.
 
         :param reverse_correlation: The reverse_correlation of this Correlation.
-        :type: Number
+        :type: float
         """
         self._reverse_correlation = reverse_correlation
 
@@ -309,7 +380,7 @@ class Correlation(object):
         
 
         :return: The causality_factor of this Correlation.
-        :rtype: Number
+        :rtype: float
         """
         return self._causality_factor
 
@@ -320,7 +391,7 @@ class Correlation(object):
         
 
         :param causality_factor: The causality_factor of this Correlation.
-        :type: Number
+        :type: float
         """
         self._causality_factor = causality_factor
 
@@ -367,6 +438,160 @@ class Correlation(object):
         :type: str
         """
         self._effect_category = effect_category
+
+    @property
+    def value_predicting_high_outcome(self):
+        """
+        Gets the value_predicting_high_outcome of this Correlation.
+        cause value that predicts an above average effect value (in default unit for cause variable)
+
+        :return: The value_predicting_high_outcome of this Correlation.
+        :rtype: float
+        """
+        return self._value_predicting_high_outcome
+
+    @value_predicting_high_outcome.setter
+    def value_predicting_high_outcome(self, value_predicting_high_outcome):
+        """
+        Sets the value_predicting_high_outcome of this Correlation.
+        cause value that predicts an above average effect value (in default unit for cause variable)
+
+        :param value_predicting_high_outcome: The value_predicting_high_outcome of this Correlation.
+        :type: float
+        """
+        self._value_predicting_high_outcome = value_predicting_high_outcome
+
+    @property
+    def value_predicting_low_outcome(self):
+        """
+        Gets the value_predicting_low_outcome of this Correlation.
+        cause value that predicts a below average effect value (in default unit for cause variable)
+
+        :return: The value_predicting_low_outcome of this Correlation.
+        :rtype: float
+        """
+        return self._value_predicting_low_outcome
+
+    @value_predicting_low_outcome.setter
+    def value_predicting_low_outcome(self, value_predicting_low_outcome):
+        """
+        Sets the value_predicting_low_outcome of this Correlation.
+        cause value that predicts a below average effect value (in default unit for cause variable)
+
+        :param value_predicting_low_outcome: The value_predicting_low_outcome of this Correlation.
+        :type: float
+        """
+        self._value_predicting_low_outcome = value_predicting_low_outcome
+
+    @property
+    def optimal_pearson_product(self):
+        """
+        Gets the optimal_pearson_product of this Correlation.
+        Optimal Pearson Product
+
+        :return: The optimal_pearson_product of this Correlation.
+        :rtype: float
+        """
+        return self._optimal_pearson_product
+
+    @optimal_pearson_product.setter
+    def optimal_pearson_product(self, optimal_pearson_product):
+        """
+        Sets the optimal_pearson_product of this Correlation.
+        Optimal Pearson Product
+
+        :param optimal_pearson_product: The optimal_pearson_product of this Correlation.
+        :type: float
+        """
+        self._optimal_pearson_product = optimal_pearson_product
+
+    @property
+    def average_vote(self):
+        """
+        Gets the average_vote of this Correlation.
+        Average Vote
+
+        :return: The average_vote of this Correlation.
+        :rtype: float
+        """
+        return self._average_vote
+
+    @average_vote.setter
+    def average_vote(self, average_vote):
+        """
+        Sets the average_vote of this Correlation.
+        Average Vote
+
+        :param average_vote: The average_vote of this Correlation.
+        :type: float
+        """
+        self._average_vote = average_vote
+
+    @property
+    def user_vote(self):
+        """
+        Gets the user_vote of this Correlation.
+        User Vote
+
+        :return: The user_vote of this Correlation.
+        :rtype: float
+        """
+        return self._user_vote
+
+    @user_vote.setter
+    def user_vote(self, user_vote):
+        """
+        Sets the user_vote of this Correlation.
+        User Vote
+
+        :param user_vote: The user_vote of this Correlation.
+        :type: float
+        """
+        self._user_vote = user_vote
+
+    @property
+    def cause_unit(self):
+        """
+        Gets the cause_unit of this Correlation.
+        Unit of Cause
+
+        :return: The cause_unit of this Correlation.
+        :rtype: str
+        """
+        return self._cause_unit
+
+    @cause_unit.setter
+    def cause_unit(self, cause_unit):
+        """
+        Sets the cause_unit of this Correlation.
+        Unit of Cause
+
+        :param cause_unit: The cause_unit of this Correlation.
+        :type: str
+        """
+        self._cause_unit = cause_unit
+
+    @property
+    def cause_unit_id(self):
+        """
+        Gets the cause_unit_id of this Correlation.
+        Unit Id of Cause
+
+        :return: The cause_unit_id of this Correlation.
+        :rtype: int
+        """
+        return self._cause_unit_id
+
+    @cause_unit_id.setter
+    def cause_unit_id(self, cause_unit_id):
+        """
+        Sets the cause_unit_id of this Correlation.
+        Unit Id of Cause
+
+        :param cause_unit_id: The cause_unit_id of this Correlation.
+        :type: int
+        """
+        self._cause_unit_id = cause_unit_id
 
     def to_dict(self):
         """

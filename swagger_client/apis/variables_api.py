@@ -42,106 +42,10 @@ class VariablesApi(object):
             self.api_client = api_client
         else:
             if not config.api_client:
-                config.api_client = ApiClient('https://localhost/api')
+                config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def correlations_post(self, cause, effect, correlationcoefficient, vote, **kwargs):
-        """
-        Store or Update a Correlation
-        Store or Update a Correlation
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.correlations_post(cause, effect, correlationcoefficient, vote, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str cause:  (required)
-        :param str effect:  (required)
-        :param str correlationcoefficient:  (required)
-        :param str vote:  (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        # verify the required parameter 'cause' is set
-        if cause is None:
-            raise ValueError("Missing the required parameter `cause` when calling `correlations_post`")
-        # verify the required parameter 'effect' is set
-        if effect is None:
-            raise ValueError("Missing the required parameter `effect` when calling `correlations_post`")
-        # verify the required parameter 'correlationcoefficient' is set
-        if correlationcoefficient is None:
-            raise ValueError("Missing the required parameter `correlationcoefficient` when calling `correlations_post`")
-        # verify the required parameter 'vote' is set
-        if vote is None:
-            raise ValueError("Missing the required parameter `vote` when calling `correlations_post`")
-
-        all_params = ['cause', 'effect', 'correlationcoefficient', 'vote']
-        all_params.append('callback')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method correlations_post" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-        resource_path = '/correlations'.replace('{format}', 'json')
-        method = 'POST'
-
-        path_params = {}
-
-        query_params = {}
-        if 'cause' in params:
-            query_params['cause'] = params['cause']
-        if 'effect' in params:
-            query_params['effect'] = params['effect']
-        if 'correlationcoefficient' in params:
-            query_params['correlationcoefficient'] = params['correlationcoefficient']
-        if 'vote' in params:
-            query_params['vote'] = params['vote']
-
-        header_params = {}
-
-        form_params = {}
-        files = {}
-
-        body_params = None
-
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-        if not header_params['Accept']:
-            del header_params['Accept']
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type([])
-
-        # Authentication setting
-        auth_settings = ['oauth2']
-
-        response = self.api_client.call_api(resource_path, method,
-                                            path_params,
-                                            query_params,
-                                            header_params,
-                                            body=body_params,
-                                            post_params=form_params,
-                                            files=files,
-                                            response_type=None,
-                                            auth_settings=auth_settings,
-                                            callback=params.get('callback'))
-        return response
-
-    def public_variables_get(self, **kwargs):
+    def v1_public_variables_get(self, **kwargs):
         """
         Get public variables
         This endpoint retrieves an array of all public variables. Public variables are things like foods, medications, symptoms, conditions, and anything not unique to a particular user. For instance, a telephone number or name would not be a public variable.
@@ -152,7 +56,7 @@ class VariablesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.public_variables_get(callback=callback_function)
+        >>> thread = api.v1_public_variables_get(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -169,12 +73,12 @@ class VariablesApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method public_variables_get" % key
+                    " to method v1_public_variables_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/public/variables'.replace('{format}', 'json')
+        resource_path = '/v1/public/variables'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
@@ -213,7 +117,7 @@ class VariablesApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def public_variables_search_search_get(self, search, **kwargs):
+    def v1_public_variables_search_search_get(self, search, **kwargs):
         """
         Get top 5 PUBLIC variables with the most correlations
         Get top 5 PUBLIC variables with the most correlations containing the entered search characters. For example, search for 'mood' as an effect. Since 'Overall Mood' has a lot of correlations with other variables, it should be in the autocomplete list.<br>Supported filter parameters:<br><ul><li><b>category</b> - Category of Variable</li></ul><br>
@@ -224,7 +128,7 @@ class VariablesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.public_variables_search_search_get(search, callback=callback_function)
+        >>> thread = api.v1_public_variables_search_search_get(search, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -239,7 +143,7 @@ class VariablesApi(object):
         """
         # verify the required parameter 'search' is set
         if search is None:
-            raise ValueError("Missing the required parameter `search` when calling `public_variables_search_search_get`")
+            raise ValueError("Missing the required parameter `search` when calling `v1_public_variables_search_search_get`")
 
         all_params = ['search', 'effect_or_cause', 'limit', 'offset', 'sort']
         all_params.append('callback')
@@ -249,12 +153,12 @@ class VariablesApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method public_variables_search_search_get" % key
+                    " to method v1_public_variables_search_search_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/public/variables/search/{search}'.replace('{format}', 'json')
+        resource_path = '/v1/public/variables/search/{search}'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
@@ -381,7 +285,7 @@ class VariablesApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def variable_categories_get(self, **kwargs):
+    def v1_variable_categories_get(self, **kwargs):
         """
         Variable categories
         The variable categories include Activity, Causes of Illness, Cognitive Performance, Conditions, Environment, Foods, Location, Miscellaneous, Mood, Nutrition, Physical Activity, Physique, Sleep, Social Interactions, Symptoms, Treatments, Vital Signs, and Work.
@@ -392,7 +296,7 @@ class VariablesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.variable_categories_get(callback=callback_function)
+        >>> thread = api.v1_variable_categories_get(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -409,12 +313,12 @@ class VariablesApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method variable_categories_get" % key
+                    " to method v1_variable_categories_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/variableCategories'.replace('{format}', 'json')
+        resource_path = '/v1/variableCategories'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
@@ -453,7 +357,7 @@ class VariablesApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def variables_get(self, **kwargs):
+    def v1_variables_get(self, **kwargs):
         """
         Get variables by the category name
         Get variables by the category name. <br>Supported filter parameters:<br><ul><li><b>name</b> - Original name of the variable (supports exact name match only)</li><li><b>lastUpdated</b> - Filter by the last time any of the properties of the variable were changed. Uses UTC format \"YYYY-MM-DDThh:mm:ss\"</li><li><b>source</b> - The name of the data source that created the variable (supports exact name match only). So if you have a client application and you only want variables that were last updated by your app, you can include the name of your app here</li><li><b>latestMeasurementTime</b> - Filter variables based on the last time a measurement for them was created or updated in the UTC format \"YYYY-MM-DDThh:mm:ss\"</li><li><b>numberOfMeasurements</b> - Filter variables by the total number of measurements that they have. This could be used of you want to filter or sort by popularity.</li><li><b>lastSource</b> - Limit variables to those which measurements were last submitted by a specific source. So if you have a client application and you only want variables that were last updated by your app, you can include the name of your app here. (supports exact name match only)</li></ul><br>
@@ -464,7 +368,7 @@ class VariablesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.variables_get(callback=callback_function)
+        >>> thread = api.v1_variables_get(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -486,12 +390,12 @@ class VariablesApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method variables_get" % key
+                    " to method v1_variables_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/variables'.replace('{format}', 'json')
+        resource_path = '/v1/variables'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
@@ -540,7 +444,7 @@ class VariablesApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def variables_post(self, variable_name, **kwargs):
+    def v1_variables_post(self, variable_name, **kwargs):
         """
         Create Variables
         Allows the client to create a new variable in the `variables` table.
@@ -551,7 +455,7 @@ class VariablesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.variables_post(variable_name, callback=callback_function)
+        >>> thread = api.v1_variables_post(variable_name, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -562,7 +466,7 @@ class VariablesApi(object):
         """
         # verify the required parameter 'variable_name' is set
         if variable_name is None:
-            raise ValueError("Missing the required parameter `variable_name` when calling `variables_post`")
+            raise ValueError("Missing the required parameter `variable_name` when calling `v1_variables_post`")
 
         all_params = ['variable_name']
         all_params.append('callback')
@@ -572,12 +476,12 @@ class VariablesApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method variables_post" % key
+                    " to method v1_variables_post" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/variables'.replace('{format}', 'json')
+        resource_path = '/v1/variables'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
@@ -618,7 +522,7 @@ class VariablesApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def variables_search_search_get(self, search, **kwargs):
+    def v1_variables_search_search_get(self, search, **kwargs):
         """
         Get variables by search query
         Get variables containing the search characters for which the currently logged in user has measurements. Used to provide auto-complete function in variable search boxes.
@@ -629,7 +533,7 @@ class VariablesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.variables_search_search_get(search, callback=callback_function)
+        >>> thread = api.v1_variables_search_search_get(search, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -644,7 +548,7 @@ class VariablesApi(object):
         """
         # verify the required parameter 'search' is set
         if search is None:
-            raise ValueError("Missing the required parameter `search` when calling `variables_search_search_get`")
+            raise ValueError("Missing the required parameter `search` when calling `v1_variables_search_search_get`")
 
         all_params = ['search', 'category_name', 'source', 'limit', 'offset']
         all_params.append('callback')
@@ -654,12 +558,12 @@ class VariablesApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method variables_search_search_get" % key
+                    " to method v1_variables_search_search_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/variables/search/{search}'.replace('{format}', 'json')
+        resource_path = '/v1/variables/search/{search}'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
@@ -708,7 +612,7 @@ class VariablesApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def variables_variable_name_get(self, variable_name, **kwargs):
+    def v1_variables_variable_name_get(self, variable_name, **kwargs):
         """
         Get info about a variable
         Get all of the settings and information about a variable by its name. If the logged in user has modified the settings for the variable, these will be provided instead of the default settings for that variable.
@@ -719,7 +623,7 @@ class VariablesApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.variables_variable_name_get(variable_name, callback=callback_function)
+        >>> thread = api.v1_variables_variable_name_get(variable_name, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -730,7 +634,7 @@ class VariablesApi(object):
         """
         # verify the required parameter 'variable_name' is set
         if variable_name is None:
-            raise ValueError("Missing the required parameter `variable_name` when calling `variables_variable_name_get`")
+            raise ValueError("Missing the required parameter `variable_name` when calling `v1_variables_variable_name_get`")
 
         all_params = ['variable_name']
         all_params.append('callback')
@@ -740,12 +644,12 @@ class VariablesApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method variables_variable_name_get" % key
+                    " to method v1_variables_variable_name_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/variables/{variableName}'.replace('{format}', 'json')
+        resource_path = '/v1/variables/{variableName}'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}

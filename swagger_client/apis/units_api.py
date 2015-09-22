@@ -42,10 +42,10 @@ class UnitsApi(object):
             self.api_client = api_client
         else:
             if not config.api_client:
-                config.api_client = ApiClient('https://localhost/api')
+                config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def unit_categories_get(self, **kwargs):
+    def v1_unit_categories_get(self, **kwargs):
         """
         Get unit categories
         Get a list of the categories of measurement units such as 'Distance', 'Duration', 'Energy', 'Frequency', 'Miscellany', 'Pressure', 'Proportion', 'Rating', 'Temperature', 'Volume', and 'Weight'.
@@ -56,7 +56,7 @@ class UnitsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.unit_categories_get(callback=callback_function)
+        >>> thread = api.v1_unit_categories_get(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -73,12 +73,12 @@ class UnitsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method unit_categories_get" % key
+                    " to method v1_unit_categories_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/unitCategories'.replace('{format}', 'json')
+        resource_path = '/v1/unitCategories'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
@@ -117,7 +117,7 @@ class UnitsApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def units_get(self, **kwargs):
+    def v1_units_get(self, **kwargs):
         """
         Get all available units
         Get all available units
@@ -128,7 +128,7 @@ class UnitsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.units_get(callback=callback_function)
+        >>> thread = api.v1_units_get(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -148,12 +148,12 @@ class UnitsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method units_get" % key
+                    " to method v1_units_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/units'.replace('{format}', 'json')
+        resource_path = '/v1/units'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
@@ -198,7 +198,7 @@ class UnitsApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def units_variable_get(self, **kwargs):
+    def v1_units_variable_get(self, **kwargs):
         """
         Units for Variable
         Get a list of all possible units to use for a given variable
@@ -209,7 +209,7 @@ class UnitsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.units_variable_get(callback=callback_function)
+        >>> thread = api.v1_units_variable_get(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
@@ -230,12 +230,12 @@ class UnitsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method units_variable_get" % key
+                    " to method v1_units_variable_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/unitsVariable'.replace('{format}', 'json')
+        resource_path = '/v1/unitsVariable'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}

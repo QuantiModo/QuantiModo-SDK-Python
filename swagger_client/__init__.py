@@ -2,6 +2,8 @@ from __future__ import absolute_import
 
 # import models into sdk package
 from .models.common_response import CommonResponse
+from .models.human_time import HumanTime
+from .models.connector_instruction import ConnectorInstruction
 from .models.connector import Connector
 from .models.connector_info import ConnectorInfo
 from .models.connector_info_history_item import ConnectorInfoHistoryItem
@@ -31,13 +33,12 @@ from .models.variable_new import VariableNew
 from .models.variables_new import VariablesNew
 
 # import apis into sdk package
-from .apis.variables_api import VariablesApi
-from .apis.oauth_api import OauthApi
 from .apis.connectors_api import ConnectorsApi
+from .apis.oauth_api import OauthApi
+from .apis.variables_api import VariablesApi
 from .apis.user_api import UserApi
 from .apis.measurements_api import MeasurementsApi
 from .apis.correlations_api import CorrelationsApi
-from .apis.connect_api import ConnectApi
 from .apis.organizations_api import OrganizationsApi
 from .apis.votes_api import VotesApi
 from .apis.pairs_api import PairsApi

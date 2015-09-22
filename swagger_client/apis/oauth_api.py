@@ -42,13 +42,13 @@ class OauthApi(object):
             self.api_client = api_client
         else:
             if not config.api_client:
-                config.api_client = ApiClient('https://localhost/api')
+                config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def oauth2_accesstoken_get(self, client_id, client_secret, grant_type, **kwargs):
+    def v1_oauth2_authorize_get(self, client_id, client_secret, response_type, scope, **kwargs):
         """
-        Access Token
-        Client provides authorization token obtained from /api/oauth2/authorize to this endpoint and receives an access token. Access token can then be used to query different API endpoints of QuantiModo.
+        Authorize
+        Ask the user if they want to allow a client's application to submit or obtain data from their QM account. It will redirect the user to the url provided by the client application with the code as a query parameter or error in case of an error.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -56,33 +56,34 @@ class OauthApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.oauth2_accesstoken_get(client_id, client_secret, grant_type, callback=callback_function)
+        >>> thread = api.v1_oauth2_authorize_get(client_id, client_secret, response_type, scope, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str client_id: Client id (required)
-        :param str client_secret: Client secret (required)
-        :param str grant_type: Grant Type can be 'authorization_code' or 'refresh_token' (required)
-        :param str response_type: Response type
-        :param str scope: Scope
-        :param str redirect_uri: Redirect uri
-        :param str state: State
-        :param str realm: Realm
+        :param str client_id: This is the unique ID that QuantiModo uses to identify your application. Obtain a client id by emailing info@quantimo.do. (required)
+        :param str client_secret: This is the secret for your obtained client_id. QuantiModo uses this to validate that only your application uses the client_id. (required)
+        :param str response_type: If the value is code, launches a Basic flow, requiring a POST to the token endpoint to obtain the tokens. If the value is token id_token or id_token token, launches an Implicit flow, requiring the use of Javascript at the redirect URI to retrieve tokens from the URI #fragment. (required)
+        :param str scope: Scopes include basic, readmeasurements, and writemeasurements. The \"basic\" scope allows you to read user info (displayname, email, etc). The \"readmeasurements\" scope allows one to read a user's data. The \"writemeasurements\" scope allows you to write user data. Separate multiple scopes by a space. (required)
+        :param str redirect_uri: The redirect URI is the URL within your client application that will receive the OAuth2 credentials.
+        :param str state: An opaque string that is round-tripped in the protocol; that is to say, it is returned as a URI parameter in the Basic flow, and in the URI
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         # verify the required parameter 'client_id' is set
         if client_id is None:
-            raise ValueError("Missing the required parameter `client_id` when calling `oauth2_accesstoken_get`")
+            raise ValueError("Missing the required parameter `client_id` when calling `v1_oauth2_authorize_get`")
         # verify the required parameter 'client_secret' is set
         if client_secret is None:
-            raise ValueError("Missing the required parameter `client_secret` when calling `oauth2_accesstoken_get`")
-        # verify the required parameter 'grant_type' is set
-        if grant_type is None:
-            raise ValueError("Missing the required parameter `grant_type` when calling `oauth2_accesstoken_get`")
+            raise ValueError("Missing the required parameter `client_secret` when calling `v1_oauth2_authorize_get`")
+        # verify the required parameter 'response_type' is set
+        if response_type is None:
+            raise ValueError("Missing the required parameter `response_type` when calling `v1_oauth2_authorize_get`")
+        # verify the required parameter 'scope' is set
+        if scope is None:
+            raise ValueError("Missing the required parameter `scope` when calling `v1_oauth2_authorize_get`")
 
-        all_params = ['client_id', 'client_secret', 'grant_type', 'response_type', 'scope', 'redirect_uri', 'state', 'realm']
+        all_params = ['client_id', 'client_secret', 'response_type', 'scope', 'redirect_uri', 'state']
         all_params.append('callback')
 
         params = locals()
@@ -90,12 +91,12 @@ class OauthApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method oauth2_accesstoken_get" % key
+                    " to method v1_oauth2_authorize_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/oauth2/accesstoken'.replace('{format}', 'json')
+        resource_path = '/v1/oauth2/authorize'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
@@ -105,8 +106,6 @@ class OauthApi(object):
             query_params['client_id'] = params['client_id']
         if 'client_secret' in params:
             query_params['client_secret'] = params['client_secret']
-        if 'grant_type' in params:
-            query_params['grant_type'] = params['grant_type']
         if 'response_type' in params:
             query_params['response_type'] = params['response_type']
         if 'scope' in params:
@@ -115,8 +114,6 @@ class OauthApi(object):
             query_params['redirect_uri'] = params['redirect_uri']
         if 'state' in params:
             query_params['state'] = params['state']
-        if 'realm' in params:
-            query_params['realm'] = params['realm']
 
         header_params = {}
 
@@ -150,10 +147,10 @@ class OauthApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def oauth2_authorize_get(self, client_id, client_secret, response_type, scope, **kwargs):
+    def v1_oauth2_token_get(self, client_id, client_secret, grant_type, **kwargs):
         """
-        Authorize
-        Ask the user if they want to allow a client applications to submit or obtain data from their QM account. It will redirect the user to the url provided by the client application with the code as a query parameter or error in case of an error.
+        Access Token
+        Client provides authorization token obtained from /api/v1/oauth2/authorize to this endpoint and receives an access token. Access token can then be used to query different API endpoints of QuantiModo.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -161,35 +158,32 @@ class OauthApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.oauth2_authorize_get(client_id, client_secret, response_type, scope, callback=callback_function)
+        >>> thread = api.v1_oauth2_token_get(client_id, client_secret, grant_type, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str client_id: This is the unique ID that QuantiModo uses to identify your application. Obtain a client id by emailing info@quantimo.do. (required)
-        :param str client_secret: This is the secret for your obtained clietn_id. QuantiModo uses this to validate that only your application uses the client_id. (required)
-        :param str response_type: If the value is code, launches a Basic flow, requiring a POST to the token endpoint to obtain the tokens. If the value is token id_token or id_token token, launches an Implicit flow, requiring the use of Javascript at the redirect URI to retrieve tokens from the URI #fragment. (required)
-        :param str scope: Scopes include basic, readmeasurements, and writemeasurements. The \"basic\" scope allows you to read user info (displayname, email, etc). The \"readmeasurements\" scope allows one to read a user's data. The \"writemeasurements\" scope allows you to write user data. Separate multiple scopes by a space. (required)
+        :param str client_secret: This is the secret for your obtained client_id. QuantiModo uses this to validate that only your application uses the client_id. (required)
+        :param str grant_type: Grant Type can be 'authorization_code' or 'refresh_token' (required)
+        :param str response_type: If the value is code, launches a Basic flow, requiring a POST to the token endpoint to obtain the tokens. If the value is token id_token or id_token token, launches an Implicit flow, requiring the use of Javascript at the redirect URI to retrieve tokens from the URI #fragment.
+        :param str scope: Scopes include basic, readmeasurements, and writemeasurements. The \"basic\" scope allows you to read user info (displayname, email, etc). The \"readmeasurements\" scope allows one to read a user's data. The \"writemeasurements\" scope allows you to write user data. Separate multiple scopes by a space.
         :param str redirect_uri: The redirect URI is the URL within your client application that will receive the OAuth2 credentials.
         :param str state: An opaque string that is round-tripped in the protocol; that is to say, it is returned as a URI parameter in the Basic flow, and in the URI
-        :param str realm: Name of the realm representing the users of your distributed applications and services. A \"realm\" attribute MAY be included to indicate the scope of protection.
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         # verify the required parameter 'client_id' is set
         if client_id is None:
-            raise ValueError("Missing the required parameter `client_id` when calling `oauth2_authorize_get`")
+            raise ValueError("Missing the required parameter `client_id` when calling `v1_oauth2_token_get`")
         # verify the required parameter 'client_secret' is set
         if client_secret is None:
-            raise ValueError("Missing the required parameter `client_secret` when calling `oauth2_authorize_get`")
-        # verify the required parameter 'response_type' is set
-        if response_type is None:
-            raise ValueError("Missing the required parameter `response_type` when calling `oauth2_authorize_get`")
-        # verify the required parameter 'scope' is set
-        if scope is None:
-            raise ValueError("Missing the required parameter `scope` when calling `oauth2_authorize_get`")
+            raise ValueError("Missing the required parameter `client_secret` when calling `v1_oauth2_token_get`")
+        # verify the required parameter 'grant_type' is set
+        if grant_type is None:
+            raise ValueError("Missing the required parameter `grant_type` when calling `v1_oauth2_token_get`")
 
-        all_params = ['client_id', 'client_secret', 'response_type', 'scope', 'redirect_uri', 'state', 'realm']
+        all_params = ['client_id', 'client_secret', 'grant_type', 'response_type', 'scope', 'redirect_uri', 'state']
         all_params.append('callback')
 
         params = locals()
@@ -197,12 +191,12 @@ class OauthApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method oauth2_authorize_get" % key
+                    " to method v1_oauth2_token_get" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        resource_path = '/oauth2/authorize'.replace('{format}', 'json')
+        resource_path = '/v1/oauth2/token'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
@@ -212,6 +206,8 @@ class OauthApi(object):
             query_params['client_id'] = params['client_id']
         if 'client_secret' in params:
             query_params['client_secret'] = params['client_secret']
+        if 'grant_type' in params:
+            query_params['grant_type'] = params['grant_type']
         if 'response_type' in params:
             query_params['response_type'] = params['response_type']
         if 'scope' in params:
@@ -220,8 +216,6 @@ class OauthApi(object):
             query_params['redirect_uri'] = params['redirect_uri']
         if 'state' in params:
             query_params['state'] = params['state']
-        if 'realm' in params:
-            query_params['realm'] = params['realm']
 
         header_params = {}
 

@@ -2,6 +2,8 @@ from __future__ import absolute_import
 
 # import models into model package
 from .common_response import CommonResponse
+from .human_time import HumanTime
+from .connector_instruction import ConnectorInstruction
 from .connector import Connector
 from .connector_info import ConnectorInfo
 from .connector_info_history_item import ConnectorInfoHistoryItem

@@ -42,7 +42,7 @@ class OrganizationsApi(object):
             self.api_client = api_client
         else:
             if not config.api_client:
-                config.api_client = ApiClient('https://localhost/api')
+                config.api_client = ApiClient()
             self.api_client = config.api_client
 
     def v1_organizations_organization_id_users_post(self, organization_id, body, **kwargs):
