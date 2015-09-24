@@ -133,7 +133,6 @@ class VariablesApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str search: Search query can be some fraction of a variable name. (required)
-        :param str effect_or_cause: Allows us to specify which column in the `correlations` table will be searched. Choices are effect or cause.
         :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0.
         :param int offset: Now suppose you wanted to show results 11-20. You'd set the offset to 10 and the limit to 10.
         :param int sort: Sort by given field. If the field is prefixed with `-, it will sort in descending order.
@@ -145,7 +144,7 @@ class VariablesApi(object):
         if search is None:
             raise ValueError("Missing the required parameter `search` when calling `v1_public_variables_search_search_get`")
 
-        all_params = ['search', 'effect_or_cause', 'limit', 'offset', 'sort']
+        all_params = ['search', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -166,8 +165,6 @@ class VariablesApi(object):
             path_params['search'] = params['search']
 
         query_params = {}
-        if 'effect_or_cause' in params:
-            query_params['effectOrCause'] = params['effect_or_cause']
         if 'limit' in params:
             query_params['limit'] = params['limit']
         if 'offset' in params:
@@ -374,6 +371,12 @@ class VariablesApi(object):
             for asynchronous request. (optional)
         :param int user_id: User id
         :param str category: Filter data by category
+        :param str name: Original name of the variable (supports exact name match only)
+        :param str last_updated: Filter by the last time any of the properties of the variable were changed. Uses UTC format \"YYYY-MM-DDThh:mm:ss\"
+        :param str source: The name of the data source that created the variable (supports exact name match only). So if you have a client application and you only want variables that were last updated by your app, you can include the name of your app here
+        :param str latest_measurement_time: Filter variables based on the last time a measurement for them was created or updated in the UTC format \"YYYY-MM-DDThh:mm:ss\"
+        :param str number_of_measurements: Filter variables by the total number of measurements that they have. This could be used of you want to filter or sort by popularity.
+        :param str last_source: Limit variables to those which measurements were last submitted by a specific source. So if you have a client application and you only want variables that were last updated by your app, you can include the name of your app here. (supports exact name match only)
         :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0.
         :param int offset: Now suppose you wanted to show results 11-20. You'd set the offset to 10 and the limit to 10.
         :param int sort: Sort by given field. If the field is prefixed with `-, it will sort in descending order.
@@ -382,7 +385,7 @@ class VariablesApi(object):
                  returns the request thread.
         """
 
-        all_params = ['user_id', 'category', 'limit', 'offset', 'sort']
+        all_params = ['user_id', 'category', 'name', 'last_updated', 'source', 'latest_measurement_time', 'number_of_measurements', 'last_source', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -405,6 +408,18 @@ class VariablesApi(object):
             query_params['userId'] = params['user_id']
         if 'category' in params:
             query_params['category'] = params['category']
+        if 'name' in params:
+            query_params['name'] = params['name']
+        if 'last_updated' in params:
+            query_params['lastUpdated'] = params['last_updated']
+        if 'source' in params:
+            query_params['source'] = params['source']
+        if 'latest_measurement_time' in params:
+            query_params['latestMeasurementTime'] = params['latest_measurement_time']
+        if 'number_of_measurements' in params:
+            query_params['numberOfMeasurements'] = params['number_of_measurements']
+        if 'last_source' in params:
+            query_params['lastSource'] = params['last_source']
         if 'limit' in params:
             query_params['limit'] = params['limit']
         if 'offset' in params:

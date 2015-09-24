@@ -62,6 +62,10 @@ class CorrelationsApi(object):
             for asynchronous request. (optional)
         :param str effect: ORIGINAL variable name of the effect variable for which the user desires correlations
         :param str cause: ORIGINAL variable name of the cause variable for which the user desires correlations
+        :param str correlation_coefficient: Pearson correlation coefficient between cause and effect after lagging by onset delay and grouping by duration of action
+        :param str onset_delay: The number of seconds which pass following a cause measurement before an effect would likely be observed.
+        :param str duration_of_action: The time in seconds over which the cause would be expected to exert a measurable effect. We have selected a default value for each variable. This default value may be replaced by a user specified by adjusting their variable user settings.
+        :param str last_updated: The time that this measurement was last updated in the UTC format \"YYYY-MM-DDThh:mm:ss\"
         :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0.
         :param int offset: Now suppose you wanted to show results 11-20. You'd set the offset to 10 and the limit to 10.
         :param int sort: Sort by given field. If the field is prefixed with `-, it will sort in descending order.
@@ -70,7 +74,7 @@ class CorrelationsApi(object):
                  returns the request thread.
         """
 
-        all_params = ['effect', 'cause', 'limit', 'offset', 'sort']
+        all_params = ['effect', 'cause', 'correlation_coefficient', 'onset_delay', 'duration_of_action', 'last_updated', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -93,6 +97,14 @@ class CorrelationsApi(object):
             query_params['effect'] = params['effect']
         if 'cause' in params:
             query_params['cause'] = params['cause']
+        if 'correlation_coefficient' in params:
+            query_params['correlationCoefficient'] = params['correlation_coefficient']
+        if 'onset_delay' in params:
+            query_params['onsetDelay'] = params['onset_delay']
+        if 'duration_of_action' in params:
+            query_params['durationOfAction'] = params['duration_of_action']
+        if 'last_updated' in params:
+            query_params['lastUpdated'] = params['last_updated']
         if 'limit' in params:
             query_params['limit'] = params['limit']
         if 'offset' in params:

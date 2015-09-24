@@ -211,7 +211,10 @@ class MeasurementsApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str variable_name: Name of the variable you want measurements for
-        :param str unit: The unit your want the measurements in
+        :param str source: Name of the source you want measurements for (supports exact name match only)
+        :param str value: Value of measurement
+        :param str last_updated: The time that this measurement was created or last updated in the UTC format \"YYYY-MM-DDThh:mm:ss\"
+        :param str unit: The unit you want the measurements in
         :param str start_time: The lower limit of measurements returned (Epoch)
         :param str end_time: The upper limit of measurements returned (Epoch)
         :param int grouping_width: The time (in seconds) over which measurements are grouped together
@@ -224,7 +227,7 @@ class MeasurementsApi(object):
                  returns the request thread.
         """
 
-        all_params = ['variable_name', 'unit', 'start_time', 'end_time', 'grouping_width', 'grouping_timezone', 'limit', 'offset', 'sort']
+        all_params = ['variable_name', 'source', 'value', 'last_updated', 'unit', 'start_time', 'end_time', 'grouping_width', 'grouping_timezone', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -245,6 +248,12 @@ class MeasurementsApi(object):
         query_params = {}
         if 'variable_name' in params:
             query_params['variableName'] = params['variable_name']
+        if 'source' in params:
+            query_params['source'] = params['source']
+        if 'value' in params:
+            query_params['value'] = params['value']
+        if 'last_updated' in params:
+            query_params['lastUpdated'] = params['last_updated']
         if 'unit' in params:
             query_params['unit'] = params['unit']
         if 'start_time' in params:
@@ -297,7 +306,7 @@ class MeasurementsApi(object):
     def v1_measurements_post(self, measurements, **kwargs):
         """
         Post a new set or update existing measurements to the database
-        You can submit or update multiple measurements in a \"measurements\" sub-array.  If the variable these measurements correspond to does not already exist in the database, it will be automatically added.  The request body should look something like [{\"measurements\":[{\"timestamp\":1406419860,\"value\":\"1\",\"note\":\"I am a note about back pain.\"},{\"timestamp\":1406519865,\"value\":\"3\",\"note\":\"I am another note about back pain.\"}],\"name\":\"Back Pain\",\"source\":\"QuantiModo\",\"category\":\"Symptoms\",\"combinationOperation\":\"MEAN\",\"unit\":\"/5\"}]
+        You can submit or update multiple measurements in a \"measurements\" sub-array.  If the variable these measurements correspond to does not already exist in the database, it will be automatically added.  The request body should look something like [{\"measurements\":[{\"startTime\":1439389320,\"value\":\"3\"}],\"name\":\"Acne (out of 5)\",\"source\":\"QuantiModo\",\"category\":\"Symptoms\",\"combinationOperation\":\"MEAN\",\"unit\":\"/5\"}]
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function

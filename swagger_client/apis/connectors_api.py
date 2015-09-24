@@ -45,10 +45,10 @@ class ConnectorsApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def v1_connect_js_get(self, **kwargs):
+    def v1_connect_js_get(self, access_token, **kwargs):
         """
         Get embeddable connect javascript
-        Get embeddable connect javascript. Usage:\n\n  - Embedding in applications with popups for 3rd-party authentication\nwindows.\n\n    Use `qmSetupInPopup` function after connecting `connect.js`.\n\n  - Embedding in applications with popups for 3rd-party authentication\nwindows.\n\n    Requires a selector to block. It will be embedded in this block.\n\n    Use `qmSetupOnPage` function after connecting `connect.js`.\n\n  - Embedding in mobile applications without popups for 3rd-party\nauthentication.\n\n    Use `qmSetupOnMobile` function after connecting `connect.js`.
+        Get embeddable connect javascript. Usage:\n\n  - Embedding in applications with popups for 3rd-party authentication\nwindows.\n\n    Use `qmSetupInPopup` function after connecting `connect.js`.\n\n  - Embedding in applications with popups for 3rd-party authentication\nwindows.\n\n    Requires a selector to block. It will be embedded in this block.\n\n    Use `qmSetupOnPage` function after connecting `connect.js`.\n\n  - Embedding in mobile applications without popups for 3rd-party\nauthentication.\n\n    Use `qmSetupOnMobile` function after connecting `connect.js`.\n\n    if using the MoodiModo Clones, Use `qmSetupOnIonic` function after connecting `connect.js`.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -56,17 +56,21 @@ class ConnectorsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.v1_connect_js_get(callback=callback_function)
+        >>> thread = api.v1_connect_js_get(access_token, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str t: User token
+        :param str access_token: User's access token (required)
+        :param str mashape_key: Mashape API key
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
+        # verify the required parameter 'access_token' is set
+        if access_token is None:
+            raise ValueError("Missing the required parameter `access_token` when calling `v1_connect_js_get`")
 
-        all_params = ['t']
+        all_params = ['access_token', 'mashape_key']
         all_params.append('callback')
 
         params = locals()
@@ -85,8 +89,10 @@ class ConnectorsApi(object):
         path_params = {}
 
         query_params = {}
-        if 't' in params:
-            query_params['t'] = params['t']
+        if 'access_token' in params:
+            query_params['access token'] = params['access_token']
+        if 'mashape_key' in params:
+            query_params['mashape key'] = params['mashape_key']
 
         header_params = {}
 
