@@ -21,7 +21,7 @@ setup(
     name=NAME,
     version=VERSION,
     description="QuantiModo",
-    author_email="support@lazoka.com",
+    author_email="foo@example.com",
     url="",
     keywords=["Swagger", "QuantiModo"],
     install_requires=REQUIRES,
