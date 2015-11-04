@@ -56,7 +56,7 @@ class Configuration(object):
         Constructor
         """
         # Default Base url
-        self.host = "https://localhost/api"
+        self.host = "https://app.quantimo.do/api/v2"
         # Default api client
         self.api_client = None
         # Temp file folder for downloading files
@@ -92,6 +92,10 @@ class Configuration(object):
         self.verify_ssl = True
         # Set this to customize the certificate file to verify the peer.
         self.ssl_ca_cert = None
+        # client certificate file
+        self.cert_file = None
+        # client key file
+        self.key_file = None
 
     @property
     def logger_file(self):
@@ -209,20 +213,6 @@ class Configuration(object):
         :return: The Auth Settings information dict.
         """
         return {
-            'basicAuth':
-                {
-                    'type': 'basic',
-                    'in': 'header',
-                    'key': 'Authorization',
-                    'value': self.get_basic_auth_token()
-                },
-            'internalApiKey':
-                {
-                    'type': 'api_key',
-                    'in': 'header',
-                    'key': 'api_key',
-                    'value': self.get_api_key_with_prefix('api_key')
-                },
         }
 
     def to_debug_report(self):
@@ -234,6 +224,6 @@ class Configuration(object):
         return "Python SDK Debug Report:\n"\
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
-               "Version of the API: 1.0.0\n"\
+               "Version of the API: 2.0\n"\
                "SDK Package Version: 1.0.0".\
                format(env=sys.platform, pyversion=sys.version)

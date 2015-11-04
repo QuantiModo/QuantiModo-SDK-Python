@@ -42,24 +42,22 @@ class Connector(object):
             'display_name': 'str',
             'image': 'str',
             'get_it_url': 'str',
-            'connected': 'str',
-            'connect_instructions': 'str',
-            'last_update': 'int',
-            'total_measurements_in_last_update': 'int',
-            'no_data_yet': 'bool'
+            'short_description': 'str',
+            'long_description': 'str',
+            'enabled': 'bool',
+            'oauth': 'bool'
         }
 
         self.attribute_map = {
             'id': 'id',
             'name': 'name',
-            'display_name': 'displayName',
+            'display_name': 'display_name',
             'image': 'image',
-            'get_it_url': 'getItUrl',
-            'connected': 'connected',
-            'connect_instructions': 'connectInstructions',
-            'last_update': 'lastUpdate',
-            'total_measurements_in_last_update': 'totalMeasurementsInLastUpdate',
-            'no_data_yet': 'noDataYet'
+            'get_it_url': 'get_it_url',
+            'short_description': 'short_description',
+            'long_description': 'long_description',
+            'enabled': 'enabled',
+            'oauth': 'oauth'
         }
 
         self._id = None
@@ -67,11 +65,10 @@ class Connector(object):
         self._display_name = None
         self._image = None
         self._get_it_url = None
-        self._connected = None
-        self._connect_instructions = None
-        self._last_update = None
-        self._total_measurements_in_last_update = None
-        self._no_data_yet = None
+        self._short_description = None
+        self._long_description = None
+        self._enabled = None
+        self._oauth = None
 
     @property
     def id(self):
@@ -184,114 +181,92 @@ class Connector(object):
         self._get_it_url = get_it_url
 
     @property
-    def connected(self):
+    def short_description(self):
         """
-        Gets the connected of this Connector.
-        True if the authenticated user has this connector enabled
+        Gets the short_description of this Connector.
+        Short description
 
-        :return: The connected of this Connector.
+        :return: The short_description of this Connector.
         :rtype: str
         """
-        return self._connected
+        return self._short_description
 
-    @connected.setter
-    def connected(self, connected):
+    @short_description.setter
+    def short_description(self, short_description):
         """
-        Sets the connected of this Connector.
-        True if the authenticated user has this connector enabled
+        Sets the short_description of this Connector.
+        Short description
 
-        :param connected: The connected of this Connector.
+        :param short_description: The short_description of this Connector.
         :type: str
         """
-        self._connected = connected
+        self._short_description = short_description
 
     @property
-    def connect_instructions(self):
+    def long_description(self):
         """
-        Gets the connect_instructions of this Connector.
-        URL and parameters used when connecting to a service
+        Gets the long_description of this Connector.
+        Long description
 
-        :return: The connect_instructions of this Connector.
+        :return: The long_description of this Connector.
         :rtype: str
         """
-        return self._connect_instructions
+        return self._long_description
 
-    @connect_instructions.setter
-    def connect_instructions(self, connect_instructions):
+    @long_description.setter
+    def long_description(self, long_description):
         """
-        Sets the connect_instructions of this Connector.
-        URL and parameters used when connecting to a service
+        Sets the long_description of this Connector.
+        Long description
 
-        :param connect_instructions: The connect_instructions of this Connector.
+        :param long_description: The long_description of this Connector.
         :type: str
         """
-        self._connect_instructions = connect_instructions
+        self._long_description = long_description
 
     @property
-    def last_update(self):
+    def enabled(self):
         """
-        Gets the last_update of this Connector.
-        Epoch timestamp of last sync
+        Gets the enabled of this Connector.
+        enabled
 
-        :return: The last_update of this Connector.
-        :rtype: int
-        """
-        return self._last_update
-
-    @last_update.setter
-    def last_update(self, last_update):
-        """
-        Sets the last_update of this Connector.
-        Epoch timestamp of last sync
-
-        :param last_update: The last_update of this Connector.
-        :type: int
-        """
-        self._last_update = last_update
-
-    @property
-    def total_measurements_in_last_update(self):
-        """
-        Gets the total_measurements_in_last_update of this Connector.
-        Number of measurements obtained during latest update
-
-        :return: The total_measurements_in_last_update of this Connector.
-        :rtype: int
-        """
-        return self._total_measurements_in_last_update
-
-    @total_measurements_in_last_update.setter
-    def total_measurements_in_last_update(self, total_measurements_in_last_update):
-        """
-        Sets the total_measurements_in_last_update of this Connector.
-        Number of measurements obtained during latest update
-
-        :param total_measurements_in_last_update: The total_measurements_in_last_update of this Connector.
-        :type: int
-        """
-        self._total_measurements_in_last_update = total_measurements_in_last_update
-
-    @property
-    def no_data_yet(self):
-        """
-        Gets the no_data_yet of this Connector.
-        True if user has no measurements for this connector
-
-        :return: The no_data_yet of this Connector.
+        :return: The enabled of this Connector.
         :rtype: bool
         """
-        return self._no_data_yet
+        return self._enabled
 
-    @no_data_yet.setter
-    def no_data_yet(self, no_data_yet):
+    @enabled.setter
+    def enabled(self, enabled):
         """
-        Sets the no_data_yet of this Connector.
-        True if user has no measurements for this connector
+        Sets the enabled of this Connector.
+        enabled
 
-        :param no_data_yet: The no_data_yet of this Connector.
+        :param enabled: The enabled of this Connector.
         :type: bool
         """
-        self._no_data_yet = no_data_yet
+        self._enabled = enabled
+
+    @property
+    def oauth(self):
+        """
+        Gets the oauth of this Connector.
+        oauth
+
+        :return: The oauth of this Connector.
+        :rtype: bool
+        """
+        return self._oauth
+
+    @oauth.setter
+    def oauth(self, oauth):
+        """
+        Sets the oauth of this Connector.
+        oauth
+
+        :param oauth: The oauth of this Connector.
+        :type: bool
+        """
+        self._oauth = oauth
 
     def to_dict(self):
         """

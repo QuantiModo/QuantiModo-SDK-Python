@@ -37,297 +37,105 @@ class Correlation(object):
                                   and the value is json key in definition.
         """
         self.swagger_types = {
-            'correlation_coefficient': 'float',
-            'cause': 'str',
-            'original_cause': 'str',
-            'effect': 'str',
-            'original_effect': 'str',
-            'onset_delay': 'float',
-            'duration_of_action': 'float',
-            'number_of_pairs': 'float',
-            'effect_size': 'str',
-            'statistical_significance': 'str',
-            'timestamp': 'float',
-            'reverse_correlation': 'float',
-            'causality_factor': 'float',
-            'cause_category': 'str',
-            'effect_category': 'str',
+            'id': 'int',
+            'timestamp': 'int',
+            'user_id': 'int',
+            'correlation': 'float',
+            'cause_id': 'int',
+            'effect_id': 'int',
+            'onset_delay': 'int',
+            'duration_of_action': 'int',
+            'number_of_pairs': 'int',
             'value_predicting_high_outcome': 'float',
             'value_predicting_low_outcome': 'float',
             'optimal_pearson_product': 'float',
-            'average_vote': 'float',
-            'user_vote': 'float',
+            'vote': 'float',
+            'statistical_significance': 'float',
             'cause_unit': 'str',
-            'cause_unit_id': 'int'
+            'cause_unit_id': 'int',
+            'cause_changes': 'int',
+            'effect_changes': 'int',
+            'qm_score': 'float',
+            'error': 'str',
+            'created_at': 'datetime',
+            'updated_at': 'datetime',
+            'reverse_pearson_correlation_coefficient': 'float',
+            'predictive_pearson_correlation_coefficient': 'float'
         }
 
         self.attribute_map = {
-            'correlation_coefficient': 'correlationCoefficient',
-            'cause': 'cause',
-            'original_cause': 'originalCause',
-            'effect': 'effect',
-            'original_effect': 'originalEffect',
-            'onset_delay': 'onsetDelay',
-            'duration_of_action': 'durationOfAction',
-            'number_of_pairs': 'numberOfPairs',
-            'effect_size': 'effectSize',
-            'statistical_significance': 'statisticalSignificance',
+            'id': 'id',
             'timestamp': 'timestamp',
-            'reverse_correlation': 'reverseCorrelation',
-            'causality_factor': 'causalityFactor',
-            'cause_category': 'causeCategory',
-            'effect_category': 'effectCategory',
-            'value_predicting_high_outcome': 'valuePredictingHighOutcome',
-            'value_predicting_low_outcome': 'valuePredictingLowOutcome',
-            'optimal_pearson_product': 'optimalPearsonProduct',
-            'average_vote': 'averageVote',
-            'user_vote': 'userVote',
-            'cause_unit': 'causeUnit',
-            'cause_unit_id': 'causeUnitId'
+            'user_id': 'user_id',
+            'correlation': 'correlation',
+            'cause_id': 'cause_id',
+            'effect_id': 'effect_id',
+            'onset_delay': 'onset_delay',
+            'duration_of_action': 'duration_of_action',
+            'number_of_pairs': 'number_of_pairs',
+            'value_predicting_high_outcome': 'value_predicting_high_outcome',
+            'value_predicting_low_outcome': 'value_predicting_low_outcome',
+            'optimal_pearson_product': 'optimal_pearson_product',
+            'vote': 'vote',
+            'statistical_significance': 'statistical_significance',
+            'cause_unit': 'cause_unit',
+            'cause_unit_id': 'cause_unit_id',
+            'cause_changes': 'cause_changes',
+            'effect_changes': 'effect_changes',
+            'qm_score': 'qm_score',
+            'error': 'error',
+            'created_at': 'created_at',
+            'updated_at': 'updated_at',
+            'reverse_pearson_correlation_coefficient': 'reverse_pearson_correlation_coefficient',
+            'predictive_pearson_correlation_coefficient': 'predictive_pearson_correlation_coefficient'
         }
 
-        self._correlation_coefficient = None
-        self._cause = None
-        self._original_cause = None
-        self._effect = None
-        self._original_effect = None
+        self._id = None
+        self._timestamp = None
+        self._user_id = None
+        self._correlation = None
+        self._cause_id = None
+        self._effect_id = None
         self._onset_delay = None
         self._duration_of_action = None
         self._number_of_pairs = None
-        self._effect_size = None
-        self._statistical_significance = None
-        self._timestamp = None
-        self._reverse_correlation = None
-        self._causality_factor = None
-        self._cause_category = None
-        self._effect_category = None
         self._value_predicting_high_outcome = None
         self._value_predicting_low_outcome = None
         self._optimal_pearson_product = None
-        self._average_vote = None
-        self._user_vote = None
+        self._vote = None
+        self._statistical_significance = None
         self._cause_unit = None
         self._cause_unit_id = None
+        self._cause_changes = None
+        self._effect_changes = None
+        self._qm_score = None
+        self._error = None
+        self._created_at = None
+        self._updated_at = None
+        self._reverse_pearson_correlation_coefficient = None
+        self._predictive_pearson_correlation_coefficient = None
 
     @property
-    def correlation_coefficient(self):
+    def id(self):
         """
-        Gets the correlation_coefficient of this Correlation.
-        Pearson correlation coefficient between cause and effect measurements
+        Gets the id of this Correlation.
+        id
 
-        :return: The correlation_coefficient of this Correlation.
-        :rtype: float
+        :return: The id of this Correlation.
+        :rtype: int
         """
-        return self._correlation_coefficient
+        return self._id
 
-    @correlation_coefficient.setter
-    def correlation_coefficient(self, correlation_coefficient):
+    @id.setter
+    def id(self, id):
         """
-        Sets the correlation_coefficient of this Correlation.
-        Pearson correlation coefficient between cause and effect measurements
+        Sets the id of this Correlation.
+        id
 
-        :param correlation_coefficient: The correlation_coefficient of this Correlation.
-        :type: float
+        :param id: The id of this Correlation.
+        :type: int
         """
-        self._correlation_coefficient = correlation_coefficient
-
-    @property
-    def cause(self):
-        """
-        Gets the cause of this Correlation.
-        ORIGINAL variable name of the cause variable for which the user desires correlations.
-
-        :return: The cause of this Correlation.
-        :rtype: str
-        """
-        return self._cause
-
-    @cause.setter
-    def cause(self, cause):
-        """
-        Sets the cause of this Correlation.
-        ORIGINAL variable name of the cause variable for which the user desires correlations.
-
-        :param cause: The cause of this Correlation.
-        :type: str
-        """
-        self._cause = cause
-
-    @property
-    def original_cause(self):
-        """
-        Gets the original_cause of this Correlation.
-        original name of the cause.
-
-        :return: The original_cause of this Correlation.
-        :rtype: str
-        """
-        return self._original_cause
-
-    @original_cause.setter
-    def original_cause(self, original_cause):
-        """
-        Sets the original_cause of this Correlation.
-        original name of the cause.
-
-        :param original_cause: The original_cause of this Correlation.
-        :type: str
-        """
-        self._original_cause = original_cause
-
-    @property
-    def effect(self):
-        """
-        Gets the effect of this Correlation.
-        ORIGINAL variable name of the effect variable for which the user desires correlations.
-
-        :return: The effect of this Correlation.
-        :rtype: str
-        """
-        return self._effect
-
-    @effect.setter
-    def effect(self, effect):
-        """
-        Sets the effect of this Correlation.
-        ORIGINAL variable name of the effect variable for which the user desires correlations.
-
-        :param effect: The effect of this Correlation.
-        :type: str
-        """
-        self._effect = effect
-
-    @property
-    def original_effect(self):
-        """
-        Gets the original_effect of this Correlation.
-        effect variable original name.
-
-        :return: The original_effect of this Correlation.
-        :rtype: str
-        """
-        return self._original_effect
-
-    @original_effect.setter
-    def original_effect(self, original_effect):
-        """
-        Sets the original_effect of this Correlation.
-        effect variable original name.
-
-        :param original_effect: The original_effect of this Correlation.
-        :type: str
-        """
-        self._original_effect = original_effect
-
-    @property
-    def onset_delay(self):
-        """
-        Gets the onset_delay of this Correlation.
-        User estimated or default time after cause measurement before a perceivable effect is observed
-
-        :return: The onset_delay of this Correlation.
-        :rtype: float
-        """
-        return self._onset_delay
-
-    @onset_delay.setter
-    def onset_delay(self, onset_delay):
-        """
-        Sets the onset_delay of this Correlation.
-        User estimated or default time after cause measurement before a perceivable effect is observed
-
-        :param onset_delay: The onset_delay of this Correlation.
-        :type: float
-        """
-        self._onset_delay = onset_delay
-
-    @property
-    def duration_of_action(self):
-        """
-        Gets the duration_of_action of this Correlation.
-        Time over which the cause is expected to produce a perceivable effect following the onset delay
-
-        :return: The duration_of_action of this Correlation.
-        :rtype: float
-        """
-        return self._duration_of_action
-
-    @duration_of_action.setter
-    def duration_of_action(self, duration_of_action):
-        """
-        Sets the duration_of_action of this Correlation.
-        Time over which the cause is expected to produce a perceivable effect following the onset delay
-
-        :param duration_of_action: The duration_of_action of this Correlation.
-        :type: float
-        """
-        self._duration_of_action = duration_of_action
-
-    @property
-    def number_of_pairs(self):
-        """
-        Gets the number_of_pairs of this Correlation.
-        Number of points that went into the correlation calculation
-
-        :return: The number_of_pairs of this Correlation.
-        :rtype: float
-        """
-        return self._number_of_pairs
-
-    @number_of_pairs.setter
-    def number_of_pairs(self, number_of_pairs):
-        """
-        Sets the number_of_pairs of this Correlation.
-        Number of points that went into the correlation calculation
-
-        :param number_of_pairs: The number_of_pairs of this Correlation.
-        :type: float
-        """
-        self._number_of_pairs = number_of_pairs
-
-    @property
-    def effect_size(self):
-        """
-        Gets the effect_size of this Correlation.
-        Magnitude of the effects of a cause indicating whether it's practically meaningful.
-
-        :return: The effect_size of this Correlation.
-        :rtype: str
-        """
-        return self._effect_size
-
-    @effect_size.setter
-    def effect_size(self, effect_size):
-        """
-        Sets the effect_size of this Correlation.
-        Magnitude of the effects of a cause indicating whether it's practically meaningful.
-
-        :param effect_size: The effect_size of this Correlation.
-        :type: str
-        """
-        self._effect_size = effect_size
-
-    @property
-    def statistical_significance(self):
-        """
-        Gets the statistical_significance of this Correlation.
-        A function of the effect size and sample size
-
-        :return: The statistical_significance of this Correlation.
-        :rtype: str
-        """
-        return self._statistical_significance
-
-    @statistical_significance.setter
-    def statistical_significance(self, statistical_significance):
-        """
-        Sets the statistical_significance of this Correlation.
-        A function of the effect size and sample size
-
-        :param statistical_significance: The statistical_significance of this Correlation.
-        :type: str
-        """
-        self._statistical_significance = statistical_significance
+        self._id = id
 
     @property
     def timestamp(self):
@@ -336,7 +144,7 @@ class Correlation(object):
         Time at which correlation was calculated
 
         :return: The timestamp of this Correlation.
-        :rtype: float
+        :rtype: int
         """
         return self._timestamp
 
@@ -347,97 +155,163 @@ class Correlation(object):
         Time at which correlation was calculated
 
         :param timestamp: The timestamp of this Correlation.
-        :type: float
+        :type: int
         """
         self._timestamp = timestamp
 
     @property
-    def reverse_correlation(self):
+    def user_id(self):
         """
-        Gets the reverse_correlation of this Correlation.
-        Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation.
+        Gets the user_id of this Correlation.
+        ID of user that owns this correlation
 
-        :return: The reverse_correlation of this Correlation.
+        :return: The user_id of this Correlation.
+        :rtype: int
+        """
+        return self._user_id
+
+    @user_id.setter
+    def user_id(self, user_id):
+        """
+        Sets the user_id of this Correlation.
+        ID of user that owns this correlation
+
+        :param user_id: The user_id of this Correlation.
+        :type: int
+        """
+        self._user_id = user_id
+
+    @property
+    def correlation(self):
+        """
+        Gets the correlation of this Correlation.
+        Pearson correlation coefficient between cause and effect measurements
+
+        :return: The correlation of this Correlation.
         :rtype: float
         """
-        return self._reverse_correlation
+        return self._correlation
 
-    @reverse_correlation.setter
-    def reverse_correlation(self, reverse_correlation):
+    @correlation.setter
+    def correlation(self, correlation):
         """
-        Sets the reverse_correlation of this Correlation.
-        Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation.
+        Sets the correlation of this Correlation.
+        Pearson correlation coefficient between cause and effect measurements
 
-        :param reverse_correlation: The reverse_correlation of this Correlation.
+        :param correlation: The correlation of this Correlation.
         :type: float
         """
-        self._reverse_correlation = reverse_correlation
+        self._correlation = correlation
 
     @property
-    def causality_factor(self):
+    def cause_id(self):
         """
-        Gets the causality_factor of this Correlation.
-        
+        Gets the cause_id of this Correlation.
+        variable ID of the cause variable for which the user desires correlations
 
-        :return: The causality_factor of this Correlation.
-        :rtype: float
+        :return: The cause_id of this Correlation.
+        :rtype: int
         """
-        return self._causality_factor
+        return self._cause_id
 
-    @causality_factor.setter
-    def causality_factor(self, causality_factor):
+    @cause_id.setter
+    def cause_id(self, cause_id):
         """
-        Sets the causality_factor of this Correlation.
-        
+        Sets the cause_id of this Correlation.
+        variable ID of the cause variable for which the user desires correlations
 
-        :param causality_factor: The causality_factor of this Correlation.
-        :type: float
+        :param cause_id: The cause_id of this Correlation.
+        :type: int
         """
-        self._causality_factor = causality_factor
-
-    @property
-    def cause_category(self):
-        """
-        Gets the cause_category of this Correlation.
-        Variable category of the cause variable.
-
-        :return: The cause_category of this Correlation.
-        :rtype: str
-        """
-        return self._cause_category
-
-    @cause_category.setter
-    def cause_category(self, cause_category):
-        """
-        Sets the cause_category of this Correlation.
-        Variable category of the cause variable.
-
-        :param cause_category: The cause_category of this Correlation.
-        :type: str
-        """
-        self._cause_category = cause_category
+        self._cause_id = cause_id
 
     @property
-    def effect_category(self):
+    def effect_id(self):
         """
-        Gets the effect_category of this Correlation.
-        Variable category of the effect variable.
+        Gets the effect_id of this Correlation.
+        variable ID of the effect variable for which the user desires correlations
 
-        :return: The effect_category of this Correlation.
-        :rtype: str
+        :return: The effect_id of this Correlation.
+        :rtype: int
         """
-        return self._effect_category
+        return self._effect_id
 
-    @effect_category.setter
-    def effect_category(self, effect_category):
+    @effect_id.setter
+    def effect_id(self, effect_id):
         """
-        Sets the effect_category of this Correlation.
-        Variable category of the effect variable.
+        Sets the effect_id of this Correlation.
+        variable ID of the effect variable for which the user desires correlations
 
-        :param effect_category: The effect_category of this Correlation.
-        :type: str
+        :param effect_id: The effect_id of this Correlation.
+        :type: int
         """
-        self._effect_category = effect_category
+        self._effect_id = effect_id
+
+    @property
+    def onset_delay(self):
+        """
+        Gets the onset_delay of this Correlation.
+        User estimated or default time after cause measurement before a perceivable effect is observed
+
+        :return: The onset_delay of this Correlation.
+        :rtype: int
+        """
+        return self._onset_delay
+
+    @onset_delay.setter
+    def onset_delay(self, onset_delay):
+        """
+        Sets the onset_delay of this Correlation.
+        User estimated or default time after cause measurement before a perceivable effect is observed
+
+        :param onset_delay: The onset_delay of this Correlation.
+        :type: int
+        """
+        self._onset_delay = onset_delay
+
+    @property
+    def duration_of_action(self):
+        """
+        Gets the duration_of_action of this Correlation.
+        Time over which the cause is expected to produce a perceivable effect following the onset delay
+
+        :return: The duration_of_action of this Correlation.
+        :rtype: int
+        """
+        return self._duration_of_action
+
+    @duration_of_action.setter
+    def duration_of_action(self, duration_of_action):
+        """
+        Sets the duration_of_action of this Correlation.
+        Time over which the cause is expected to produce a perceivable effect following the onset delay
+
+        :param duration_of_action: The duration_of_action of this Correlation.
+        :type: int
+        """
+        self._duration_of_action = duration_of_action
+
+    @property
+    def number_of_pairs(self):
+        """
+        Gets the number_of_pairs of this Correlation.
+        Number of points that went into the correlation calculation
+
+        :return: The number_of_pairs of this Correlation.
+        :rtype: int
+        """
+        return self._number_of_pairs
+
+    @number_of_pairs.setter
+    def number_of_pairs(self, number_of_pairs):
+        """
+        Sets the number_of_pairs of this Correlation.
+        Number of points that went into the correlation calculation
+
+        :param number_of_pairs: The number_of_pairs of this Correlation.
+        :type: int
+        """
+        self._number_of_pairs = number_of_pairs
 
     @property
     def value_predicting_high_outcome(self):
@@ -506,48 +380,48 @@ class Correlation(object):
         self._optimal_pearson_product = optimal_pearson_product
 
     @property
-    def average_vote(self):
+    def vote(self):
         """
-        Gets the average_vote of this Correlation.
-        Average Vote
+        Gets the vote of this Correlation.
+        Vote
 
-        :return: The average_vote of this Correlation.
+        :return: The vote of this Correlation.
         :rtype: float
         """
-        return self._average_vote
+        return self._vote
 
-    @average_vote.setter
-    def average_vote(self, average_vote):
+    @vote.setter
+    def vote(self, vote):
         """
-        Sets the average_vote of this Correlation.
-        Average Vote
+        Sets the vote of this Correlation.
+        Vote
 
-        :param average_vote: The average_vote of this Correlation.
+        :param vote: The vote of this Correlation.
         :type: float
         """
-        self._average_vote = average_vote
+        self._vote = vote
 
     @property
-    def user_vote(self):
+    def statistical_significance(self):
         """
-        Gets the user_vote of this Correlation.
-        User Vote
+        Gets the statistical_significance of this Correlation.
+        A function of the effect size and sample size
 
-        :return: The user_vote of this Correlation.
+        :return: The statistical_significance of this Correlation.
         :rtype: float
         """
-        return self._user_vote
+        return self._statistical_significance
 
-    @user_vote.setter
-    def user_vote(self, user_vote):
+    @statistical_significance.setter
+    def statistical_significance(self, statistical_significance):
         """
-        Sets the user_vote of this Correlation.
-        User Vote
+        Sets the statistical_significance of this Correlation.
+        A function of the effect size and sample size
 
-        :param user_vote: The user_vote of this Correlation.
+        :param statistical_significance: The statistical_significance of this Correlation.
         :type: float
         """
-        self._user_vote = user_vote
+        self._statistical_significance = statistical_significance
 
     @property
     def cause_unit(self):
@@ -575,7 +449,7 @@ class Correlation(object):
     def cause_unit_id(self):
         """
         Gets the cause_unit_id of this Correlation.
-        Unit Id of Cause
+        Unit ID of Cause
 
         :return: The cause_unit_id of this Correlation.
         :rtype: int
@@ -586,12 +460,188 @@ class Correlation(object):
     def cause_unit_id(self, cause_unit_id):
         """
         Sets the cause_unit_id of this Correlation.
-        Unit Id of Cause
+        Unit ID of Cause
 
         :param cause_unit_id: The cause_unit_id of this Correlation.
         :type: int
         """
         self._cause_unit_id = cause_unit_id
+
+    @property
+    def cause_changes(self):
+        """
+        Gets the cause_changes of this Correlation.
+        Cause changes
+
+        :return: The cause_changes of this Correlation.
+        :rtype: int
+        """
+        return self._cause_changes
+
+    @cause_changes.setter
+    def cause_changes(self, cause_changes):
+        """
+        Sets the cause_changes of this Correlation.
+        Cause changes
+
+        :param cause_changes: The cause_changes of this Correlation.
+        :type: int
+        """
+        self._cause_changes = cause_changes
+
+    @property
+    def effect_changes(self):
+        """
+        Gets the effect_changes of this Correlation.
+        Effect changes
+
+        :return: The effect_changes of this Correlation.
+        :rtype: int
+        """
+        return self._effect_changes
+
+    @effect_changes.setter
+    def effect_changes(self, effect_changes):
+        """
+        Sets the effect_changes of this Correlation.
+        Effect changes
+
+        :param effect_changes: The effect_changes of this Correlation.
+        :type: int
+        """
+        self._effect_changes = effect_changes
+
+    @property
+    def qm_score(self):
+        """
+        Gets the qm_score of this Correlation.
+        QM Score
+
+        :return: The qm_score of this Correlation.
+        :rtype: float
+        """
+        return self._qm_score
+
+    @qm_score.setter
+    def qm_score(self, qm_score):
+        """
+        Sets the qm_score of this Correlation.
+        QM Score
+
+        :param qm_score: The qm_score of this Correlation.
+        :type: float
+        """
+        self._qm_score = qm_score
+
+    @property
+    def error(self):
+        """
+        Gets the error of this Correlation.
+        error
+
+        :return: The error of this Correlation.
+        :rtype: str
+        """
+        return self._error
+
+    @error.setter
+    def error(self, error):
+        """
+        Sets the error of this Correlation.
+        error
+
+        :param error: The error of this Correlation.
+        :type: str
+        """
+        self._error = error
+
+    @property
+    def created_at(self):
+        """
+        Gets the created_at of this Correlation.
+        created_at
+
+        :return: The created_at of this Correlation.
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """
+        Sets the created_at of this Correlation.
+        created_at
+
+        :param created_at: The created_at of this Correlation.
+        :type: datetime
+        """
+        self._created_at = created_at
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this Correlation.
+        updated_at
+
+        :return: The updated_at of this Correlation.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this Correlation.
+        updated_at
+
+        :param updated_at: The updated_at of this Correlation.
+        :type: datetime
+        """
+        self._updated_at = updated_at
+
+    @property
+    def reverse_pearson_correlation_coefficient(self):
+        """
+        Gets the reverse_pearson_correlation_coefficient of this Correlation.
+        Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation
+
+        :return: The reverse_pearson_correlation_coefficient of this Correlation.
+        :rtype: float
+        """
+        return self._reverse_pearson_correlation_coefficient
+
+    @reverse_pearson_correlation_coefficient.setter
+    def reverse_pearson_correlation_coefficient(self, reverse_pearson_correlation_coefficient):
+        """
+        Sets the reverse_pearson_correlation_coefficient of this Correlation.
+        Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation
+
+        :param reverse_pearson_correlation_coefficient: The reverse_pearson_correlation_coefficient of this Correlation.
+        :type: float
+        """
+        self._reverse_pearson_correlation_coefficient = reverse_pearson_correlation_coefficient
+
+    @property
+    def predictive_pearson_correlation_coefficient(self):
+        """
+        Gets the predictive_pearson_correlation_coefficient of this Correlation.
+        Predictive Pearson Correlation Coefficient
+
+        :return: The predictive_pearson_correlation_coefficient of this Correlation.
+        :rtype: float
+        """
+        return self._predictive_pearson_correlation_coefficient
+
+    @predictive_pearson_correlation_coefficient.setter
+    def predictive_pearson_correlation_coefficient(self, predictive_pearson_correlation_coefficient):
+        """
+        Sets the predictive_pearson_correlation_coefficient of this Correlation.
+        Predictive Pearson Correlation Coefficient
+
+        :param predictive_pearson_correlation_coefficient: The predictive_pearson_correlation_coefficient of this Correlation.
+        :type: float
+        """
+        self._predictive_pearson_correlation_coefficient = predictive_pearson_correlation_coefficient
 
     def to_dict(self):
         """

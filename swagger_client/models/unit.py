@@ -37,29 +37,94 @@ class Unit(object):
                                   and the value is json key in definition.
         """
         self.swagger_types = {
+            'id': 'int',
+            'client_id': 'str',
             'name': 'str',
             'abbreviated_name': 'str',
-            'category': 'str',
-            'minimum': 'float',
-            'maximum': 'float',
-            'conversion_steps': 'list[ConversionStep]'
+            'category_id': 'int',
+            'minimum_value': 'float',
+            'maximum_value': 'float',
+            'updated': 'int',
+            'default_unit_id': 'int',
+            'multiply': 'float',
+            'add': 'float',
+            'created_at': 'datetime',
+            'updated_at': 'datetime'
         }
 
         self.attribute_map = {
+            'id': 'id',
+            'client_id': 'client_id',
             'name': 'name',
-            'abbreviated_name': 'abbreviatedName',
-            'category': 'category',
-            'minimum': 'minimum',
-            'maximum': 'maximum',
-            'conversion_steps': 'conversionSteps'
+            'abbreviated_name': 'abbreviated_name',
+            'category_id': 'category_id',
+            'minimum_value': 'minimum_value',
+            'maximum_value': 'maximum_value',
+            'updated': 'updated',
+            'default_unit_id': 'default_unit_id',
+            'multiply': 'multiply',
+            'add': 'add',
+            'created_at': 'created_at',
+            'updated_at': 'updated_at'
         }
 
+        self._id = None
+        self._client_id = None
         self._name = None
         self._abbreviated_name = None
-        self._category = None
-        self._minimum = None
-        self._maximum = None
-        self._conversion_steps = None
+        self._category_id = None
+        self._minimum_value = None
+        self._maximum_value = None
+        self._updated = None
+        self._default_unit_id = None
+        self._multiply = None
+        self._add = None
+        self._created_at = None
+        self._updated_at = None
+
+    @property
+    def id(self):
+        """
+        Gets the id of this Unit.
+        id
+
+        :return: The id of this Unit.
+        :rtype: int
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        """
+        Sets the id of this Unit.
+        id
+
+        :param id: The id of this Unit.
+        :type: int
+        """
+        self._id = id
+
+    @property
+    def client_id(self):
+        """
+        Gets the client_id of this Unit.
+        client_id
+
+        :return: The client_id of this Unit.
+        :rtype: str
+        """
+        return self._client_id
+
+    @client_id.setter
+    def client_id(self, client_id):
+        """
+        Sets the client_id of this Unit.
+        client_id
+
+        :param client_id: The client_id of this Unit.
+        :type: str
+        """
+        self._client_id = client_id
 
     @property
     def name(self):
@@ -106,110 +171,202 @@ class Unit(object):
         self._abbreviated_name = abbreviated_name
 
     @property
-    def category(self):
+    def category_id(self):
         """
-        Gets the category of this Unit.
-        Unit category
+        Gets the category_id of this Unit.
+        Unit category ID
 
-        :return: The category of this Unit.
-        :rtype: str
+        :return: The category_id of this Unit.
+        :rtype: int
         """
-        return self._category
+        return self._category_id
 
-    @category.setter
-    def category(self, category):
+    @category_id.setter
+    def category_id(self, category_id):
         """
-        Sets the category of this Unit.
-        Unit category
+        Sets the category_id of this Unit.
+        Unit category ID
 
-        :param category: The category of this Unit.
-        :type: str
+        :param category_id: The category_id of this Unit.
+        :type: int
         """
-        allowed_values = ["Distance", "Duration", "Energy", "Frequency", "Miscellany", "Pressure", "Proportion", "Rating", "Temperature", "Volume", "Weight"]
-        if category not in allowed_values:
-            raise ValueError(
-                "Invalid value for `category`, must be one of {0}"
-                .format(allowed_values)
-            )
-        self._category = category
+        self._category_id = category_id
 
     @property
-    def minimum(self):
+    def minimum_value(self):
         """
-        Gets the minimum of this Unit.
+        Gets the minimum_value of this Unit.
         Unit minimum value
 
-        :return: The minimum of this Unit.
+        :return: The minimum_value of this Unit.
         :rtype: float
         """
-        return self._minimum
+        return self._minimum_value
 
-    @minimum.setter
-    def minimum(self, minimum):
+    @minimum_value.setter
+    def minimum_value(self, minimum_value):
         """
-        Sets the minimum of this Unit.
+        Sets the minimum_value of this Unit.
         Unit minimum value
 
-        :param minimum: The minimum of this Unit.
+        :param minimum_value: The minimum_value of this Unit.
         :type: float
         """
-        allowed_values = ["-Infinity"]
-        if minimum not in allowed_values:
-            raise ValueError(
-                "Invalid value for `minimum`, must be one of {0}"
-                .format(allowed_values)
-            )
-        self._minimum = minimum
+        self._minimum_value = minimum_value
 
     @property
-    def maximum(self):
+    def maximum_value(self):
         """
-        Gets the maximum of this Unit.
+        Gets the maximum_value of this Unit.
         Unit maximum value
 
-        :return: The maximum of this Unit.
+        :return: The maximum_value of this Unit.
         :rtype: float
         """
-        return self._maximum
+        return self._maximum_value
 
-    @maximum.setter
-    def maximum(self, maximum):
+    @maximum_value.setter
+    def maximum_value(self, maximum_value):
         """
-        Sets the maximum of this Unit.
+        Sets the maximum_value of this Unit.
         Unit maximum value
 
-        :param maximum: The maximum of this Unit.
+        :param maximum_value: The maximum_value of this Unit.
         :type: float
         """
-        allowed_values = ["Infinity"]
-        if maximum not in allowed_values:
-            raise ValueError(
-                "Invalid value for `maximum`, must be one of {0}"
-                .format(allowed_values)
-            )
-        self._maximum = maximum
+        self._maximum_value = maximum_value
 
     @property
-    def conversion_steps(self):
+    def updated(self):
         """
-        Gets the conversion_steps of this Unit.
-        Conversion steps list
+        Gets the updated of this Unit.
+        updated
 
-        :return: The conversion_steps of this Unit.
-        :rtype: list[ConversionStep]
+        :return: The updated of this Unit.
+        :rtype: int
         """
-        return self._conversion_steps
+        return self._updated
 
-    @conversion_steps.setter
-    def conversion_steps(self, conversion_steps):
+    @updated.setter
+    def updated(self, updated):
         """
-        Sets the conversion_steps of this Unit.
-        Conversion steps list
+        Sets the updated of this Unit.
+        updated
 
-        :param conversion_steps: The conversion_steps of this Unit.
-        :type: list[ConversionStep]
+        :param updated: The updated of this Unit.
+        :type: int
         """
-        self._conversion_steps = conversion_steps
+        self._updated = updated
+
+    @property
+    def default_unit_id(self):
+        """
+        Gets the default_unit_id of this Unit.
+        ID of default unit
+
+        :return: The default_unit_id of this Unit.
+        :rtype: int
+        """
+        return self._default_unit_id
+
+    @default_unit_id.setter
+    def default_unit_id(self, default_unit_id):
+        """
+        Sets the default_unit_id of this Unit.
+        ID of default unit
+
+        :param default_unit_id: The default_unit_id of this Unit.
+        :type: int
+        """
+        self._default_unit_id = default_unit_id
+
+    @property
+    def multiply(self):
+        """
+        Gets the multiply of this Unit.
+        Value multiplied to
+
+        :return: The multiply of this Unit.
+        :rtype: float
+        """
+        return self._multiply
+
+    @multiply.setter
+    def multiply(self, multiply):
+        """
+        Sets the multiply of this Unit.
+        Value multiplied to
+
+        :param multiply: The multiply of this Unit.
+        :type: float
+        """
+        self._multiply = multiply
+
+    @property
+    def add(self):
+        """
+        Gets the add of this Unit.
+        Value which should be added to convert to default unit
+
+        :return: The add of this Unit.
+        :rtype: float
+        """
+        return self._add
+
+    @add.setter
+    def add(self, add):
+        """
+        Sets the add of this Unit.
+        Value which should be added to convert to default unit
+
+        :param add: The add of this Unit.
+        :type: float
+        """
+        self._add = add
+
+    @property
+    def created_at(self):
+        """
+        Gets the created_at of this Unit.
+        created_at
+
+        :return: The created_at of this Unit.
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """
+        Sets the created_at of this Unit.
+        created_at
+
+        :param created_at: The created_at of this Unit.
+        :type: datetime
+        """
+        self._created_at = created_at
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this Unit.
+        updated_at
+
+        :return: The updated_at of this Unit.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this Unit.
+        updated_at
+
+        :param updated_at: The updated_at of this Unit.
+        :type: datetime
+        """
+        self._updated_at = updated_at
 
     def to_dict(self):
         """

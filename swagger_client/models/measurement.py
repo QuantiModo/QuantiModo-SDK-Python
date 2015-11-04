@@ -37,116 +37,200 @@ class Measurement(object):
                                   and the value is json key in definition.
         """
         self.swagger_types = {
-            'variable': 'str',
-            'source': 'str',
-            'timestamp': 'int',
-            'start_time': 'str',
-            'human_time': 'HumanTime',
+            'id': 'int',
+            'user_id': 'int',
+            'client_id': 'str',
+            'connector_id': 'int',
+            'variable_id': 'int',
+            'source_id': 'int',
+            'start_time': 'int',
             'value': 'float',
-            'unit': 'str',
-            'original_value': 'int',
-            'stored_value': 'float',
-            'stored_abbreviated_unit_name': 'str',
-            'original_abbreviated_unit_name': 'str',
-            'abbreviated_unit_name': 'str',
-            'note': 'str'
+            'unit_id': 'int',
+            'original_value': 'float',
+            'original_unit_id': 'int',
+            'duration': 'int',
+            'note': 'str',
+            'latitude': 'float',
+            'longitude': 'float',
+            'location': 'str',
+            'created_at': 'datetime',
+            'updated_at': 'datetime',
+            'error': 'str'
         }
 
         self.attribute_map = {
-            'variable': 'variable',
-            'source': 'source',
-            'timestamp': 'timestamp',
-            'start_time': 'startTime',
-            'human_time': 'humanTime',
+            'id': 'id',
+            'user_id': 'user_id',
+            'client_id': 'client_id',
+            'connector_id': 'connector_id',
+            'variable_id': 'variable_id',
+            'source_id': 'source_id',
+            'start_time': 'start_time',
             'value': 'value',
-            'unit': 'unit',
-            'original_value': 'originalValue',
-            'stored_value': 'storedValue',
-            'stored_abbreviated_unit_name': 'storedAbbreviatedUnitName',
-            'original_abbreviated_unit_name': 'originalAbbreviatedUnitName',
-            'abbreviated_unit_name': 'abbreviatedUnitName',
-            'note': 'note'
+            'unit_id': 'unit_id',
+            'original_value': 'original_value',
+            'original_unit_id': 'original_unit_id',
+            'duration': 'duration',
+            'note': 'note',
+            'latitude': 'latitude',
+            'longitude': 'longitude',
+            'location': 'location',
+            'created_at': 'created_at',
+            'updated_at': 'updated_at',
+            'error': 'error'
         }
 
-        self._variable = None
-        self._source = None
-        self._timestamp = None
+        self._id = None
+        self._user_id = None
+        self._client_id = None
+        self._connector_id = None
+        self._variable_id = None
+        self._source_id = None
         self._start_time = None
-        self._human_time = None
         self._value = None
-        self._unit = None
+        self._unit_id = None
         self._original_value = None
-        self._stored_value = None
-        self._stored_abbreviated_unit_name = None
-        self._original_abbreviated_unit_name = None
-        self._abbreviated_unit_name = None
+        self._original_unit_id = None
+        self._duration = None
         self._note = None
+        self._latitude = None
+        self._longitude = None
+        self._location = None
+        self._created_at = None
+        self._updated_at = None
+        self._error = None
 
     @property
-    def variable(self):
+    def id(self):
         """
-        Gets the variable of this Measurement.
-        ORIGINAL Name of the variable for which we are creating the measurement records
+        Gets the id of this Measurement.
+        id
 
-        :return: The variable of this Measurement.
-        :rtype: str
-        """
-        return self._variable
-
-    @variable.setter
-    def variable(self, variable):
-        """
-        Sets the variable of this Measurement.
-        ORIGINAL Name of the variable for which we are creating the measurement records
-
-        :param variable: The variable of this Measurement.
-        :type: str
-        """
-        self._variable = variable
-
-    @property
-    def source(self):
-        """
-        Gets the source of this Measurement.
-        Application or device used to record the measurement values
-
-        :return: The source of this Measurement.
-        :rtype: str
-        """
-        return self._source
-
-    @source.setter
-    def source(self, source):
-        """
-        Sets the source of this Measurement.
-        Application or device used to record the measurement values
-
-        :param source: The source of this Measurement.
-        :type: str
-        """
-        self._source = source
-
-    @property
-    def timestamp(self):
-        """
-        Gets the timestamp of this Measurement.
-        Timestamp for the measurement event in epoch time
-
-        :return: The timestamp of this Measurement.
+        :return: The id of this Measurement.
         :rtype: int
         """
-        return self._timestamp
+        return self._id
 
-    @timestamp.setter
-    def timestamp(self, timestamp):
+    @id.setter
+    def id(self, id):
         """
-        Sets the timestamp of this Measurement.
-        Timestamp for the measurement event in epoch time
+        Sets the id of this Measurement.
+        id
 
-        :param timestamp: The timestamp of this Measurement.
+        :param id: The id of this Measurement.
         :type: int
         """
-        self._timestamp = timestamp
+        self._id = id
+
+    @property
+    def user_id(self):
+        """
+        Gets the user_id of this Measurement.
+        ID of user that owns this measurement
+
+        :return: The user_id of this Measurement.
+        :rtype: int
+        """
+        return self._user_id
+
+    @user_id.setter
+    def user_id(self, user_id):
+        """
+        Sets the user_id of this Measurement.
+        ID of user that owns this measurement
+
+        :param user_id: The user_id of this Measurement.
+        :type: int
+        """
+        self._user_id = user_id
+
+    @property
+    def client_id(self):
+        """
+        Gets the client_id of this Measurement.
+        client_id
+
+        :return: The client_id of this Measurement.
+        :rtype: str
+        """
+        return self._client_id
+
+    @client_id.setter
+    def client_id(self, client_id):
+        """
+        Sets the client_id of this Measurement.
+        client_id
+
+        :param client_id: The client_id of this Measurement.
+        :type: str
+        """
+        self._client_id = client_id
+
+    @property
+    def connector_id(self):
+        """
+        Gets the connector_id of this Measurement.
+        Connector ID
+
+        :return: The connector_id of this Measurement.
+        :rtype: int
+        """
+        return self._connector_id
+
+    @connector_id.setter
+    def connector_id(self, connector_id):
+        """
+        Sets the connector_id of this Measurement.
+        Connector ID
+
+        :param connector_id: The connector_id of this Measurement.
+        :type: int
+        """
+        self._connector_id = connector_id
+
+    @property
+    def variable_id(self):
+        """
+        Gets the variable_id of this Measurement.
+        ID of the variable for which we are creating the measurement records
+
+        :return: The variable_id of this Measurement.
+        :rtype: int
+        """
+        return self._variable_id
+
+    @variable_id.setter
+    def variable_id(self, variable_id):
+        """
+        Sets the variable_id of this Measurement.
+        ID of the variable for which we are creating the measurement records
+
+        :param variable_id: The variable_id of this Measurement.
+        :type: int
+        """
+        self._variable_id = variable_id
+
+    @property
+    def source_id(self):
+        """
+        Gets the source_id of this Measurement.
+        Application or device used to record the measurement values
+
+        :return: The source_id of this Measurement.
+        :rtype: int
+        """
+        return self._source_id
+
+    @source_id.setter
+    def source_id(self, source_id):
+        """
+        Sets the source_id of this Measurement.
+        Application or device used to record the measurement values
+
+        :param source_id: The source_id of this Measurement.
+        :type: int
+        """
+        self._source_id = source_id
 
     @property
     def start_time(self):
@@ -155,7 +239,7 @@ class Measurement(object):
         Start Time for the measurement event in ISO 8601
 
         :return: The start_time of this Measurement.
-        :rtype: str
+        :rtype: int
         """
         return self._start_time
 
@@ -166,31 +250,9 @@ class Measurement(object):
         Start Time for the measurement event in ISO 8601
 
         :param start_time: The start_time of this Measurement.
-        :type: str
+        :type: int
         """
         self._start_time = start_time
-
-    @property
-    def human_time(self):
-        """
-        Gets the human_time of this Measurement.
-        Start Time for the measurement event in ISO 8601
-
-        :return: The human_time of this Measurement.
-        :rtype: HumanTime
-        """
-        return self._human_time
-
-    @human_time.setter
-    def human_time(self, human_time):
-        """
-        Sets the human_time of this Measurement.
-        Start Time for the measurement event in ISO 8601
-
-        :param human_time: The human_time of this Measurement.
-        :type: HumanTime
-        """
-        self._human_time = human_time
 
     @property
     def value(self):
@@ -215,26 +277,26 @@ class Measurement(object):
         self._value = value
 
     @property
-    def unit(self):
+    def unit_id(self):
         """
-        Gets the unit of this Measurement.
-        Unit of measurement as requested in GET request
+        Gets the unit_id of this Measurement.
+        Unit ID of measurement as requested in GET request
 
-        :return: The unit of this Measurement.
-        :rtype: str
+        :return: The unit_id of this Measurement.
+        :rtype: int
         """
-        return self._unit
+        return self._unit_id
 
-    @unit.setter
-    def unit(self, unit):
+    @unit_id.setter
+    def unit_id(self, unit_id):
         """
-        Sets the unit of this Measurement.
-        Unit of measurement as requested in GET request
+        Sets the unit_id of this Measurement.
+        Unit ID of measurement as requested in GET request
 
-        :param unit: The unit of this Measurement.
-        :type: str
+        :param unit_id: The unit_id of this Measurement.
+        :type: int
         """
-        self._unit = unit
+        self._unit_id = unit_id
 
     @property
     def original_value(self):
@@ -243,7 +305,7 @@ class Measurement(object):
         Original value
 
         :return: The original_value of this Measurement.
-        :rtype: int
+        :rtype: float
         """
         return self._original_value
 
@@ -254,97 +316,53 @@ class Measurement(object):
         Original value
 
         :param original_value: The original_value of this Measurement.
-        :type: int
+        :type: float
         """
         self._original_value = original_value
 
     @property
-    def stored_value(self):
+    def original_unit_id(self):
         """
-        Gets the stored_value of this Measurement.
-        Measurement value in the unit as orignally submitted
+        Gets the original_unit_id of this Measurement.
+        Unit ID of measurement as originally submitted
 
-        :return: The stored_value of this Measurement.
-        :rtype: float
+        :return: The original_unit_id of this Measurement.
+        :rtype: int
         """
-        return self._stored_value
+        return self._original_unit_id
 
-    @stored_value.setter
-    def stored_value(self, stored_value):
+    @original_unit_id.setter
+    def original_unit_id(self, original_unit_id):
         """
-        Sets the stored_value of this Measurement.
-        Measurement value in the unit as orignally submitted
+        Sets the original_unit_id of this Measurement.
+        Unit ID of measurement as originally submitted
 
-        :param stored_value: The stored_value of this Measurement.
-        :type: float
+        :param original_unit_id: The original_unit_id of this Measurement.
+        :type: int
         """
-        self._stored_value = stored_value
-
-    @property
-    def stored_abbreviated_unit_name(self):
-        """
-        Gets the stored_abbreviated_unit_name of this Measurement.
-        Unit of measurement as originally submitted
-
-        :return: The stored_abbreviated_unit_name of this Measurement.
-        :rtype: str
-        """
-        return self._stored_abbreviated_unit_name
-
-    @stored_abbreviated_unit_name.setter
-    def stored_abbreviated_unit_name(self, stored_abbreviated_unit_name):
-        """
-        Sets the stored_abbreviated_unit_name of this Measurement.
-        Unit of measurement as originally submitted
-
-        :param stored_abbreviated_unit_name: The stored_abbreviated_unit_name of this Measurement.
-        :type: str
-        """
-        self._stored_abbreviated_unit_name = stored_abbreviated_unit_name
+        self._original_unit_id = original_unit_id
 
     @property
-    def original_abbreviated_unit_name(self):
+    def duration(self):
         """
-        Gets the original_abbreviated_unit_name of this Measurement.
-        Original Unit of measurement as originally submitted
+        Gets the duration of this Measurement.
+        duration of measurement in seconds
 
-        :return: The original_abbreviated_unit_name of this Measurement.
-        :rtype: str
+        :return: The duration of this Measurement.
+        :rtype: int
         """
-        return self._original_abbreviated_unit_name
+        return self._duration
 
-    @original_abbreviated_unit_name.setter
-    def original_abbreviated_unit_name(self, original_abbreviated_unit_name):
+    @duration.setter
+    def duration(self, duration):
         """
-        Sets the original_abbreviated_unit_name of this Measurement.
-        Original Unit of measurement as originally submitted
+        Sets the duration of this Measurement.
+        duration of measurement in seconds
 
-        :param original_abbreviated_unit_name: The original_abbreviated_unit_name of this Measurement.
-        :type: str
+        :param duration: The duration of this Measurement.
+        :type: int
         """
-        self._original_abbreviated_unit_name = original_abbreviated_unit_name
-
-    @property
-    def abbreviated_unit_name(self):
-        """
-        Gets the abbreviated_unit_name of this Measurement.
-        Unit of measurement as originally submitted
-
-        :return: The abbreviated_unit_name of this Measurement.
-        :rtype: str
-        """
-        return self._abbreviated_unit_name
-
-    @abbreviated_unit_name.setter
-    def abbreviated_unit_name(self, abbreviated_unit_name):
-        """
-        Sets the abbreviated_unit_name of this Measurement.
-        Unit of measurement as originally submitted
-
-        :param abbreviated_unit_name: The abbreviated_unit_name of this Measurement.
-        :type: str
-        """
-        self._abbreviated_unit_name = abbreviated_unit_name
+        self._duration = duration
 
     @property
     def note(self):
@@ -367,6 +385,138 @@ class Measurement(object):
         :type: str
         """
         self._note = note
+
+    @property
+    def latitude(self):
+        """
+        Gets the latitude of this Measurement.
+        latitude
+
+        :return: The latitude of this Measurement.
+        :rtype: float
+        """
+        return self._latitude
+
+    @latitude.setter
+    def latitude(self, latitude):
+        """
+        Sets the latitude of this Measurement.
+        latitude
+
+        :param latitude: The latitude of this Measurement.
+        :type: float
+        """
+        self._latitude = latitude
+
+    @property
+    def longitude(self):
+        """
+        Gets the longitude of this Measurement.
+        longitude
+
+        :return: The longitude of this Measurement.
+        :rtype: float
+        """
+        return self._longitude
+
+    @longitude.setter
+    def longitude(self, longitude):
+        """
+        Sets the longitude of this Measurement.
+        longitude
+
+        :param longitude: The longitude of this Measurement.
+        :type: float
+        """
+        self._longitude = longitude
+
+    @property
+    def location(self):
+        """
+        Gets the location of this Measurement.
+        location
+
+        :return: The location of this Measurement.
+        :rtype: str
+        """
+        return self._location
+
+    @location.setter
+    def location(self, location):
+        """
+        Sets the location of this Measurement.
+        location
+
+        :param location: The location of this Measurement.
+        :type: str
+        """
+        self._location = location
+
+    @property
+    def created_at(self):
+        """
+        Gets the created_at of this Measurement.
+        created_at
+
+        :return: The created_at of this Measurement.
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """
+        Sets the created_at of this Measurement.
+        created_at
+
+        :param created_at: The created_at of this Measurement.
+        :type: datetime
+        """
+        self._created_at = created_at
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this Measurement.
+        updated_at
+
+        :return: The updated_at of this Measurement.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this Measurement.
+        updated_at
+
+        :param updated_at: The updated_at of this Measurement.
+        :type: datetime
+        """
+        self._updated_at = updated_at
+
+    @property
+    def error(self):
+        """
+        Gets the error of this Measurement.
+        error
+
+        :return: The error of this Measurement.
+        :rtype: str
+        """
+        return self._error
+
+    @error.setter
+    def error(self, error):
+        """
+        Sets the error of this Measurement.
+        error
+
+        :param error: The error of this Measurement.
+        :type: str
+        """
+        self._error = error
 
     def to_dict(self):
         """
