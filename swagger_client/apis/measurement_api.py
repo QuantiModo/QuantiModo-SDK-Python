@@ -249,7 +249,7 @@ class MeasurementApi(object):
     def measurements_csv_get(self, **kwargs):
         """
         Get Measurements CSV
-        Get Measurements CSV
+        Download a CSV containing all user measurements
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -321,7 +321,7 @@ class MeasurementApi(object):
     def measurements_request_csv_post(self, **kwargs):
         """
         Post Request for Measurements CSV
-        Post Request for Measurements CSV
+        Use this endpoint to schedule a CSV export containing all user measurements to be emailed to the user within 24 hours.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function

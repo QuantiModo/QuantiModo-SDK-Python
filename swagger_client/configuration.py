@@ -72,6 +72,10 @@ class Configuration(object):
         # Password for HTTP basic authentication
         self.password = ""
 
+        # access token for OAuth
+        self.access_token = ""
+
+
         # Logging Settings
         self.logger = {}
         self.logger["package_logger"] = logging.getLogger("swagger_client")
@@ -213,6 +217,7 @@ class Configuration(object):
         :return: The Auth Settings information dict.
         """
         return {
+
         }
 
     def to_debug_report(self):
