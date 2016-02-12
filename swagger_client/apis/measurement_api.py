@@ -2,7 +2,7 @@
 
 """
 MeasurementApi.py
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -47,8 +47,8 @@ class MeasurementApi(object):
 
     def measurements_get(self, **kwargs):
         """
-        Get all Measurements
-        Get all Measurements
+        Get measurements for this user
+        Measurements are any value that can be recorded like daily steps, a mood rating, or apples eaten.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -60,30 +60,34 @@ class MeasurementApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int user_id: user_id
-        :param str client_id: client_id
-        :param int connector_id: connector_id
-        :param int variable_id: variable_id
-        :param int start_time: start_time
-        :param float value: value
-        :param float original_value: original_value
-        :param int duration: duration
-        :param str note: note
-        :param float latitude: latitude
-        :param float longitude: longitude
-        :param str location: location
-        :param str created_at: created_at
-        :param str updated_at: updated_at
-        :param str error: error
-        :param int limit: limit
-        :param int offset: offset
-        :param str sort: sort
-        :return: InlineResponse20011
+        :param str access_token: User's OAuth2 access token
+        :param int user_id: ID of user that owns this measurement
+        :param str client_id: The ID of the client application which originally stored the measurement
+        :param int connector_id: The id for the connector data source from which the measurement was obtained
+        :param int variable_id: ID of the variable for which we are creating the measurement records
+        :param int source_id: Application or device used to record the measurement values
+        :param str start_time: start time for the measurement event. Use ISO 8601 datetime format
+        :param float value: The value of the measurement after conversion to the default unit for that variable
+        :param int unit_id: The default unit id for the variable
+        :param float original_value: Unconverted value of measurement as originally posted (before conversion to default unit)
+        :param int original_unit_id: Unit id of the measurement as originally submitted
+        :param int duration: Duration of the event being measurement in seconds
+        :param str note: An optional note the user may include with their measurement
+        :param float latitude: Latitude at which the measurement was taken
+        :param float longitude: Longitude at which the measurement was taken
+        :param str location: Optional human readable name for the location where the measurement was recorded
+        :param str created_at: When the record was first created. Use ISO 8601 datetime format
+        :param str updated_at: When the record was last updated. Use ISO 8601 datetime format
+        :param str error: An error message if there is a problem with the measurement
+        :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.
+        :param int offset: OFFSET says to skip that many rows before beginning to return rows to the client. OFFSET 0 is the same as omitting the OFFSET clause. If both OFFSET and LIMIT appear, then OFFSET rows are skipped before starting to count the LIMIT rows that are returned.
+        :param str sort: Sort by given field. If the field is prefixed with '-', it will sort in descending order.
+        :return: InlineResponse2005
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['user_id', 'client_id', 'connector_id', 'variable_id', 'start_time', 'value', 'original_value', 'duration', 'note', 'latitude', 'longitude', 'location', 'created_at', 'updated_at', 'error', 'limit', 'offset', 'sort']
+        all_params = ['access_token', 'user_id', 'client_id', 'connector_id', 'variable_id', 'source_id', 'start_time', 'value', 'unit_id', 'original_value', 'original_unit_id', 'duration', 'note', 'latitude', 'longitude', 'location', 'created_at', 'updated_at', 'error', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -96,12 +100,15 @@ class MeasurementApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/measurements'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'user_id' in params:
             query_params['user_id'] = params['user_id']
         if 'client_id' in params:
@@ -110,12 +117,18 @@ class MeasurementApi(object):
             query_params['connector_id'] = params['connector_id']
         if 'variable_id' in params:
             query_params['variable_id'] = params['variable_id']
+        if 'source_id' in params:
+            query_params['source_id'] = params['source_id']
         if 'start_time' in params:
             query_params['start_time'] = params['start_time']
         if 'value' in params:
             query_params['value'] = params['value']
+        if 'unit_id' in params:
+            query_params['unit_id'] = params['unit_id']
         if 'original_value' in params:
             query_params['original_value'] = params['original_value']
+        if 'original_unit_id' in params:
+            query_params['original_unit_id'] = params['original_unit_id']
         if 'duration' in params:
             query_params['duration'] = params['duration']
         if 'note' in params:
@@ -141,7 +154,7 @@ class MeasurementApi(object):
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -157,7 +170,7 @@ class MeasurementApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -166,15 +179,15 @@ class MeasurementApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20011',
+                                            response_type='InlineResponse2005',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
 
     def measurements_post(self, **kwargs):
         """
-        Store Measurement
-        Store Measurement
+        Post a new set or update existing measurements to the database
+        You can submit or update multiple measurements in a measurements sub-array.  If the variable these measurements correspond to does not already exist in the database, it will be automatically added.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -186,13 +199,14 @@ class MeasurementApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param MeasurementPost body: Measurement that should be stored
-        :return: InlineResponse20011
+        :return: InlineResponse2005
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -205,16 +219,19 @@ class MeasurementApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/measurements'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -232,7 +249,7 @@ class MeasurementApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -241,7 +258,7 @@ class MeasurementApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20011',
+                                            response_type='InlineResponse2005',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -261,12 +278,13 @@ class MeasurementApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :return: file
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []
+        all_params = ['access_token']
         all_params.append('callback')
 
         params = locals()
@@ -279,16 +297,19 @@ class MeasurementApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/measurements/csv'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -304,7 +325,7 @@ class MeasurementApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -333,12 +354,13 @@ class MeasurementApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :return: int
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []
+        all_params = ['access_token']
         all_params.append('callback')
 
         params = locals()
@@ -351,16 +373,19 @@ class MeasurementApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/measurements/request_csv'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -376,7 +401,7 @@ class MeasurementApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -406,15 +431,13 @@ class MeasurementApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Measurement (required)
-        :return: InlineResponse20012
+        :param str access_token: User's OAuth2 access token
+        :return: InlineResponse20020
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `measurements_id_get`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -427,6 +450,10 @@ class MeasurementApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `measurements_id_get`")
+
         resource_path = '/measurements/{id}'.replace('{format}', 'json')
         method = 'GET'
 
@@ -435,10 +462,12 @@ class MeasurementApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -454,7 +483,7 @@ class MeasurementApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -463,7 +492,7 @@ class MeasurementApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20012',
+                                            response_type='InlineResponse20020',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -484,16 +513,14 @@ class MeasurementApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Measurement (required)
+        :param str access_token: User's OAuth2 access token
         :param Measurement body: Measurement that should be updated
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `measurements_id_put`")
 
-        all_params = ['id', 'body']
+        all_params = ['id', 'access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -506,6 +533,10 @@ class MeasurementApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `measurements_id_put`")
+
         resource_path = '/measurements/{id}'.replace('{format}', 'json')
         method = 'PUT'
 
@@ -514,10 +545,12 @@ class MeasurementApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -535,7 +568,7 @@ class MeasurementApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -565,15 +598,13 @@ class MeasurementApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Measurement (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `measurements_id_delete`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -586,6 +617,10 @@ class MeasurementApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `measurements_id_delete`")
+
         resource_path = '/measurements/{id}'.replace('{format}', 'json')
         method = 'DELETE'
 
@@ -594,10 +629,12 @@ class MeasurementApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -613,7 +650,7 @@ class MeasurementApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,

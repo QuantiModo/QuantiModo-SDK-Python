@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -102,7 +102,7 @@ class Connection(object):
     def user_id(self):
         """
         Gets the user_id of this Connection.
-        user_id
+        ID of user that owns this correlation
 
         :return: The user_id of this Connection.
         :rtype: int
@@ -113,7 +113,7 @@ class Connection(object):
     def user_id(self, user_id):
         """
         Sets the user_id of this Connection.
-        user_id
+        ID of user that owns this correlation
 
         :param user_id: The user_id of this Connection.
         :type: int
@@ -124,7 +124,7 @@ class Connection(object):
     def connector_id(self):
         """
         Gets the connector_id of this Connection.
-        connector_id
+        The id for the connector data source for which the connection is connected
 
         :return: The connector_id of this Connection.
         :rtype: int
@@ -135,7 +135,7 @@ class Connection(object):
     def connector_id(self, connector_id):
         """
         Sets the connector_id of this Connection.
-        connector_id
+        The id for the connector data source for which the connection is connected
 
         :param connector_id: The connector_id of this Connection.
         :type: int
@@ -146,7 +146,7 @@ class Connection(object):
     def connect_status(self):
         """
         Gets the connect_status of this Connection.
-        connect_status
+        Indicates whether a connector is currently connected to a service for a user.
 
         :return: The connect_status of this Connection.
         :rtype: str
@@ -157,7 +157,7 @@ class Connection(object):
     def connect_status(self, connect_status):
         """
         Sets the connect_status of this Connection.
-        connect_status
+        Indicates whether a connector is currently connected to a service for a user.
 
         :param connect_status: The connect_status of this Connection.
         :type: str
@@ -168,7 +168,7 @@ class Connection(object):
     def connect_error(self):
         """
         Gets the connect_error of this Connection.
-        connect_error
+        Error message if there is a problem with authorizing this connection.
 
         :return: The connect_error of this Connection.
         :rtype: str
@@ -179,7 +179,7 @@ class Connection(object):
     def connect_error(self, connect_error):
         """
         Sets the connect_error of this Connection.
-        connect_error
+        Error message if there is a problem with authorizing this connection.
 
         :param connect_error: The connect_error of this Connection.
         :type: str
@@ -190,7 +190,7 @@ class Connection(object):
     def update_requested_at(self):
         """
         Gets the update_requested_at of this Connection.
-        update_requested_at
+        Time at which an update was requested by a user.
 
         :return: The update_requested_at of this Connection.
         :rtype: datetime
@@ -201,7 +201,7 @@ class Connection(object):
     def update_requested_at(self, update_requested_at):
         """
         Sets the update_requested_at of this Connection.
-        update_requested_at
+        Time at which an update was requested by a user.
 
         :param update_requested_at: The update_requested_at of this Connection.
         :type: datetime
@@ -212,7 +212,7 @@ class Connection(object):
     def update_status(self):
         """
         Gets the update_status of this Connection.
-        update_status
+        Indicates whether a connector is currently updated.
 
         :return: The update_status of this Connection.
         :rtype: str
@@ -223,7 +223,7 @@ class Connection(object):
     def update_status(self, update_status):
         """
         Sets the update_status of this Connection.
-        update_status
+        Indicates whether a connector is currently updated.
 
         :param update_status: The update_status of this Connection.
         :type: str
@@ -234,7 +234,7 @@ class Connection(object):
     def update_error(self):
         """
         Gets the update_error of this Connection.
-        update_error
+        Indicates if there was an error during the update.
 
         :return: The update_error of this Connection.
         :rtype: str
@@ -245,7 +245,7 @@ class Connection(object):
     def update_error(self, update_error):
         """
         Sets the update_error of this Connection.
-        update_error
+        Indicates if there was an error during the update.
 
         :param update_error: The update_error of this Connection.
         :type: str
@@ -256,7 +256,7 @@ class Connection(object):
     def last_successful_updated_at(self):
         """
         Gets the last_successful_updated_at of this Connection.
-        last_successful_updated_at
+        The time at which the connector was last successfully updated.
 
         :return: The last_successful_updated_at of this Connection.
         :rtype: datetime
@@ -267,7 +267,7 @@ class Connection(object):
     def last_successful_updated_at(self, last_successful_updated_at):
         """
         Sets the last_successful_updated_at of this Connection.
-        last_successful_updated_at
+        The time at which the connector was last successfully updated.
 
         :param last_successful_updated_at: The last_successful_updated_at of this Connection.
         :type: datetime
@@ -278,7 +278,7 @@ class Connection(object):
     def created_at(self):
         """
         Gets the created_at of this Connection.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :return: The created_at of this Connection.
         :rtype: datetime
@@ -289,7 +289,7 @@ class Connection(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this Connection.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :param created_at: The created_at of this Connection.
         :type: datetime
@@ -300,7 +300,7 @@ class Connection(object):
     def updated_at(self):
         """
         Gets the updated_at of this Connection.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :return: The updated_at of this Connection.
         :rtype: datetime
@@ -311,7 +311,7 @@ class Connection(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this Connection.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :param updated_at: The updated_at of this Connection.
         :type: datetime
@@ -333,6 +333,12 @@ class Connection(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -349,3 +355,16 @@ class Connection(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
+

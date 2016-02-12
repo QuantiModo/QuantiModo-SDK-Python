@@ -2,7 +2,7 @@
 
 """
 CorrelationApi.py
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -60,38 +60,39 @@ class CorrelationApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int timestamp: timestamp
-        :param int user_id: user_id
-        :param float correlation: correlation
-        :param int cause_id: cause_id
-        :param int effect_id: effect_id
-        :param int onset_delay: onset_delay
-        :param int duration_of_action: duration_of_action
-        :param int number_of_pairs: number_of_pairs
-        :param float value_predicting_high_outcome: value_predicting_high_outcome
-        :param float value_predicting_low_outcome: value_predicting_low_outcome
-        :param float optimal_pearson_product: optimal_pearson_product
-        :param float vote: vote
-        :param float statistical_significance: statistical_significance
-        :param str cause_unit: cause_unit
-        :param int cause_unit_id: cause_unit_id
-        :param int cause_changes: cause_changes
-        :param int effect_changes: effect_changes
-        :param float qm_score: qm_score
+        :param str access_token: User's OAuth2 access token
+        :param int timestamp: Time at which correlation was calculated
+        :param int user_id: ID of user that owns this correlation
+        :param float correlation: Pearson correlation coefficient between cause and effect measurements
+        :param int cause_id: variable ID of the predictor variable for which the user desires correlations
+        :param int effect_id: variable ID of the outcome variable for which the user desires correlations
+        :param int onset_delay: User estimated or default time after cause measurement before a perceivable effect is observed
+        :param int duration_of_action: Time over which the cause is expected to produce a perceivable effect following the onset delay
+        :param int number_of_pairs: Number of points that went into the correlation calculation
+        :param float value_predicting_high_outcome: cause value that predicts an above average effect value (in default unit for predictor variable)
+        :param float value_predicting_low_outcome: cause value that predicts a below average effect value (in default unit for predictor variable)
+        :param float optimal_pearson_product: Optimal Pearson Product
+        :param float vote: Vote
+        :param float statistical_significance: A function of the effect size and sample size
+        :param str cause_unit: Unit of the predictor variable
+        :param int cause_unit_id: Unit ID of the predictor variable
+        :param int cause_changes: Cause changes
+        :param int effect_changes: Effect changes
+        :param float qm_score: QM Score
         :param str error: error
-        :param str created_at: created_at
-        :param str updated_at: updated_at
-        :param float reverse_pearson_correlation_coefficient: reverse_pearson_correlation_coefficient
-        :param float predictive_pearson_correlation_coefficient: predictive_pearson_correlation_coefficient
-        :param int limit: limit
-        :param int offset: offset
-        :param str sort: sort
-        :return: InlineResponse2007
+        :param str created_at: When the record was first created. Use ISO 8601 datetime format
+        :param str updated_at: When the record in the database was last updated. Use ISO 8601 datetime format
+        :param float reverse_pearson_correlation_coefficient: Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation
+        :param float predictive_pearson_correlation_coefficient: Predictive Pearson Correlation Coefficient
+        :param int limit: Limit the number of results returned
+        :param int offset: Records from give Offset
+        :param str sort: Sort records by given field
+        :return: InlineResponse20017
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['timestamp', 'user_id', 'correlation', 'cause_id', 'effect_id', 'onset_delay', 'duration_of_action', 'number_of_pairs', 'value_predicting_high_outcome', 'value_predicting_low_outcome', 'optimal_pearson_product', 'vote', 'statistical_significance', 'cause_unit', 'cause_unit_id', 'cause_changes', 'effect_changes', 'qm_score', 'error', 'created_at', 'updated_at', 'reverse_pearson_correlation_coefficient', 'predictive_pearson_correlation_coefficient', 'limit', 'offset', 'sort']
+        all_params = ['access_token', 'timestamp', 'user_id', 'correlation', 'cause_id', 'effect_id', 'onset_delay', 'duration_of_action', 'number_of_pairs', 'value_predicting_high_outcome', 'value_predicting_low_outcome', 'optimal_pearson_product', 'vote', 'statistical_significance', 'cause_unit', 'cause_unit_id', 'cause_changes', 'effect_changes', 'qm_score', 'error', 'created_at', 'updated_at', 'reverse_pearson_correlation_coefficient', 'predictive_pearson_correlation_coefficient', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -104,12 +105,15 @@ class CorrelationApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/correlations'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'timestamp' in params:
             query_params['timestamp'] = params['timestamp']
         if 'user_id' in params:
@@ -165,7 +169,7 @@ class CorrelationApi(object):
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -181,7 +185,7 @@ class CorrelationApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -190,7 +194,7 @@ class CorrelationApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse2007',
+                                            response_type='InlineResponse20017',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -210,13 +214,14 @@ class CorrelationApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param Correlation body: Correlation that should be stored
-        :return: InlineResponse2008
+        :return: InlineResponse20018
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -229,16 +234,19 @@ class CorrelationApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/correlations'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -256,7 +264,7 @@ class CorrelationApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -265,14 +273,14 @@ class CorrelationApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse2008',
+                                            response_type='InlineResponse20018',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
 
     def correlations_id_get(self, id, **kwargs):
         """
-        Get Correlation
+        Get Correlation Details
         Get Correlation
 
         This method makes a synchronous HTTP request by default. To make an
@@ -286,15 +294,13 @@ class CorrelationApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Correlation (required)
-        :return: InlineResponse2008
+        :param str access_token: User's OAuth2 access token
+        :return: InlineResponse20018
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `correlations_id_get`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -307,6 +313,10 @@ class CorrelationApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `correlations_id_get`")
+
         resource_path = '/correlations/{id}'.replace('{format}', 'json')
         method = 'GET'
 
@@ -315,10 +325,12 @@ class CorrelationApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -334,7 +346,7 @@ class CorrelationApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -343,7 +355,7 @@ class CorrelationApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse2008',
+                                            response_type='InlineResponse20018',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -364,16 +376,14 @@ class CorrelationApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Correlation (required)
+        :param str access_token: User's OAuth2 access token
         :param Correlation body: Correlation that should be updated
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `correlations_id_put`")
 
-        all_params = ['id', 'body']
+        all_params = ['id', 'access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -386,6 +396,10 @@ class CorrelationApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `correlations_id_put`")
+
         resource_path = '/correlations/{id}'.replace('{format}', 'json')
         method = 'PUT'
 
@@ -394,10 +408,12 @@ class CorrelationApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -415,7 +431,7 @@ class CorrelationApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -445,15 +461,13 @@ class CorrelationApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Correlation (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `correlations_id_delete`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -466,6 +480,10 @@ class CorrelationApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `correlations_id_delete`")
+
         resource_path = '/correlations/{id}'.replace('{format}', 'json')
         method = 'DELETE'
 
@@ -474,10 +492,12 @@ class CorrelationApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -493,7 +513,7 @@ class CorrelationApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,

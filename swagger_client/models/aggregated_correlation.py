@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -62,7 +62,8 @@ class AggregatedCorrelation(object):
             'error_message': 'str',
             'last_successful_update_time': 'datetime',
             'reverse_pearson_correlation_coefficient': 'float',
-            'predictive_pearson_correlation_coefficient': 'float'
+            'predictive_pearson_correlation_coefficient': 'float',
+            'data_source': 'str'
         }
 
         self.attribute_map = {
@@ -91,7 +92,8 @@ class AggregatedCorrelation(object):
             'error_message': 'error_message',
             'last_successful_update_time': 'last_successful_update_time',
             'reverse_pearson_correlation_coefficient': 'reverse_pearson_correlation_coefficient',
-            'predictive_pearson_correlation_coefficient': 'predictive_pearson_correlation_coefficient'
+            'predictive_pearson_correlation_coefficient': 'predictive_pearson_correlation_coefficient',
+            'data_source': 'data_source'
         }
 
         self._id = None
@@ -120,6 +122,7 @@ class AggregatedCorrelation(object):
         self._last_successful_update_time = None
         self._reverse_pearson_correlation_coefficient = None
         self._predictive_pearson_correlation_coefficient = None
+        self._data_source = None
 
     @property
     def id(self):
@@ -147,7 +150,7 @@ class AggregatedCorrelation(object):
     def correlation(self):
         """
         Gets the correlation of this AggregatedCorrelation.
-        correlation
+        Pearson correlation coefficient between cause and effect measurements
 
         :return: The correlation of this AggregatedCorrelation.
         :rtype: float
@@ -158,7 +161,7 @@ class AggregatedCorrelation(object):
     def correlation(self, correlation):
         """
         Sets the correlation of this AggregatedCorrelation.
-        correlation
+        Pearson correlation coefficient between cause and effect measurements
 
         :param correlation: The correlation of this AggregatedCorrelation.
         :type: float
@@ -169,7 +172,7 @@ class AggregatedCorrelation(object):
     def cause_id(self):
         """
         Gets the cause_id of this AggregatedCorrelation.
-        cause_id
+        variable ID of the cause variable for which the user desires correlations
 
         :return: The cause_id of this AggregatedCorrelation.
         :rtype: int
@@ -180,7 +183,7 @@ class AggregatedCorrelation(object):
     def cause_id(self, cause_id):
         """
         Sets the cause_id of this AggregatedCorrelation.
-        cause_id
+        variable ID of the cause variable for which the user desires correlations
 
         :param cause_id: The cause_id of this AggregatedCorrelation.
         :type: int
@@ -191,7 +194,7 @@ class AggregatedCorrelation(object):
     def effect_id(self):
         """
         Gets the effect_id of this AggregatedCorrelation.
-        effect_id
+        variable ID of the effect variable for which the user desires correlations
 
         :return: The effect_id of this AggregatedCorrelation.
         :rtype: int
@@ -202,7 +205,7 @@ class AggregatedCorrelation(object):
     def effect_id(self, effect_id):
         """
         Sets the effect_id of this AggregatedCorrelation.
-        effect_id
+        variable ID of the effect variable for which the user desires correlations
 
         :param effect_id: The effect_id of this AggregatedCorrelation.
         :type: int
@@ -213,7 +216,7 @@ class AggregatedCorrelation(object):
     def onset_delay(self):
         """
         Gets the onset_delay of this AggregatedCorrelation.
-        onset_delay
+        User estimated or default time after cause measurement before a perceivable effect is observed
 
         :return: The onset_delay of this AggregatedCorrelation.
         :rtype: int
@@ -224,7 +227,7 @@ class AggregatedCorrelation(object):
     def onset_delay(self, onset_delay):
         """
         Sets the onset_delay of this AggregatedCorrelation.
-        onset_delay
+        User estimated or default time after cause measurement before a perceivable effect is observed
 
         :param onset_delay: The onset_delay of this AggregatedCorrelation.
         :type: int
@@ -235,7 +238,7 @@ class AggregatedCorrelation(object):
     def duration_of_action(self):
         """
         Gets the duration_of_action of this AggregatedCorrelation.
-        duration_of_action
+        Time over which the cause is expected to produce a perceivable effect following the onset delay
 
         :return: The duration_of_action of this AggregatedCorrelation.
         :rtype: int
@@ -246,7 +249,7 @@ class AggregatedCorrelation(object):
     def duration_of_action(self, duration_of_action):
         """
         Sets the duration_of_action of this AggregatedCorrelation.
-        duration_of_action
+        Time over which the cause is expected to produce a perceivable effect following the onset delay
 
         :param duration_of_action: The duration_of_action of this AggregatedCorrelation.
         :type: int
@@ -257,7 +260,7 @@ class AggregatedCorrelation(object):
     def number_of_pairs(self):
         """
         Gets the number_of_pairs of this AggregatedCorrelation.
-        number_of_pairs
+        Number of points that went into the correlation calculation
 
         :return: The number_of_pairs of this AggregatedCorrelation.
         :rtype: int
@@ -268,7 +271,7 @@ class AggregatedCorrelation(object):
     def number_of_pairs(self, number_of_pairs):
         """
         Sets the number_of_pairs of this AggregatedCorrelation.
-        number_of_pairs
+        Number of points that went into the correlation calculation
 
         :param number_of_pairs: The number_of_pairs of this AggregatedCorrelation.
         :type: int
@@ -279,7 +282,7 @@ class AggregatedCorrelation(object):
     def value_predicting_high_outcome(self):
         """
         Gets the value_predicting_high_outcome of this AggregatedCorrelation.
-        value_predicting_high_outcome
+        cause value that predicts an above average effect value (in default unit for cause variable)
 
         :return: The value_predicting_high_outcome of this AggregatedCorrelation.
         :rtype: float
@@ -290,7 +293,7 @@ class AggregatedCorrelation(object):
     def value_predicting_high_outcome(self, value_predicting_high_outcome):
         """
         Sets the value_predicting_high_outcome of this AggregatedCorrelation.
-        value_predicting_high_outcome
+        cause value that predicts an above average effect value (in default unit for cause variable)
 
         :param value_predicting_high_outcome: The value_predicting_high_outcome of this AggregatedCorrelation.
         :type: float
@@ -301,7 +304,7 @@ class AggregatedCorrelation(object):
     def value_predicting_low_outcome(self):
         """
         Gets the value_predicting_low_outcome of this AggregatedCorrelation.
-        value_predicting_low_outcome
+        cause value that predicts a below average effect value (in default unit for cause variable)
 
         :return: The value_predicting_low_outcome of this AggregatedCorrelation.
         :rtype: float
@@ -312,7 +315,7 @@ class AggregatedCorrelation(object):
     def value_predicting_low_outcome(self, value_predicting_low_outcome):
         """
         Sets the value_predicting_low_outcome of this AggregatedCorrelation.
-        value_predicting_low_outcome
+        cause value that predicts a below average effect value (in default unit for cause variable)
 
         :param value_predicting_low_outcome: The value_predicting_low_outcome of this AggregatedCorrelation.
         :type: float
@@ -323,7 +326,7 @@ class AggregatedCorrelation(object):
     def optimal_pearson_product(self):
         """
         Gets the optimal_pearson_product of this AggregatedCorrelation.
-        optimal_pearson_product
+        Optimal Pearson Product
 
         :return: The optimal_pearson_product of this AggregatedCorrelation.
         :rtype: float
@@ -334,7 +337,7 @@ class AggregatedCorrelation(object):
     def optimal_pearson_product(self, optimal_pearson_product):
         """
         Sets the optimal_pearson_product of this AggregatedCorrelation.
-        optimal_pearson_product
+        Optimal Pearson Product
 
         :param optimal_pearson_product: The optimal_pearson_product of this AggregatedCorrelation.
         :type: float
@@ -345,7 +348,7 @@ class AggregatedCorrelation(object):
     def vote(self):
         """
         Gets the vote of this AggregatedCorrelation.
-        vote
+        Vote
 
         :return: The vote of this AggregatedCorrelation.
         :rtype: float
@@ -356,7 +359,7 @@ class AggregatedCorrelation(object):
     def vote(self, vote):
         """
         Sets the vote of this AggregatedCorrelation.
-        vote
+        Vote
 
         :param vote: The vote of this AggregatedCorrelation.
         :type: float
@@ -367,7 +370,7 @@ class AggregatedCorrelation(object):
     def number_of_users(self):
         """
         Gets the number_of_users of this AggregatedCorrelation.
-        number_of_users
+        Number of Users by which correlation is aggregated
 
         :return: The number_of_users of this AggregatedCorrelation.
         :rtype: int
@@ -378,7 +381,7 @@ class AggregatedCorrelation(object):
     def number_of_users(self, number_of_users):
         """
         Sets the number_of_users of this AggregatedCorrelation.
-        number_of_users
+        Number of Users by which correlation is aggregated
 
         :param number_of_users: The number_of_users of this AggregatedCorrelation.
         :type: int
@@ -389,7 +392,7 @@ class AggregatedCorrelation(object):
     def number_of_correlations(self):
         """
         Gets the number_of_correlations of this AggregatedCorrelation.
-        number_of_correlations
+        Number of Correlations by which correlation is aggregated
 
         :return: The number_of_correlations of this AggregatedCorrelation.
         :rtype: int
@@ -400,7 +403,7 @@ class AggregatedCorrelation(object):
     def number_of_correlations(self, number_of_correlations):
         """
         Sets the number_of_correlations of this AggregatedCorrelation.
-        number_of_correlations
+        Number of Correlations by which correlation is aggregated
 
         :param number_of_correlations: The number_of_correlations of this AggregatedCorrelation.
         :type: int
@@ -411,7 +414,7 @@ class AggregatedCorrelation(object):
     def statistical_significance(self):
         """
         Gets the statistical_significance of this AggregatedCorrelation.
-        statistical_significance
+        A function of the effect size and sample size
 
         :return: The statistical_significance of this AggregatedCorrelation.
         :rtype: float
@@ -422,7 +425,7 @@ class AggregatedCorrelation(object):
     def statistical_significance(self, statistical_significance):
         """
         Sets the statistical_significance of this AggregatedCorrelation.
-        statistical_significance
+        A function of the effect size and sample size
 
         :param statistical_significance: The statistical_significance of this AggregatedCorrelation.
         :type: float
@@ -433,7 +436,7 @@ class AggregatedCorrelation(object):
     def cause_unit(self):
         """
         Gets the cause_unit of this AggregatedCorrelation.
-        cause_unit
+        Unit of the predictor variable
 
         :return: The cause_unit of this AggregatedCorrelation.
         :rtype: str
@@ -444,7 +447,7 @@ class AggregatedCorrelation(object):
     def cause_unit(self, cause_unit):
         """
         Sets the cause_unit of this AggregatedCorrelation.
-        cause_unit
+        Unit of the predictor variable
 
         :param cause_unit: The cause_unit of this AggregatedCorrelation.
         :type: str
@@ -455,7 +458,7 @@ class AggregatedCorrelation(object):
     def cause_unit_id(self):
         """
         Gets the cause_unit_id of this AggregatedCorrelation.
-        cause_unit_id
+        Unit ID of the predictor variable
 
         :return: The cause_unit_id of this AggregatedCorrelation.
         :rtype: int
@@ -466,7 +469,7 @@ class AggregatedCorrelation(object):
     def cause_unit_id(self, cause_unit_id):
         """
         Sets the cause_unit_id of this AggregatedCorrelation.
-        cause_unit_id
+        Unit ID of the predictor variable
 
         :param cause_unit_id: The cause_unit_id of this AggregatedCorrelation.
         :type: int
@@ -477,7 +480,7 @@ class AggregatedCorrelation(object):
     def cause_changes(self):
         """
         Gets the cause_changes of this AggregatedCorrelation.
-        cause_changes
+        Cause changes
 
         :return: The cause_changes of this AggregatedCorrelation.
         :rtype: int
@@ -488,7 +491,7 @@ class AggregatedCorrelation(object):
     def cause_changes(self, cause_changes):
         """
         Sets the cause_changes of this AggregatedCorrelation.
-        cause_changes
+        Cause changes
 
         :param cause_changes: The cause_changes of this AggregatedCorrelation.
         :type: int
@@ -499,7 +502,7 @@ class AggregatedCorrelation(object):
     def effect_changes(self):
         """
         Gets the effect_changes of this AggregatedCorrelation.
-        effect_changes
+        Effect changes
 
         :return: The effect_changes of this AggregatedCorrelation.
         :rtype: int
@@ -510,7 +513,7 @@ class AggregatedCorrelation(object):
     def effect_changes(self, effect_changes):
         """
         Sets the effect_changes of this AggregatedCorrelation.
-        effect_changes
+        Effect changes
 
         :param effect_changes: The effect_changes of this AggregatedCorrelation.
         :type: int
@@ -521,7 +524,7 @@ class AggregatedCorrelation(object):
     def aggregate_qm_score(self):
         """
         Gets the aggregate_qm_score of this AggregatedCorrelation.
-        aggregate_qm_score
+        Aggregated QM Score
 
         :return: The aggregate_qm_score of this AggregatedCorrelation.
         :rtype: float
@@ -532,7 +535,7 @@ class AggregatedCorrelation(object):
     def aggregate_qm_score(self, aggregate_qm_score):
         """
         Sets the aggregate_qm_score of this AggregatedCorrelation.
-        aggregate_qm_score
+        Aggregated QM Score
 
         :param aggregate_qm_score: The aggregate_qm_score of this AggregatedCorrelation.
         :type: float
@@ -543,7 +546,7 @@ class AggregatedCorrelation(object):
     def created_at(self):
         """
         Gets the created_at of this AggregatedCorrelation.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :return: The created_at of this AggregatedCorrelation.
         :rtype: datetime
@@ -554,7 +557,7 @@ class AggregatedCorrelation(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this AggregatedCorrelation.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :param created_at: The created_at of this AggregatedCorrelation.
         :type: datetime
@@ -565,7 +568,7 @@ class AggregatedCorrelation(object):
     def updated_at(self):
         """
         Gets the updated_at of this AggregatedCorrelation.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :return: The updated_at of this AggregatedCorrelation.
         :rtype: datetime
@@ -576,7 +579,7 @@ class AggregatedCorrelation(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this AggregatedCorrelation.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :param updated_at: The updated_at of this AggregatedCorrelation.
         :type: datetime
@@ -587,7 +590,7 @@ class AggregatedCorrelation(object):
     def status(self):
         """
         Gets the status of this AggregatedCorrelation.
-        status
+        Status
 
         :return: The status of this AggregatedCorrelation.
         :rtype: str
@@ -598,7 +601,7 @@ class AggregatedCorrelation(object):
     def status(self, status):
         """
         Sets the status of this AggregatedCorrelation.
-        status
+        Status
 
         :param status: The status of this AggregatedCorrelation.
         :type: str
@@ -609,7 +612,7 @@ class AggregatedCorrelation(object):
     def error_message(self):
         """
         Gets the error_message of this AggregatedCorrelation.
-        error_message
+        Error Message
 
         :return: The error_message of this AggregatedCorrelation.
         :rtype: str
@@ -620,7 +623,7 @@ class AggregatedCorrelation(object):
     def error_message(self, error_message):
         """
         Sets the error_message of this AggregatedCorrelation.
-        error_message
+        Error Message
 
         :param error_message: The error_message of this AggregatedCorrelation.
         :type: str
@@ -631,7 +634,7 @@ class AggregatedCorrelation(object):
     def last_successful_update_time(self):
         """
         Gets the last_successful_update_time of this AggregatedCorrelation.
-        last_successful_update_time
+        Last Successful update time
 
         :return: The last_successful_update_time of this AggregatedCorrelation.
         :rtype: datetime
@@ -642,7 +645,7 @@ class AggregatedCorrelation(object):
     def last_successful_update_time(self, last_successful_update_time):
         """
         Sets the last_successful_update_time of this AggregatedCorrelation.
-        last_successful_update_time
+        Last Successful update time
 
         :param last_successful_update_time: The last_successful_update_time of this AggregatedCorrelation.
         :type: datetime
@@ -653,7 +656,7 @@ class AggregatedCorrelation(object):
     def reverse_pearson_correlation_coefficient(self):
         """
         Gets the reverse_pearson_correlation_coefficient of this AggregatedCorrelation.
-        reverse_pearson_correlation_coefficient
+        Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation
 
         :return: The reverse_pearson_correlation_coefficient of this AggregatedCorrelation.
         :rtype: float
@@ -664,7 +667,7 @@ class AggregatedCorrelation(object):
     def reverse_pearson_correlation_coefficient(self, reverse_pearson_correlation_coefficient):
         """
         Sets the reverse_pearson_correlation_coefficient of this AggregatedCorrelation.
-        reverse_pearson_correlation_coefficient
+        Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation
 
         :param reverse_pearson_correlation_coefficient: The reverse_pearson_correlation_coefficient of this AggregatedCorrelation.
         :type: float
@@ -675,7 +678,7 @@ class AggregatedCorrelation(object):
     def predictive_pearson_correlation_coefficient(self):
         """
         Gets the predictive_pearson_correlation_coefficient of this AggregatedCorrelation.
-        predictive_pearson_correlation_coefficient
+        Predictive Pearson Correlation Coefficient
 
         :return: The predictive_pearson_correlation_coefficient of this AggregatedCorrelation.
         :rtype: float
@@ -686,12 +689,34 @@ class AggregatedCorrelation(object):
     def predictive_pearson_correlation_coefficient(self, predictive_pearson_correlation_coefficient):
         """
         Sets the predictive_pearson_correlation_coefficient of this AggregatedCorrelation.
-        predictive_pearson_correlation_coefficient
+        Predictive Pearson Correlation Coefficient
 
         :param predictive_pearson_correlation_coefficient: The predictive_pearson_correlation_coefficient of this AggregatedCorrelation.
         :type: float
         """
         self._predictive_pearson_correlation_coefficient = predictive_pearson_correlation_coefficient
+
+    @property
+    def data_source(self):
+        """
+        Gets the data_source of this AggregatedCorrelation.
+        Source of data for this correlation
+
+        :return: The data_source of this AggregatedCorrelation.
+        :rtype: str
+        """
+        return self._data_source
+
+    @data_source.setter
+    def data_source(self, data_source):
+        """
+        Sets the data_source of this AggregatedCorrelation.
+        Source of data for this correlation
+
+        :param data_source: The data_source of this AggregatedCorrelation.
+        :type: str
+        """
+        self._data_source = data_source
 
     def to_dict(self):
         """
@@ -708,6 +733,12 @@ class AggregatedCorrelation(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -724,3 +755,16 @@ class AggregatedCorrelation(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
+

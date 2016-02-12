@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -203,7 +203,7 @@ class Update(object):
     def created_at(self):
         """
         Gets the created_at of this Update.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :return: The created_at of this Update.
         :rtype: datetime
@@ -214,7 +214,7 @@ class Update(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this Update.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :param created_at: The created_at of this Update.
         :type: datetime
@@ -225,7 +225,7 @@ class Update(object):
     def updated_at(self):
         """
         Gets the updated_at of this Update.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :return: The updated_at of this Update.
         :rtype: datetime
@@ -236,7 +236,7 @@ class Update(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this Update.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :param updated_at: The updated_at of this Update.
         :type: datetime
@@ -258,6 +258,12 @@ class Update(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -274,3 +280,16 @@ class Update(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
+

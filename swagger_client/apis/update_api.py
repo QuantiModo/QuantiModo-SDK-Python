@@ -2,7 +2,7 @@
 
 """
 UpdateApi.py
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -60,22 +60,23 @@ class UpdateApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param int user_id: user_id
         :param int connector_id: connector_id
         :param int number_of_measurements: number_of_measurements
         :param bool success: success
         :param str message: message
-        :param str created_at: created_at
-        :param str updated_at: updated_at
-        :param int limit: limit
-        :param int offset: offset
-        :param str sort: sort
-        :return: InlineResponse20019
+        :param str created_at: When the record was first created. Use ISO 8601 datetime format
+        :param str updated_at: When the record was last updated. Use ISO 8601 datetime format
+        :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.
+        :param int offset: OFFSET says to skip that many rows before beginning to return rows to the client. OFFSET 0 is the same as omitting the OFFSET clause. If both OFFSET and LIMIT appear, then OFFSET rows are skipped before starting to count the LIMIT rows that are returned.
+        :param str sort: Sort by given field. If the field is prefixed with '-', it will sort in descending order.
+        :return: InlineResponse2007
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['user_id', 'connector_id', 'number_of_measurements', 'success', 'message', 'created_at', 'updated_at', 'limit', 'offset', 'sort']
+        all_params = ['access_token', 'user_id', 'connector_id', 'number_of_measurements', 'success', 'message', 'created_at', 'updated_at', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -88,12 +89,15 @@ class UpdateApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/updates'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'user_id' in params:
             query_params['user_id'] = params['user_id']
         if 'connector_id' in params:
@@ -117,7 +121,7 @@ class UpdateApi(object):
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -133,7 +137,7 @@ class UpdateApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -142,7 +146,7 @@ class UpdateApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20019',
+                                            response_type='InlineResponse2007',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -162,13 +166,14 @@ class UpdateApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param Update body: Update that should be stored
-        :return: InlineResponse20020
+        :return: InlineResponse20028
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -181,16 +186,19 @@ class UpdateApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/updates'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -208,7 +216,7 @@ class UpdateApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -217,7 +225,7 @@ class UpdateApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20020',
+                                            response_type='InlineResponse20028',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -238,15 +246,13 @@ class UpdateApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Update (required)
-        :return: InlineResponse20020
+        :param str access_token: User's OAuth2 access token
+        :return: InlineResponse20028
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `updates_id_get`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -259,6 +265,10 @@ class UpdateApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `updates_id_get`")
+
         resource_path = '/updates/{id}'.replace('{format}', 'json')
         method = 'GET'
 
@@ -267,10 +277,12 @@ class UpdateApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -286,7 +298,7 @@ class UpdateApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -295,7 +307,7 @@ class UpdateApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20020',
+                                            response_type='InlineResponse20028',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -316,16 +328,14 @@ class UpdateApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Update (required)
+        :param str access_token: User's OAuth2 access token
         :param Update body: Update that should be updated
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `updates_id_put`")
 
-        all_params = ['id', 'body']
+        all_params = ['id', 'access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -338,6 +348,10 @@ class UpdateApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `updates_id_put`")
+
         resource_path = '/updates/{id}'.replace('{format}', 'json')
         method = 'PUT'
 
@@ -346,10 +360,12 @@ class UpdateApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -367,7 +383,7 @@ class UpdateApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -397,15 +413,13 @@ class UpdateApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Update (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `updates_id_delete`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -418,6 +432,10 @@ class UpdateApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `updates_id_delete`")
+
         resource_path = '/updates/{id}'.replace('{format}', 'json')
         method = 'DELETE'
 
@@ -426,10 +444,12 @@ class UpdateApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -445,7 +465,7 @@ class UpdateApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,

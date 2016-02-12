@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -38,6 +38,7 @@ class UserVariable(object):
         """
         self.swagger_types = {
             'parent_id': 'int',
+            'user_id': 'int',
             'client_id': 'str',
             'variable_id': 'int',
             'default_unit_id': 'int',
@@ -66,7 +67,7 @@ class UserVariable(object):
             'last_successful_update_time': 'datetime',
             'standard_deviation': 'float',
             'variance': 'float',
-            'minimum_recorded_daily_value': 'float',
+            'minimum_recorded_value': 'float',
             'maximum_recorded_daily_value': 'float',
             'mean': 'float',
             'median': 'float',
@@ -79,6 +80,8 @@ class UserVariable(object):
             'latitude': 'float',
             'longitude': 'float',
             'location': 'str',
+            'experiment_start_time': 'datetime',
+            'experiment_end_time': 'datetime',
             'created_at': 'datetime',
             'updated_at': 'datetime',
             'outcome': 'bool',
@@ -93,6 +96,7 @@ class UserVariable(object):
 
         self.attribute_map = {
             'parent_id': 'parent_id',
+            'user_id': 'user_id',
             'client_id': 'client_id',
             'variable_id': 'variable_id',
             'default_unit_id': 'default_unit_id',
@@ -121,7 +125,7 @@ class UserVariable(object):
             'last_successful_update_time': 'last_successful_update_time',
             'standard_deviation': 'standard_deviation',
             'variance': 'variance',
-            'minimum_recorded_daily_value': 'minimum_recorded_daily_value',
+            'minimum_recorded_value': 'minimum_recorded_value',
             'maximum_recorded_daily_value': 'maximum_recorded_daily_value',
             'mean': 'mean',
             'median': 'median',
@@ -134,6 +138,8 @@ class UserVariable(object):
             'latitude': 'latitude',
             'longitude': 'longitude',
             'location': 'location',
+            'experiment_start_time': 'experiment_start_time',
+            'experiment_end_time': 'experiment_end_time',
             'created_at': 'created_at',
             'updated_at': 'updated_at',
             'outcome': 'outcome',
@@ -147,6 +153,7 @@ class UserVariable(object):
         }
 
         self._parent_id = None
+        self._user_id = None
         self._client_id = None
         self._variable_id = None
         self._default_unit_id = None
@@ -175,7 +182,7 @@ class UserVariable(object):
         self._last_successful_update_time = None
         self._standard_deviation = None
         self._variance = None
-        self._minimum_recorded_daily_value = None
+        self._minimum_recorded_value = None
         self._maximum_recorded_daily_value = None
         self._mean = None
         self._median = None
@@ -188,6 +195,8 @@ class UserVariable(object):
         self._latitude = None
         self._longitude = None
         self._location = None
+        self._experiment_start_time = None
+        self._experiment_end_time = None
         self._created_at = None
         self._updated_at = None
         self._outcome = None
@@ -220,6 +229,28 @@ class UserVariable(object):
         :type: int
         """
         self._parent_id = parent_id
+
+    @property
+    def user_id(self):
+        """
+        Gets the user_id of this UserVariable.
+        User ID
+
+        :return: The user_id of this UserVariable.
+        :rtype: int
+        """
+        return self._user_id
+
+    @user_id.setter
+    def user_id(self, user_id):
+        """
+        Sets the user_id of this UserVariable.
+        User ID
+
+        :param user_id: The user_id of this UserVariable.
+        :type: int
+        """
+        self._user_id = user_id
 
     @property
     def client_id(self):
@@ -838,26 +869,26 @@ class UserVariable(object):
         self._variance = variance
 
     @property
-    def minimum_recorded_daily_value(self):
+    def minimum_recorded_value(self):
         """
-        Gets the minimum_recorded_daily_value of this UserVariable.
-        Minimum recorded daily value of this variable
+        Gets the minimum_recorded_value of this UserVariable.
+        Minimum recorded value of this variable
 
-        :return: The minimum_recorded_daily_value of this UserVariable.
+        :return: The minimum_recorded_value of this UserVariable.
         :rtype: float
         """
-        return self._minimum_recorded_daily_value
+        return self._minimum_recorded_value
 
-    @minimum_recorded_daily_value.setter
-    def minimum_recorded_daily_value(self, minimum_recorded_daily_value):
+    @minimum_recorded_value.setter
+    def minimum_recorded_value(self, minimum_recorded_value):
         """
-        Sets the minimum_recorded_daily_value of this UserVariable.
-        Minimum recorded daily value of this variable
+        Sets the minimum_recorded_value of this UserVariable.
+        Minimum recorded value of this variable
 
-        :param minimum_recorded_daily_value: The minimum_recorded_daily_value of this UserVariable.
+        :param minimum_recorded_value: The minimum_recorded_value of this UserVariable.
         :type: float
         """
-        self._minimum_recorded_daily_value = minimum_recorded_daily_value
+        self._minimum_recorded_value = minimum_recorded_value
 
     @property
     def maximum_recorded_daily_value(self):
@@ -1124,10 +1155,54 @@ class UserVariable(object):
         self._location = location
 
     @property
+    def experiment_start_time(self):
+        """
+        Gets the experiment_start_time of this UserVariable.
+        Earliest measurement start_time to be used in analysis. Use ISO 8601 datetime format
+
+        :return: The experiment_start_time of this UserVariable.
+        :rtype: datetime
+        """
+        return self._experiment_start_time
+
+    @experiment_start_time.setter
+    def experiment_start_time(self, experiment_start_time):
+        """
+        Sets the experiment_start_time of this UserVariable.
+        Earliest measurement start_time to be used in analysis. Use ISO 8601 datetime format
+
+        :param experiment_start_time: The experiment_start_time of this UserVariable.
+        :type: datetime
+        """
+        self._experiment_start_time = experiment_start_time
+
+    @property
+    def experiment_end_time(self):
+        """
+        Gets the experiment_end_time of this UserVariable.
+        Latest measurement start_time to be used in analysis. Use ISO 8601 datetime format
+
+        :return: The experiment_end_time of this UserVariable.
+        :rtype: datetime
+        """
+        return self._experiment_end_time
+
+    @experiment_end_time.setter
+    def experiment_end_time(self, experiment_end_time):
+        """
+        Sets the experiment_end_time of this UserVariable.
+        Latest measurement start_time to be used in analysis. Use ISO 8601 datetime format
+
+        :param experiment_end_time: The experiment_end_time of this UserVariable.
+        :type: datetime
+        """
+        self._experiment_end_time = experiment_end_time
+
+    @property
     def created_at(self):
         """
         Gets the created_at of this UserVariable.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :return: The created_at of this UserVariable.
         :rtype: datetime
@@ -1138,7 +1213,7 @@ class UserVariable(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this UserVariable.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :param created_at: The created_at of this UserVariable.
         :type: datetime
@@ -1149,7 +1224,7 @@ class UserVariable(object):
     def updated_at(self):
         """
         Gets the updated_at of this UserVariable.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :return: The updated_at of this UserVariable.
         :rtype: datetime
@@ -1160,7 +1235,7 @@ class UserVariable(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this UserVariable.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :param updated_at: The updated_at of this UserVariable.
         :type: datetime
@@ -1358,6 +1433,12 @@ class UserVariable(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -1374,3 +1455,16 @@ class UserVariable(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
+

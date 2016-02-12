@@ -2,7 +2,7 @@
 
 """
 ConnectorApi.py
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -47,8 +47,8 @@ class ConnectorApi(object):
 
     def connectors_get(self, **kwargs):
         """
-        Get all Connectors
-        Get all Connectors
+        Get list of Connectors
+        A connector pulls data from other data providers using their API or a screenscraper. Returns a list of all available connectors and information about them such as their id, name, whether the user has provided access, logo url, connection instructions, and the update history.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -60,23 +60,24 @@ class ConnectorApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str name: name
-        :param str display_name: display_name
-        :param str image: image
-        :param str get_it_url: get_it_url
-        :param str short_description: short_description
-        :param str long_description: long_description
-        :param bool enabled: enabled
-        :param bool oauth: oauth
-        :param int limit: limit
-        :param int offset: offset
-        :param str sort: sort
-        :return: InlineResponse2005
+        :param str access_token: User's OAuth2 access token
+        :param str name: Lowercase system name for the data source
+        :param str display_name: Pretty display name for the data source
+        :param str image: URL to the image of the connector logo
+        :param str get_it_url: URL to a site where one can get this device or application
+        :param str short_description: Short description of the service (such as the categories it tracks)
+        :param str long_description: Longer paragraph description of the data provider
+        :param bool enabled: Set to 1 if the connector should be returned when listing connectors
+        :param bool oauth: Set to 1 if the connector uses OAuth authentication as opposed to username/password
+        :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.
+        :param int offset: OFFSET says to skip that many rows before beginning to return rows to the client. OFFSET 0 is the same as omitting the OFFSET clause. If both OFFSET and LIMIT appear, then OFFSET rows are skipped before starting to count the LIMIT rows that are returned.
+        :param str sort: Sort by given field. If the field is prefixed with '-', it will sort in descending order.
+        :return: InlineResponse20015
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['name', 'display_name', 'image', 'get_it_url', 'short_description', 'long_description', 'enabled', 'oauth', 'limit', 'offset', 'sort']
+        all_params = ['access_token', 'name', 'display_name', 'image', 'get_it_url', 'short_description', 'long_description', 'enabled', 'oauth', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -89,12 +90,15 @@ class ConnectorApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/connectors'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'name' in params:
             query_params['name'] = params['name']
         if 'display_name' in params:
@@ -120,7 +124,7 @@ class ConnectorApi(object):
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -136,7 +140,7 @@ class ConnectorApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -145,7 +149,7 @@ class ConnectorApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse2005',
+                                            response_type='InlineResponse20015',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -165,13 +169,14 @@ class ConnectorApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param Connector body: Connector that should be stored
-        :return: InlineResponse2006
+        :return: InlineResponse20016
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -184,16 +189,19 @@ class ConnectorApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/connectors'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -211,7 +219,7 @@ class ConnectorApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -220,15 +228,15 @@ class ConnectorApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse2006',
+                                            response_type='InlineResponse20016',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
 
     def connectors_id_get(self, id, **kwargs):
         """
-        Get Connector
-        Get Connector
+        Get connector info for user
+        Returns information about the connector such as the connector id, whether or not is connected for this user (i.e. we have a token or credentials), and its update history for the user.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -241,15 +249,13 @@ class ConnectorApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Connector (required)
-        :return: InlineResponse2006
+        :param str access_token: User's OAuth2 access token
+        :return: InlineResponse20016
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `connectors_id_get`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -262,6 +268,10 @@ class ConnectorApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `connectors_id_get`")
+
         resource_path = '/connectors/{id}'.replace('{format}', 'json')
         method = 'GET'
 
@@ -270,10 +280,12 @@ class ConnectorApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -289,7 +301,7 @@ class ConnectorApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -298,7 +310,7 @@ class ConnectorApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse2006',
+                                            response_type='InlineResponse20016',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -319,16 +331,14 @@ class ConnectorApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Connector (required)
+        :param str access_token: User's OAuth2 access token
         :param Connector body: Connector that should be updated
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `connectors_id_put`")
 
-        all_params = ['id', 'body']
+        all_params = ['id', 'access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -341,6 +351,10 @@ class ConnectorApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `connectors_id_put`")
+
         resource_path = '/connectors/{id}'.replace('{format}', 'json')
         method = 'PUT'
 
@@ -349,10 +363,12 @@ class ConnectorApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -370,7 +386,7 @@ class ConnectorApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -400,15 +416,13 @@ class ConnectorApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Connector (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `connectors_id_delete`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -421,6 +435,10 @@ class ConnectorApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `connectors_id_delete`")
+
         resource_path = '/connectors/{id}'.replace('{format}', 'json')
         method = 'DELETE'
 
@@ -429,10 +447,12 @@ class ConnectorApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -448,7 +468,7 @@ class ConnectorApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,

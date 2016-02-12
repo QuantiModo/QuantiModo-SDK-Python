@@ -2,7 +2,7 @@
 
 """
 SourceApi.py
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -47,8 +47,8 @@ class SourceApi(object):
 
     def sources_get(self, **kwargs):
         """
-        Get all Sources
-        Get all Sources
+        Get measurement sources
+        Returns a list of all the apps from which measurement data is obtained.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -60,19 +60,20 @@ class SourceApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str client_id: client_id
-        :param str name: name
-        :param str created_at: created_at
-        :param str updated_at: updated_at
-        :param int limit: limit
-        :param int offset: offset
-        :param str sort: sort
-        :return: InlineResponse20013
+        :param str access_token: User's OAuth2 access token
+        :param str client_id: The ID of the client application which last created or updated this source
+        :param str name: Name of the application or device
+        :param str created_at: When the record was first created. Use ISO 8601 datetime format
+        :param str updated_at: When the record was last updated. Use ISO 8601 datetime format
+        :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.
+        :param int offset: OFFSET says to skip that many rows before beginning to return rows to the client. OFFSET 0 is the same as omitting the OFFSET clause. If both OFFSET and LIMIT appear, then OFFSET rows are skipped before starting to count the LIMIT rows that are returned.
+        :param str sort: Sort by given field. If the field is prefixed with '-', it will sort in descending order.
+        :return: InlineResponse20021
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['client_id', 'name', 'created_at', 'updated_at', 'limit', 'offset', 'sort']
+        all_params = ['access_token', 'client_id', 'name', 'created_at', 'updated_at', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -85,12 +86,15 @@ class SourceApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/sources'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'client_id' in params:
             query_params['client_id'] = params['client_id']
         if 'name' in params:
@@ -108,7 +112,7 @@ class SourceApi(object):
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -124,7 +128,7 @@ class SourceApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -133,15 +137,15 @@ class SourceApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20013',
+                                            response_type='InlineResponse20021',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
 
     def sources_post(self, **kwargs):
         """
-        Store Source
-        Store Source
+        Add a data source
+        Add a life-tracking app or device to the QuantiModo list of data sources.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -153,13 +157,14 @@ class SourceApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param Source body: Source that should be stored
-        :return: InlineResponse20014
+        :return: InlineResponse20022
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -172,16 +177,19 @@ class SourceApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/sources'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -199,7 +207,7 @@ class SourceApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -208,7 +216,7 @@ class SourceApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20014',
+                                            response_type='InlineResponse20022',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -229,15 +237,13 @@ class SourceApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Source (required)
-        :return: InlineResponse20014
+        :param str access_token: User's OAuth2 access token
+        :return: InlineResponse20022
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `sources_id_get`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -250,6 +256,10 @@ class SourceApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `sources_id_get`")
+
         resource_path = '/sources/{id}'.replace('{format}', 'json')
         method = 'GET'
 
@@ -258,10 +268,12 @@ class SourceApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -277,7 +289,7 @@ class SourceApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -286,7 +298,7 @@ class SourceApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20014',
+                                            response_type='InlineResponse20022',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -307,16 +319,14 @@ class SourceApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Source (required)
+        :param str access_token: User's OAuth2 access token
         :param Source body: Source that should be updated
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `sources_id_put`")
 
-        all_params = ['id', 'body']
+        all_params = ['id', 'access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -329,6 +339,10 @@ class SourceApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `sources_id_put`")
+
         resource_path = '/sources/{id}'.replace('{format}', 'json')
         method = 'PUT'
 
@@ -337,10 +351,12 @@ class SourceApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -358,7 +374,7 @@ class SourceApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -388,15 +404,13 @@ class SourceApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Source (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `sources_id_delete`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -409,6 +423,10 @@ class SourceApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `sources_id_delete`")
+
         resource_path = '/sources/{id}'.replace('{format}', 'json')
         method = 'DELETE'
 
@@ -417,10 +435,12 @@ class SourceApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -436,7 +456,7 @@ class SourceApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,

@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -45,7 +45,9 @@ class Connector(object):
             'short_description': 'str',
             'long_description': 'str',
             'enabled': 'bool',
-            'oauth': 'bool'
+            'oauth': 'bool',
+            'created_at': 'datetime',
+            'updated_at': 'datetime'
         }
 
         self.attribute_map = {
@@ -57,7 +59,9 @@ class Connector(object):
             'short_description': 'short_description',
             'long_description': 'long_description',
             'enabled': 'enabled',
-            'oauth': 'oauth'
+            'oauth': 'oauth',
+            'created_at': 'created_at',
+            'updated_at': 'updated_at'
         }
 
         self._id = None
@@ -69,6 +73,8 @@ class Connector(object):
         self._long_description = None
         self._enabled = None
         self._oauth = None
+        self._created_at = None
+        self._updated_at = None
 
     @property
     def id(self):
@@ -96,7 +102,7 @@ class Connector(object):
     def name(self):
         """
         Gets the name of this Connector.
-        Connector lowercase system name
+        Lowercase system name for the data source
 
         :return: The name of this Connector.
         :rtype: str
@@ -107,7 +113,7 @@ class Connector(object):
     def name(self, name):
         """
         Sets the name of this Connector.
-        Connector lowercase system name
+        Lowercase system name for the data source
 
         :param name: The name of this Connector.
         :type: str
@@ -118,7 +124,7 @@ class Connector(object):
     def display_name(self):
         """
         Gets the display_name of this Connector.
-        Connector pretty display name
+        Pretty display name for the data source
 
         :return: The display_name of this Connector.
         :rtype: str
@@ -129,7 +135,7 @@ class Connector(object):
     def display_name(self, display_name):
         """
         Sets the display_name of this Connector.
-        Connector pretty display name
+        Pretty display name for the data source
 
         :param display_name: The display_name of this Connector.
         :type: str
@@ -184,7 +190,7 @@ class Connector(object):
     def short_description(self):
         """
         Gets the short_description of this Connector.
-        Short description
+        Short description of the service (such as the categories it tracks)
 
         :return: The short_description of this Connector.
         :rtype: str
@@ -195,7 +201,7 @@ class Connector(object):
     def short_description(self, short_description):
         """
         Sets the short_description of this Connector.
-        Short description
+        Short description of the service (such as the categories it tracks)
 
         :param short_description: The short_description of this Connector.
         :type: str
@@ -206,7 +212,7 @@ class Connector(object):
     def long_description(self):
         """
         Gets the long_description of this Connector.
-        Long description
+        Longer paragraph description of the data provider
 
         :return: The long_description of this Connector.
         :rtype: str
@@ -217,7 +223,7 @@ class Connector(object):
     def long_description(self, long_description):
         """
         Sets the long_description of this Connector.
-        Long description
+        Longer paragraph description of the data provider
 
         :param long_description: The long_description of this Connector.
         :type: str
@@ -228,7 +234,7 @@ class Connector(object):
     def enabled(self):
         """
         Gets the enabled of this Connector.
-        enabled
+        Set to 1 if the connector should be returned when listing connectors
 
         :return: The enabled of this Connector.
         :rtype: bool
@@ -239,7 +245,7 @@ class Connector(object):
     def enabled(self, enabled):
         """
         Sets the enabled of this Connector.
-        enabled
+        Set to 1 if the connector should be returned when listing connectors
 
         :param enabled: The enabled of this Connector.
         :type: bool
@@ -250,7 +256,7 @@ class Connector(object):
     def oauth(self):
         """
         Gets the oauth of this Connector.
-        oauth
+        Set to 1 if the connector uses OAuth authentication as opposed to username/password
 
         :return: The oauth of this Connector.
         :rtype: bool
@@ -261,12 +267,56 @@ class Connector(object):
     def oauth(self, oauth):
         """
         Sets the oauth of this Connector.
-        oauth
+        Set to 1 if the connector uses OAuth authentication as opposed to username/password
 
         :param oauth: The oauth of this Connector.
         :type: bool
         """
         self._oauth = oauth
+
+    @property
+    def created_at(self):
+        """
+        Gets the created_at of this Connector.
+        When the record was first created. Use ISO 8601 datetime format
+
+        :return: The created_at of this Connector.
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """
+        Sets the created_at of this Connector.
+        When the record was first created. Use ISO 8601 datetime format
+
+        :param created_at: The created_at of this Connector.
+        :type: datetime
+        """
+        self._created_at = created_at
+
+    @property
+    def updated_at(self):
+        """
+        Gets the updated_at of this Connector.
+        When the record in the database was last updated. Use ISO 8601 datetime format
+
+        :return: The updated_at of this Connector.
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """
+        Sets the updated_at of this Connector.
+        When the record in the database was last updated. Use ISO 8601 datetime format
+
+        :param updated_at: The updated_at of this Connector.
+        :type: datetime
+        """
+        self._updated_at = updated_at
 
     def to_dict(self):
         """
@@ -283,6 +333,12 @@ class Connector(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -299,3 +355,16 @@ class Connector(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
+

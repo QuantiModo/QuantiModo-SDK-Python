@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -196,7 +196,7 @@ class Unit(object):
     def minimum_value(self):
         """
         Gets the minimum_value of this Unit.
-        Unit minimum value
+        Minimum value permitted for this unit
 
         :return: The minimum_value of this Unit.
         :rtype: float
@@ -207,7 +207,7 @@ class Unit(object):
     def minimum_value(self, minimum_value):
         """
         Sets the minimum_value of this Unit.
-        Unit minimum value
+        Minimum value permitted for this unit
 
         :param minimum_value: The minimum_value of this Unit.
         :type: float
@@ -218,7 +218,7 @@ class Unit(object):
     def maximum_value(self):
         """
         Gets the maximum_value of this Unit.
-        Unit maximum value
+        Maximum value permitted for this unit
 
         :return: The maximum_value of this Unit.
         :rtype: float
@@ -229,7 +229,7 @@ class Unit(object):
     def maximum_value(self, maximum_value):
         """
         Sets the maximum_value of this Unit.
-        Unit maximum value
+        Maximum value permitted for this unit
 
         :param maximum_value: The maximum_value of this Unit.
         :type: float
@@ -262,7 +262,7 @@ class Unit(object):
     def default_unit_id(self):
         """
         Gets the default_unit_id of this Unit.
-        ID of default unit
+        ID of default unit for this units category
 
         :return: The default_unit_id of this Unit.
         :rtype: int
@@ -273,7 +273,7 @@ class Unit(object):
     def default_unit_id(self, default_unit_id):
         """
         Sets the default_unit_id of this Unit.
-        ID of default unit
+        ID of default unit for this units category
 
         :param default_unit_id: The default_unit_id of this Unit.
         :type: int
@@ -284,7 +284,7 @@ class Unit(object):
     def multiply(self):
         """
         Gets the multiply of this Unit.
-        Value multiplied to
+        Value multiplied to convert to default unit in this unit category
 
         :return: The multiply of this Unit.
         :rtype: float
@@ -295,7 +295,7 @@ class Unit(object):
     def multiply(self, multiply):
         """
         Sets the multiply of this Unit.
-        Value multiplied to
+        Value multiplied to convert to default unit in this unit category
 
         :param multiply: The multiply of this Unit.
         :type: float
@@ -328,7 +328,7 @@ class Unit(object):
     def created_at(self):
         """
         Gets the created_at of this Unit.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :return: The created_at of this Unit.
         :rtype: datetime
@@ -339,7 +339,7 @@ class Unit(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this Unit.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :param created_at: The created_at of this Unit.
         :type: datetime
@@ -350,7 +350,7 @@ class Unit(object):
     def updated_at(self):
         """
         Gets the updated_at of this Unit.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :return: The updated_at of this Unit.
         :rtype: datetime
@@ -361,7 +361,7 @@ class Unit(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this Unit.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :param updated_at: The updated_at of this Unit.
         :type: datetime
@@ -383,6 +383,12 @@ class Unit(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -399,3 +405,16 @@ class Unit(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
+

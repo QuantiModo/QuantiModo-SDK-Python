@@ -2,7 +2,7 @@
 
 """
 VariableApi.py
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -60,54 +60,52 @@ class VariableApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param int id: id
-        :param str client_id: client_id
-        :param int parent_id: parent_id
-        :param str name: name
-        :param int variable_category_id: variable_category_id
-        :param int default_unit_id: default_unit_id
-        :param str combination_operation: combination_operation
-        :param float filling_value: filling_value
-        :param float maximum_allowed_value: maximum_allowed_value
-        :param float minimum_allowed_value: minimum_allowed_value
-        :param int onset_delay: onset_delay
-        :param int duration_of_action: duration_of_action
-        :param int public: public
-        :param bool cause_only: cause_only
-        :param float most_common_value: most_common_value
-        :param int most_common_unit_id: most_common_unit_id
-        :param float standard_deviation: standard_deviation
-        :param float variance: variance
-        :param float mean: mean
-        :param float median: median
-        :param float number_of_measurements: number_of_measurements
-        :param float number_of_unique_values: number_of_unique_values
-        :param float skewness: skewness
-        :param float kurtosis: kurtosis
-        :param float latitude: latitude
-        :param float longitude: longitude
-        :param str location: location
+        :param str client_id: The ID of the client application which last created or updated this common variable
+        :param int parent_id: ID of the parent variable if this variable has any parent
+        :param str name: User-defined variable display name
+        :param int variable_category_id: Variable category ID
+        :param int default_unit_id: ID of the default unit for the variable
+        :param str combination_operation: How to combine values of this variable (for instance, to see a summary of the values over a month) SUM or MEAN
+        :param float filling_value: Value for replacing null measurements
+        :param float maximum_allowed_value: Maximum reasonable value for this variable (uses default unit)
+        :param float minimum_allowed_value: Minimum reasonable value for this variable (uses default unit)
+        :param int onset_delay: Estimated number of seconds that pass before a stimulus produces a perceivable effect
+        :param int duration_of_action: Estimated number of seconds following the onset delay in which a stimulus produces a perceivable effect
+        :param int public: Is variable public
+        :param bool cause_only: A value of 1 indicates that this variable is generally a cause in a causal relationship.  An example of a causeOnly variable would be a variable such as Cloud Cover which would generally not be influenced by the behaviour of the user
+        :param float most_common_value: Most common value
+        :param int most_common_unit_id: Most common Unit
+        :param float standard_deviation: Standard Deviation
+        :param float variance: Average variance for this variable based on all user data
+        :param float mean: Mean for this variable based on all user data
+        :param float median: Median for this variable based on all user data
+        :param float number_of_measurements: Number of measurements for this variable based on all user data
+        :param float number_of_unique_values: Number of unique values for this variable based on all user data
+        :param float skewness: Skewness for this variable based on all user data
+        :param float kurtosis: Kurtosis for this variable based on all user data
         :param str status: status
         :param str error_message: error_message
-        :param str last_successful_update_time: last_successful_update_time
-        :param str created_at: created_at
-        :param str updated_at: updated_at
-        :param str product_url: product_url
-        :param str image_url: image_url
-        :param float price: price
-        :param int number_of_user_variables: number_of_user_variables
-        :param bool outcome: outcome
-        :param float minimum_recorded_value: minimum_recorded_value
-        :param float maximum_recorded_value: maximum_recorded_value
-        :param int limit: limit
-        :param int offset: offset
-        :param str sort: sort
-        :return: InlineResponse20027
+        :param str last_successful_update_time: When this variable or its settings were last updated
+        :param str created_at: When the record was first created. Use ISO 8601 datetime format
+        :param str updated_at: When the record was last updated. Use ISO 8601 datetime format
+        :param str product_url: Product URL
+        :param str image_url: Image URL
+        :param float price: Price
+        :param int number_of_user_variables: Number of users who have data for this variable
+        :param bool outcome: Outcome variables (those with `outcome` == 1) are variables for which a human would generally want to identify the influencing factors.  These include symptoms of illness, physique, mood, cognitive performance, etc.  Generally correlation calculations are only performed on outcome variables.
+        :param float minimum_recorded_value: Minimum recorded value of this variable based on all user data
+        :param float maximum_recorded_value: Maximum recorded value of this variable based on all user data
+        :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.
+        :param int offset: OFFSET says to skip that many rows before beginning to return rows to the client. OFFSET 0 is the same as omitting the OFFSET clause. If both OFFSET and LIMIT appear, then OFFSET rows are skipped before starting to count the LIMIT rows that are returned.
+        :param str sort: Sort records by a given field name. If the field name is prefixed with '-', it will sort in descending order.
+        :return: InlineResponse20034
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['id', 'client_id', 'parent_id', 'name', 'variable_category_id', 'default_unit_id', 'combination_operation', 'filling_value', 'maximum_allowed_value', 'minimum_allowed_value', 'onset_delay', 'duration_of_action', 'public', 'cause_only', 'most_common_value', 'most_common_unit_id', 'standard_deviation', 'variance', 'mean', 'median', 'number_of_measurements', 'number_of_unique_values', 'skewness', 'kurtosis', 'latitude', 'longitude', 'location', 'status', 'error_message', 'last_successful_update_time', 'created_at', 'updated_at', 'product_url', 'image_url', 'price', 'number_of_user_variables', 'outcome', 'minimum_recorded_value', 'maximum_recorded_value', 'limit', 'offset', 'sort']
+        all_params = ['access_token', 'id', 'client_id', 'parent_id', 'name', 'variable_category_id', 'default_unit_id', 'combination_operation', 'filling_value', 'maximum_allowed_value', 'minimum_allowed_value', 'onset_delay', 'duration_of_action', 'public', 'cause_only', 'most_common_value', 'most_common_unit_id', 'standard_deviation', 'variance', 'mean', 'median', 'number_of_measurements', 'number_of_unique_values', 'skewness', 'kurtosis', 'status', 'error_message', 'last_successful_update_time', 'created_at', 'updated_at', 'product_url', 'image_url', 'price', 'number_of_user_variables', 'outcome', 'minimum_recorded_value', 'maximum_recorded_value', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -120,12 +118,15 @@ class VariableApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/variables'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'id' in params:
             query_params['id'] = params['id']
         if 'client_id' in params:
@@ -174,12 +175,6 @@ class VariableApi(object):
             query_params['skewness'] = params['skewness']
         if 'kurtosis' in params:
             query_params['kurtosis'] = params['kurtosis']
-        if 'latitude' in params:
-            query_params['latitude'] = params['latitude']
-        if 'longitude' in params:
-            query_params['longitude'] = params['longitude']
-        if 'location' in params:
-            query_params['location'] = params['location']
         if 'status' in params:
             query_params['status'] = params['status']
         if 'error_message' in params:
@@ -213,7 +208,7 @@ class VariableApi(object):
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -229,7 +224,7 @@ class VariableApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -238,7 +233,7 @@ class VariableApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20027',
+                                            response_type='InlineResponse20034',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -246,7 +241,7 @@ class VariableApi(object):
     def variables_post(self, **kwargs):
         """
         Store Variable
-        Store Variable
+        Allows the client to create a new variable in the `variables` table.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -258,13 +253,14 @@ class VariableApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param Variable body: Variable that should be stored
-        :return: InlineResponse20028
+        :return: InlineResponse20035
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -277,16 +273,19 @@ class VariableApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/variables'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -304,7 +303,7 @@ class VariableApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -313,7 +312,7 @@ class VariableApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20028',
+                                            response_type='InlineResponse20035',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -334,15 +333,13 @@ class VariableApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Variable (required)
-        :return: InlineResponse20028
+        :param str access_token: User's OAuth2 access token
+        :return: InlineResponse20035
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `variables_id_get`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -355,6 +352,10 @@ class VariableApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `variables_id_get`")
+
         resource_path = '/variables/{id}'.replace('{format}', 'json')
         method = 'GET'
 
@@ -363,10 +364,12 @@ class VariableApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -382,7 +385,7 @@ class VariableApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -391,7 +394,7 @@ class VariableApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20028',
+                                            response_type='InlineResponse20035',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -412,16 +415,14 @@ class VariableApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Variable (required)
+        :param str access_token: User's OAuth2 access token
         :param Variable body: Variable that should be updated
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `variables_id_put`")
 
-        all_params = ['id', 'body']
+        all_params = ['id', 'access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -434,6 +435,10 @@ class VariableApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `variables_id_put`")
+
         resource_path = '/variables/{id}'.replace('{format}', 'json')
         method = 'PUT'
 
@@ -442,10 +447,12 @@ class VariableApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -463,7 +470,7 @@ class VariableApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -493,15 +500,13 @@ class VariableApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Variable (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `variables_id_delete`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -514,6 +519,10 @@ class VariableApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `variables_id_delete`")
+
         resource_path = '/variables/{id}'.replace('{format}', 'json')
         method = 'DELETE'
 
@@ -522,10 +531,12 @@ class VariableApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -541,7 +552,7 @@ class VariableApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,

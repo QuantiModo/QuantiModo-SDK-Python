@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -37,26 +37,29 @@ class MeasurementValue(object):
                                   and the value is json key in definition.
         """
         self.swagger_types = {
-            'start_time': 'int',
-            'value': 'float'
+            'start_time': 'str',
+            'value': 'float',
+            'note': 'str'
         }
 
         self.attribute_map = {
             'start_time': 'start_time',
-            'value': 'value'
+            'value': 'value',
+            'note': 'note'
         }
 
         self._start_time = None
         self._value = None
+        self._note = None
 
     @property
     def start_time(self):
         """
         Gets the start_time of this MeasurementValue.
-        start_time
+        When the measurement event occurred . Use ISO 8601 datetime format
 
         :return: The start_time of this MeasurementValue.
-        :rtype: int
+        :rtype: str
         """
         return self._start_time
 
@@ -64,10 +67,10 @@ class MeasurementValue(object):
     def start_time(self, start_time):
         """
         Sets the start_time of this MeasurementValue.
-        start_time
+        When the measurement event occurred . Use ISO 8601 datetime format
 
         :param start_time: The start_time of this MeasurementValue.
-        :type: int
+        :type: str
         """
         self._start_time = start_time
 
@@ -75,7 +78,7 @@ class MeasurementValue(object):
     def value(self):
         """
         Gets the value of this MeasurementValue.
-        value
+        Value for the measurement
 
         :return: The value of this MeasurementValue.
         :rtype: float
@@ -86,12 +89,34 @@ class MeasurementValue(object):
     def value(self, value):
         """
         Sets the value of this MeasurementValue.
-        value
+        Value for the measurement
 
         :param value: The value of this MeasurementValue.
         :type: float
         """
         self._value = value
+
+    @property
+    def note(self):
+        """
+        Gets the note of this MeasurementValue.
+        An optional note the user may include with their measurement
+
+        :return: The note of this MeasurementValue.
+        :rtype: str
+        """
+        return self._note
+
+    @note.setter
+    def note(self, note):
+        """
+        Sets the note of this MeasurementValue.
+        An optional note the user may include with their measurement
+
+        :param note: The note of this MeasurementValue.
+        :type: str
+        """
+        self._note = note
 
     def to_dict(self):
         """
@@ -108,6 +133,12 @@ class MeasurementValue(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -124,3 +155,16 @@ class MeasurementValue(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
+

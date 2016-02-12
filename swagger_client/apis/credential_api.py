@@ -2,7 +2,7 @@
 
 """
 CredentialApi.py
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -60,20 +60,22 @@ class CredentialApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param bool connector_id: connector_id
-        :param str attr_key: attr_key
-        :param str attr_value: attr_value
-        :param str created_at: created_at
-        :param str updated_at: updated_at
-        :param int limit: limit
-        :param int offset: offset
-        :param str sort: sort
-        :return: InlineResponse2009
+        :param str access_token: User's OAuth2 access token
+        :param int user_id: ID of user that owns this credential
+        :param int connector_id: The id for the connector data source from which the credential was obtained
+        :param str attr_key: Attribute name such as token, userid, username, or password
+        :param str attr_value: Encrypted value for the attribute specified
+        :param str created_at: When the record was first created. Use ISO 8601 datetime format
+        :param str updated_at: When the record was last updated. Use ISO 8601 datetime format
+        :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.
+        :param int offset: OFFSET says to skip that many rows before beginning to return rows to the client. OFFSET 0 is the same as omitting the OFFSET clause. If both OFFSET and LIMIT appear, then OFFSET rows are skipped before starting to count the LIMIT rows that are returned.
+        :param str sort: Sort by given field. If the field is prefixed with '-', it will sort in descending order.
+        :return: InlineResponse2004
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['connector_id', 'attr_key', 'attr_value', 'created_at', 'updated_at', 'limit', 'offset', 'sort']
+        all_params = ['access_token', 'user_id', 'connector_id', 'attr_key', 'attr_value', 'created_at', 'updated_at', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -86,12 +88,17 @@ class CredentialApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/credentials'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
+        if 'user_id' in params:
+            query_params['user_id'] = params['user_id']
         if 'connector_id' in params:
             query_params['connector_id'] = params['connector_id']
         if 'attr_key' in params:
@@ -111,7 +118,7 @@ class CredentialApi(object):
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -127,7 +134,7 @@ class CredentialApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -136,7 +143,7 @@ class CredentialApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse2009',
+                                            response_type='InlineResponse2004',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -156,13 +163,14 @@ class CredentialApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param Credential body: Credential that should be stored
-        :return: InlineResponse20010
+        :return: InlineResponse20019
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -175,16 +183,19 @@ class CredentialApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/credentials'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -202,7 +213,7 @@ class CredentialApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -211,7 +222,7 @@ class CredentialApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20010',
+                                            response_type='InlineResponse20019',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -233,18 +244,13 @@ class CredentialApi(object):
             for asynchronous request. (optional)
         :param int id: connector id (required)
         :param str attr_key: attrKey (required)
-        :return: InlineResponse20010
+        :param str access_token: User's OAuth2 access token
+        :return: InlineResponse20019
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `credentials_id_get`")
-        # verify the required parameter 'attr_key' is set
-        if attr_key is None:
-            raise ValueError("Missing the required parameter `attr_key` when calling `credentials_id_get`")
 
-        all_params = ['id', 'attr_key']
+        all_params = ['id', 'attr_key', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -257,6 +263,13 @@ class CredentialApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `credentials_id_get`")
+        # verify the required parameter 'attr_key' is set
+        if ('attr_key' not in params) or (params['attr_key'] is None):
+            raise ValueError("Missing the required parameter `attr_key` when calling `credentials_id_get`")
+
         resource_path = '/credentials/{id}'.replace('{format}', 'json')
         method = 'GET'
 
@@ -265,12 +278,14 @@ class CredentialApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'attr_key' in params:
             query_params['attrKey'] = params['attr_key']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -286,7 +301,7 @@ class CredentialApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -295,7 +310,7 @@ class CredentialApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20010',
+                                            response_type='InlineResponse20019',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -317,19 +332,14 @@ class CredentialApi(object):
             for asynchronous request. (optional)
         :param int id: connector id (required)
         :param str attr_key: attrKey (required)
+        :param str access_token: User's OAuth2 access token
         :param Credential body: Credential that should be updated
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `credentials_id_put`")
-        # verify the required parameter 'attr_key' is set
-        if attr_key is None:
-            raise ValueError("Missing the required parameter `attr_key` when calling `credentials_id_put`")
 
-        all_params = ['id', 'attr_key', 'body']
+        all_params = ['id', 'attr_key', 'access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -342,6 +352,13 @@ class CredentialApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `credentials_id_put`")
+        # verify the required parameter 'attr_key' is set
+        if ('attr_key' not in params) or (params['attr_key'] is None):
+            raise ValueError("Missing the required parameter `attr_key` when calling `credentials_id_put`")
+
         resource_path = '/credentials/{id}'.replace('{format}', 'json')
         method = 'PUT'
 
@@ -350,12 +367,14 @@ class CredentialApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'attr_key' in params:
             query_params['attrKey'] = params['attr_key']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -373,7 +392,7 @@ class CredentialApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -404,18 +423,13 @@ class CredentialApi(object):
             for asynchronous request. (optional)
         :param int id: connector id (required)
         :param str attr_key: attrKey (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `credentials_id_delete`")
-        # verify the required parameter 'attr_key' is set
-        if attr_key is None:
-            raise ValueError("Missing the required parameter `attr_key` when calling `credentials_id_delete`")
 
-        all_params = ['id', 'attr_key']
+        all_params = ['id', 'attr_key', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -428,6 +442,13 @@ class CredentialApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `credentials_id_delete`")
+        # verify the required parameter 'attr_key' is set
+        if ('attr_key' not in params) or (params['attr_key'] is None):
+            raise ValueError("Missing the required parameter `attr_key` when calling `credentials_id_delete`")
+
         resource_path = '/credentials/{id}'.replace('{format}', 'json')
         method = 'DELETE'
 
@@ -436,12 +457,14 @@ class CredentialApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'attr_key' in params:
             query_params['attrKey'] = params['attr_key']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -457,7 +480,7 @@ class CredentialApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,

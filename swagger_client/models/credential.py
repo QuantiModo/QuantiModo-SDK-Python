@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ class Credential(object):
                                   and the value is json key in definition.
         """
         self.swagger_types = {
+            'user_id': 'int',
             'connector_id': 'int',
             'attr_key': 'str',
             'attr_value': 'str',
@@ -45,6 +46,7 @@ class Credential(object):
         }
 
         self.attribute_map = {
+            'user_id': 'user_id',
             'connector_id': 'connector_id',
             'attr_key': 'attr_key',
             'attr_value': 'attr_value',
@@ -52,6 +54,7 @@ class Credential(object):
             'updated_at': 'updated_at'
         }
 
+        self._user_id = None
         self._connector_id = None
         self._attr_key = None
         self._attr_value = None
@@ -59,10 +62,32 @@ class Credential(object):
         self._updated_at = None
 
     @property
+    def user_id(self):
+        """
+        Gets the user_id of this Credential.
+        ID of user that owns this credential
+
+        :return: The user_id of this Credential.
+        :rtype: int
+        """
+        return self._user_id
+
+    @user_id.setter
+    def user_id(self, user_id):
+        """
+        Sets the user_id of this Credential.
+        ID of user that owns this credential
+
+        :param user_id: The user_id of this Credential.
+        :type: int
+        """
+        self._user_id = user_id
+
+    @property
     def connector_id(self):
         """
         Gets the connector_id of this Credential.
-        connector_id
+        The id for the connector data source from which the credential was obtained
 
         :return: The connector_id of this Credential.
         :rtype: int
@@ -73,7 +98,7 @@ class Credential(object):
     def connector_id(self, connector_id):
         """
         Sets the connector_id of this Credential.
-        connector_id
+        The id for the connector data source from which the credential was obtained
 
         :param connector_id: The connector_id of this Credential.
         :type: int
@@ -84,7 +109,7 @@ class Credential(object):
     def attr_key(self):
         """
         Gets the attr_key of this Credential.
-        attr_key
+        Attribute name such as token, userid, username, or password
 
         :return: The attr_key of this Credential.
         :rtype: str
@@ -95,7 +120,7 @@ class Credential(object):
     def attr_key(self, attr_key):
         """
         Sets the attr_key of this Credential.
-        attr_key
+        Attribute name such as token, userid, username, or password
 
         :param attr_key: The attr_key of this Credential.
         :type: str
@@ -106,7 +131,7 @@ class Credential(object):
     def attr_value(self):
         """
         Gets the attr_value of this Credential.
-        attr_value
+        Encrypted value for the attribute specified
 
         :return: The attr_value of this Credential.
         :rtype: str
@@ -117,7 +142,7 @@ class Credential(object):
     def attr_value(self, attr_value):
         """
         Sets the attr_value of this Credential.
-        attr_value
+        Encrypted value for the attribute specified
 
         :param attr_value: The attr_value of this Credential.
         :type: str
@@ -128,7 +153,7 @@ class Credential(object):
     def created_at(self):
         """
         Gets the created_at of this Credential.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :return: The created_at of this Credential.
         :rtype: datetime
@@ -139,7 +164,7 @@ class Credential(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this Credential.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :param created_at: The created_at of this Credential.
         :type: datetime
@@ -150,7 +175,7 @@ class Credential(object):
     def updated_at(self):
         """
         Gets the updated_at of this Credential.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :return: The updated_at of this Credential.
         :rtype: datetime
@@ -161,7 +186,7 @@ class Credential(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this Credential.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :param updated_at: The updated_at of this Credential.
         :type: datetime
@@ -183,6 +208,12 @@ class Credential(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -199,3 +230,16 @@ class Credential(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
+

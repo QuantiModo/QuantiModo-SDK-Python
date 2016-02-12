@@ -2,7 +2,7 @@
 
 """
 VoteApi.py
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -60,22 +60,23 @@ class VoteApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str client_id: client_id
-        :param int user_id: user_id
-        :param int cause_id: cause_id
-        :param int effect_id: effect_id
-        :param int value: value
-        :param str created_at: created_at
-        :param str updated_at: updated_at
-        :param int limit: limit
-        :param int offset: offset
-        :param str sort: sort
-        :return: InlineResponse20029
+        :param str access_token: User's OAuth2 access token
+        :param str client_id: The ID of the client application which last created or updated this vote
+        :param int user_id: ID of the user who voted
+        :param int cause_id: ID of predictor variable
+        :param int effect_id: ID of outcome variable
+        :param int value: Value of Vote. 1 is for upvote. 0 is for downvote.  Otherwise, there is no vote.
+        :param str created_at: When the record was first created. Use ISO 8601 datetime format
+        :param str updated_at: When the record was last updated. Use ISO 8601 datetime format
+        :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.
+        :param int offset: OFFSET says to skip that many rows before beginning to return rows to the client. OFFSET 0 is the same as omitting the OFFSET clause. If both OFFSET and LIMIT appear, then OFFSET rows are skipped before starting to count the LIMIT rows that are returned.
+        :param str sort: Sort by given field. If the field is prefixed with '-', it will sort in descending order.
+        :return: InlineResponse20011
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['client_id', 'user_id', 'cause_id', 'effect_id', 'value', 'created_at', 'updated_at', 'limit', 'offset', 'sort']
+        all_params = ['access_token', 'client_id', 'user_id', 'cause_id', 'effect_id', 'value', 'created_at', 'updated_at', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -88,12 +89,15 @@ class VoteApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/votes'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'client_id' in params:
             query_params['client_id'] = params['client_id']
         if 'user_id' in params:
@@ -117,7 +121,7 @@ class VoteApi(object):
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -133,7 +137,7 @@ class VoteApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -142,7 +146,7 @@ class VoteApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20029',
+                                            response_type='InlineResponse20011',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -150,7 +154,7 @@ class VoteApi(object):
     def votes_post(self, **kwargs):
         """
         Store Vote
-        Store Vote
+        This is to enable users to indicate their opinion on the plausibility of a causal relationship between a treatment and outcome. QuantiModo incorporates crowd-sourced plausibility estimations into their algorithm. This is done allowing user to indicate their view of the plausibility of each relationship with thumbs up/down buttons placed next to each prediction.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -162,13 +166,14 @@ class VoteApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param Vote body: Vote that should be stored
-        :return: InlineResponse20030
+        :return: InlineResponse20036
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -181,16 +186,19 @@ class VoteApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/votes'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -208,7 +216,7 @@ class VoteApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -217,7 +225,7 @@ class VoteApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20030',
+                                            response_type='InlineResponse20036',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -238,15 +246,13 @@ class VoteApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Vote (required)
-        :return: InlineResponse20030
+        :param str access_token: User's OAuth2 access token
+        :return: InlineResponse20036
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `votes_id_get`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -259,6 +265,10 @@ class VoteApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `votes_id_get`")
+
         resource_path = '/votes/{id}'.replace('{format}', 'json')
         method = 'GET'
 
@@ -267,10 +277,12 @@ class VoteApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -286,7 +298,7 @@ class VoteApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -295,7 +307,7 @@ class VoteApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20030',
+                                            response_type='InlineResponse20036',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -316,16 +328,14 @@ class VoteApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Vote (required)
+        :param str access_token: User's OAuth2 access token
         :param Vote body: Vote that should be updated
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `votes_id_put`")
 
-        all_params = ['id', 'body']
+        all_params = ['id', 'access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -338,6 +348,10 @@ class VoteApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `votes_id_put`")
+
         resource_path = '/votes/{id}'.replace('{format}', 'json')
         method = 'PUT'
 
@@ -346,10 +360,12 @@ class VoteApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -367,7 +383,7 @@ class VoteApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -384,7 +400,7 @@ class VoteApi(object):
     def votes_id_delete(self, id, **kwargs):
         """
         Delete Vote
-        Delete Vote
+        Delete previously posted vote
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -397,15 +413,13 @@ class VoteApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Vote (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `votes_id_delete`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -418,6 +432,10 @@ class VoteApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `votes_id_delete`")
+
         resource_path = '/votes/{id}'.replace('{format}', 'json')
         method = 'DELETE'
 
@@ -426,10 +444,12 @@ class VoteApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -445,7 +465,7 @@ class VoteApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,

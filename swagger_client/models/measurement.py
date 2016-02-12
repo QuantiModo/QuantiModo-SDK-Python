@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ class Measurement(object):
             'connector_id': 'int',
             'variable_id': 'int',
             'source_id': 'int',
-            'start_time': 'int',
+            'start_time': 'str',
             'value': 'float',
             'unit_id': 'int',
             'original_value': 'float',
@@ -170,7 +170,7 @@ class Measurement(object):
     def connector_id(self):
         """
         Gets the connector_id of this Measurement.
-        Connector ID
+        The id for the connector data source from which the measurement was obtained
 
         :return: The connector_id of this Measurement.
         :rtype: int
@@ -181,7 +181,7 @@ class Measurement(object):
     def connector_id(self, connector_id):
         """
         Sets the connector_id of this Measurement.
-        Connector ID
+        The id for the connector data source from which the measurement was obtained
 
         :param connector_id: The connector_id of this Measurement.
         :type: int
@@ -236,10 +236,10 @@ class Measurement(object):
     def start_time(self):
         """
         Gets the start_time of this Measurement.
-        Start Time for the measurement event in ISO 8601
+        Start Time for the measurement event. Use ISO 8601
 
         :return: The start_time of this Measurement.
-        :rtype: int
+        :rtype: str
         """
         return self._start_time
 
@@ -247,10 +247,10 @@ class Measurement(object):
     def start_time(self, start_time):
         """
         Sets the start_time of this Measurement.
-        Start Time for the measurement event in ISO 8601
+        Start Time for the measurement event. Use ISO 8601
 
         :param start_time: The start_time of this Measurement.
-        :type: int
+        :type: str
         """
         self._start_time = start_time
 
@@ -258,7 +258,7 @@ class Measurement(object):
     def value(self):
         """
         Gets the value of this Measurement.
-        Converted measurement value in requested unit
+        The value of the measurement after conversion to the default unit for that variable
 
         :return: The value of this Measurement.
         :rtype: float
@@ -269,7 +269,7 @@ class Measurement(object):
     def value(self, value):
         """
         Sets the value of this Measurement.
-        Converted measurement value in requested unit
+        The value of the measurement after conversion to the default unit for that variable
 
         :param value: The value of this Measurement.
         :type: float
@@ -280,7 +280,7 @@ class Measurement(object):
     def unit_id(self):
         """
         Gets the unit_id of this Measurement.
-        Unit ID of measurement as requested in GET request
+        The default unit for the variable
 
         :return: The unit_id of this Measurement.
         :rtype: int
@@ -291,7 +291,7 @@ class Measurement(object):
     def unit_id(self, unit_id):
         """
         Sets the unit_id of this Measurement.
-        Unit ID of measurement as requested in GET request
+        The default unit for the variable
 
         :param unit_id: The unit_id of this Measurement.
         :type: int
@@ -302,7 +302,7 @@ class Measurement(object):
     def original_value(self):
         """
         Gets the original_value of this Measurement.
-        Original value
+        Value of measurement as originally posted (before conversion to default unit)
 
         :return: The original_value of this Measurement.
         :rtype: float
@@ -313,7 +313,7 @@ class Measurement(object):
     def original_value(self, original_value):
         """
         Sets the original_value of this Measurement.
-        Original value
+        Value of measurement as originally posted (before conversion to default unit)
 
         :param original_value: The original_value of this Measurement.
         :type: float
@@ -346,7 +346,7 @@ class Measurement(object):
     def duration(self):
         """
         Gets the duration of this Measurement.
-        duration of measurement in seconds
+        Duration of the event being measurement in seconds
 
         :return: The duration of this Measurement.
         :rtype: int
@@ -357,7 +357,7 @@ class Measurement(object):
     def duration(self, duration):
         """
         Sets the duration of this Measurement.
-        duration of measurement in seconds
+        Duration of the event being measurement in seconds
 
         :param duration: The duration of this Measurement.
         :type: int
@@ -368,7 +368,7 @@ class Measurement(object):
     def note(self):
         """
         Gets the note of this Measurement.
-        Note of measurement
+        An optional note the user may include with their measurement
 
         :return: The note of this Measurement.
         :rtype: str
@@ -379,7 +379,7 @@ class Measurement(object):
     def note(self, note):
         """
         Sets the note of this Measurement.
-        Note of measurement
+        An optional note the user may include with their measurement
 
         :param note: The note of this Measurement.
         :type: str
@@ -390,7 +390,7 @@ class Measurement(object):
     def latitude(self):
         """
         Gets the latitude of this Measurement.
-        latitude
+        Latitude at which the measurement was taken
 
         :return: The latitude of this Measurement.
         :rtype: float
@@ -401,7 +401,7 @@ class Measurement(object):
     def latitude(self, latitude):
         """
         Sets the latitude of this Measurement.
-        latitude
+        Latitude at which the measurement was taken
 
         :param latitude: The latitude of this Measurement.
         :type: float
@@ -412,7 +412,7 @@ class Measurement(object):
     def longitude(self):
         """
         Gets the longitude of this Measurement.
-        longitude
+        Longitude at which the measurement was taken
 
         :return: The longitude of this Measurement.
         :rtype: float
@@ -423,7 +423,7 @@ class Measurement(object):
     def longitude(self, longitude):
         """
         Sets the longitude of this Measurement.
-        longitude
+        Longitude at which the measurement was taken
 
         :param longitude: The longitude of this Measurement.
         :type: float
@@ -456,7 +456,7 @@ class Measurement(object):
     def created_at(self):
         """
         Gets the created_at of this Measurement.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :return: The created_at of this Measurement.
         :rtype: datetime
@@ -467,7 +467,7 @@ class Measurement(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this Measurement.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :param created_at: The created_at of this Measurement.
         :type: datetime
@@ -478,7 +478,7 @@ class Measurement(object):
     def updated_at(self):
         """
         Gets the updated_at of this Measurement.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :return: The updated_at of this Measurement.
         :rtype: datetime
@@ -489,7 +489,7 @@ class Measurement(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this Measurement.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :param updated_at: The updated_at of this Measurement.
         :type: datetime
@@ -533,6 +533,12 @@ class Measurement(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -549,3 +555,16 @@ class Measurement(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
+

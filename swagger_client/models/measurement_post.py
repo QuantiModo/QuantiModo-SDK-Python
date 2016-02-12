@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ class MeasurementPost(object):
     def variable_id(self):
         """
         Gets the variable_id of this MeasurementPost.
-        variable_id
+        ID of the variable for the measurement as obtained from the GET variables endpoint
 
         :return: The variable_id of this MeasurementPost.
         :rtype: int
@@ -70,7 +70,7 @@ class MeasurementPost(object):
     def variable_id(self, variable_id):
         """
         Sets the variable_id of this MeasurementPost.
-        variable_id
+        ID of the variable for the measurement as obtained from the GET variables endpoint
 
         :param variable_id: The variable_id of this MeasurementPost.
         :type: int
@@ -81,7 +81,7 @@ class MeasurementPost(object):
     def source_id(self):
         """
         Gets the source_id of this MeasurementPost.
-        source_id
+        Source ID of the app or device as obtained from the GET sources endpoint
 
         :return: The source_id of this MeasurementPost.
         :rtype: int
@@ -92,7 +92,7 @@ class MeasurementPost(object):
     def source_id(self, source_id):
         """
         Sets the source_id of this MeasurementPost.
-        source_id
+        Source ID of the app or device as obtained from the GET sources endpoint
 
         :param source_id: The source_id of this MeasurementPost.
         :type: int
@@ -103,7 +103,7 @@ class MeasurementPost(object):
     def unit_id(self):
         """
         Gets the unit_id of this MeasurementPost.
-        unit_id
+        Unit id for the measurement value as obtained from the GET units endpoint
 
         :return: The unit_id of this MeasurementPost.
         :rtype: int
@@ -114,7 +114,7 @@ class MeasurementPost(object):
     def unit_id(self, unit_id):
         """
         Sets the unit_id of this MeasurementPost.
-        unit_id
+        Unit id for the measurement value as obtained from the GET units endpoint
 
         :param unit_id: The unit_id of this MeasurementPost.
         :type: int
@@ -158,6 +158,12 @@ class MeasurementPost(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -174,3 +180,16 @@ class MeasurementPost(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
+

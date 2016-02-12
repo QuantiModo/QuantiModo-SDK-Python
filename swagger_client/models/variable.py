@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -199,7 +199,7 @@ class Variable(object):
     def parent_id(self):
         """
         Gets the parent_id of this Variable.
-        parent_id
+        ID of the parent variable if this variable has any parent
 
         :return: The parent_id of this Variable.
         :rtype: int
@@ -210,7 +210,7 @@ class Variable(object):
     def parent_id(self, parent_id):
         """
         Sets the parent_id of this Variable.
-        parent_id
+        ID of the parent variable if this variable has any parent
 
         :param parent_id: The parent_id of this Variable.
         :type: int
@@ -221,7 +221,7 @@ class Variable(object):
     def name(self):
         """
         Gets the name of this Variable.
-        Name of the variable
+        User-defined variable display name
 
         :return: The name of this Variable.
         :rtype: str
@@ -232,7 +232,7 @@ class Variable(object):
     def name(self, name):
         """
         Sets the name of this Variable.
-        Name of the variable
+        User-defined variable display name
 
         :param name: The name of this Variable.
         :type: str
@@ -243,7 +243,7 @@ class Variable(object):
     def variable_category_id(self):
         """
         Gets the variable_category_id of this Variable.
-        Category of the variable
+        Variable category ID
 
         :return: The variable_category_id of this Variable.
         :rtype: int
@@ -254,7 +254,7 @@ class Variable(object):
     def variable_category_id(self, variable_category_id):
         """
         Sets the variable_category_id of this Variable.
-        Category of the variable
+        Variable category ID
 
         :param variable_category_id: The variable_category_id of this Variable.
         :type: int
@@ -287,7 +287,7 @@ class Variable(object):
     def combination_operation(self):
         """
         Gets the combination_operation of this Variable.
-        How to combine values of this variable (for instance, to see a summary of the values over a month) 0 for sum OR 1 for mean
+        How to combine values of this variable (for instance, to see a summary of the values over a month) SUM or MEAN
 
         :return: The combination_operation of this Variable.
         :rtype: str
@@ -298,7 +298,7 @@ class Variable(object):
     def combination_operation(self, combination_operation):
         """
         Sets the combination_operation of this Variable.
-        How to combine values of this variable (for instance, to see a summary of the values over a month) 0 for sum OR 1 for mean
+        How to combine values of this variable (for instance, to see a summary of the values over a month) SUM or MEAN
 
         :param combination_operation: The combination_operation of this Variable.
         :type: str
@@ -309,7 +309,7 @@ class Variable(object):
     def filling_value(self):
         """
         Gets the filling_value of this Variable.
-        filling_value
+        Value for replacing null measurements
 
         :return: The filling_value of this Variable.
         :rtype: float
@@ -320,7 +320,7 @@ class Variable(object):
     def filling_value(self, filling_value):
         """
         Sets the filling_value of this Variable.
-        filling_value
+        Value for replacing null measurements
 
         :param filling_value: The filling_value of this Variable.
         :type: float
@@ -331,7 +331,7 @@ class Variable(object):
     def maximum_allowed_value(self):
         """
         Gets the maximum_allowed_value of this Variable.
-        maximum_allowed_value
+        Maximum reasonable value for this variable (uses default unit)
 
         :return: The maximum_allowed_value of this Variable.
         :rtype: float
@@ -342,7 +342,7 @@ class Variable(object):
     def maximum_allowed_value(self, maximum_allowed_value):
         """
         Sets the maximum_allowed_value of this Variable.
-        maximum_allowed_value
+        Maximum reasonable value for this variable (uses default unit)
 
         :param maximum_allowed_value: The maximum_allowed_value of this Variable.
         :type: float
@@ -353,7 +353,7 @@ class Variable(object):
     def minimum_allowed_value(self):
         """
         Gets the minimum_allowed_value of this Variable.
-        minimum_allowed_value
+        Minimum reasonable value for this variable (uses default unit)
 
         :return: The minimum_allowed_value of this Variable.
         :rtype: float
@@ -364,7 +364,7 @@ class Variable(object):
     def minimum_allowed_value(self, minimum_allowed_value):
         """
         Sets the minimum_allowed_value of this Variable.
-        minimum_allowed_value
+        Minimum reasonable value for this variable (uses default unit)
 
         :param minimum_allowed_value: The minimum_allowed_value of this Variable.
         :type: float
@@ -375,7 +375,7 @@ class Variable(object):
     def onset_delay(self):
         """
         Gets the onset_delay of this Variable.
-        onset_delay
+        How long it takes for a measurement in this variable to take effect
 
         :return: The onset_delay of this Variable.
         :rtype: int
@@ -386,7 +386,7 @@ class Variable(object):
     def onset_delay(self, onset_delay):
         """
         Sets the onset_delay of this Variable.
-        onset_delay
+        How long it takes for a measurement in this variable to take effect
 
         :param onset_delay: The onset_delay of this Variable.
         :type: int
@@ -397,7 +397,7 @@ class Variable(object):
     def duration_of_action(self):
         """
         Gets the duration_of_action of this Variable.
-        duration_of_action
+        How long the effect of a measurement in this variable lasts
 
         :return: The duration_of_action of this Variable.
         :rtype: int
@@ -408,7 +408,7 @@ class Variable(object):
     def duration_of_action(self, duration_of_action):
         """
         Sets the duration_of_action of this Variable.
-        duration_of_action
+        How long the effect of a measurement in this variable lasts
 
         :param duration_of_action: The duration_of_action of this Variable.
         :type: int
@@ -419,7 +419,7 @@ class Variable(object):
     def public(self):
         """
         Gets the public of this Variable.
-        public
+        Is variable public
 
         :return: The public of this Variable.
         :rtype: int
@@ -430,7 +430,7 @@ class Variable(object):
     def public(self, public):
         """
         Sets the public of this Variable.
-        public
+        Is variable public
 
         :param public: The public of this Variable.
         :type: int
@@ -441,7 +441,7 @@ class Variable(object):
     def cause_only(self):
         """
         Gets the cause_only of this Variable.
-        cause_only
+        A value of 1 indicates that this variable is generally a cause in a causal relationship.  An example of a causeOnly variable would be a variable such as Cloud Cover which would generally not be influenced by the behaviour of the user
 
         :return: The cause_only of this Variable.
         :rtype: bool
@@ -452,7 +452,7 @@ class Variable(object):
     def cause_only(self, cause_only):
         """
         Sets the cause_only of this Variable.
-        cause_only
+        A value of 1 indicates that this variable is generally a cause in a causal relationship.  An example of a causeOnly variable would be a variable such as Cloud Cover which would generally not be influenced by the behaviour of the user
 
         :param cause_only: The cause_only of this Variable.
         :type: bool
@@ -463,7 +463,7 @@ class Variable(object):
     def most_common_value(self):
         """
         Gets the most_common_value of this Variable.
-        most_common_value
+        Most common value
 
         :return: The most_common_value of this Variable.
         :rtype: float
@@ -474,7 +474,7 @@ class Variable(object):
     def most_common_value(self, most_common_value):
         """
         Sets the most_common_value of this Variable.
-        most_common_value
+        Most common value
 
         :param most_common_value: The most_common_value of this Variable.
         :type: float
@@ -485,7 +485,7 @@ class Variable(object):
     def most_common_unit_id(self):
         """
         Gets the most_common_unit_id of this Variable.
-        most_common_unit_id
+        Most common Unit
 
         :return: The most_common_unit_id of this Variable.
         :rtype: int
@@ -496,7 +496,7 @@ class Variable(object):
     def most_common_unit_id(self, most_common_unit_id):
         """
         Sets the most_common_unit_id of this Variable.
-        most_common_unit_id
+        Most common Unit
 
         :param most_common_unit_id: The most_common_unit_id of this Variable.
         :type: int
@@ -507,7 +507,7 @@ class Variable(object):
     def standard_deviation(self):
         """
         Gets the standard_deviation of this Variable.
-        standard_deviation
+        Standard Deviation
 
         :return: The standard_deviation of this Variable.
         :rtype: float
@@ -518,7 +518,7 @@ class Variable(object):
     def standard_deviation(self, standard_deviation):
         """
         Sets the standard_deviation of this Variable.
-        standard_deviation
+        Standard Deviation
 
         :param standard_deviation: The standard_deviation of this Variable.
         :type: float
@@ -529,7 +529,7 @@ class Variable(object):
     def variance(self):
         """
         Gets the variance of this Variable.
-        variance
+        Variance
 
         :return: The variance of this Variable.
         :rtype: float
@@ -540,7 +540,7 @@ class Variable(object):
     def variance(self, variance):
         """
         Sets the variance of this Variable.
-        variance
+        Variance
 
         :param variance: The variance of this Variable.
         :type: float
@@ -551,7 +551,7 @@ class Variable(object):
     def mean(self):
         """
         Gets the mean of this Variable.
-        mean
+        Mean
 
         :return: The mean of this Variable.
         :rtype: float
@@ -562,7 +562,7 @@ class Variable(object):
     def mean(self, mean):
         """
         Sets the mean of this Variable.
-        mean
+        Mean
 
         :param mean: The mean of this Variable.
         :type: float
@@ -573,7 +573,7 @@ class Variable(object):
     def median(self):
         """
         Gets the median of this Variable.
-        median
+        Median
 
         :return: The median of this Variable.
         :rtype: float
@@ -584,7 +584,7 @@ class Variable(object):
     def median(self, median):
         """
         Sets the median of this Variable.
-        median
+        Median
 
         :param median: The median of this Variable.
         :type: float
@@ -595,7 +595,7 @@ class Variable(object):
     def number_of_measurements(self):
         """
         Gets the number_of_measurements of this Variable.
-        number_of_measurements
+        Number of measurements
 
         :return: The number_of_measurements of this Variable.
         :rtype: float
@@ -606,7 +606,7 @@ class Variable(object):
     def number_of_measurements(self, number_of_measurements):
         """
         Sets the number_of_measurements of this Variable.
-        number_of_measurements
+        Number of measurements
 
         :param number_of_measurements: The number_of_measurements of this Variable.
         :type: float
@@ -617,7 +617,7 @@ class Variable(object):
     def number_of_unique_values(self):
         """
         Gets the number_of_unique_values of this Variable.
-        number_of_unique_values
+        Number of unique values
 
         :return: The number_of_unique_values of this Variable.
         :rtype: float
@@ -628,7 +628,7 @@ class Variable(object):
     def number_of_unique_values(self, number_of_unique_values):
         """
         Sets the number_of_unique_values of this Variable.
-        number_of_unique_values
+        Number of unique values
 
         :param number_of_unique_values: The number_of_unique_values of this Variable.
         :type: float
@@ -639,7 +639,7 @@ class Variable(object):
     def skewness(self):
         """
         Gets the skewness of this Variable.
-        skewness
+        Skewness
 
         :return: The skewness of this Variable.
         :rtype: float
@@ -650,7 +650,7 @@ class Variable(object):
     def skewness(self, skewness):
         """
         Sets the skewness of this Variable.
-        skewness
+        Skewness
 
         :param skewness: The skewness of this Variable.
         :type: float
@@ -661,7 +661,7 @@ class Variable(object):
     def kurtosis(self):
         """
         Gets the kurtosis of this Variable.
-        kurtosis
+        Kurtosis
 
         :return: The kurtosis of this Variable.
         :rtype: float
@@ -672,7 +672,7 @@ class Variable(object):
     def kurtosis(self, kurtosis):
         """
         Sets the kurtosis of this Variable.
-        kurtosis
+        Kurtosis
 
         :param kurtosis: The kurtosis of this Variable.
         :type: float
@@ -727,7 +727,7 @@ class Variable(object):
     def last_successful_update_time(self):
         """
         Gets the last_successful_update_time of this Variable.
-        last_successful_update_time
+        When this variable or its settings were last updated
 
         :return: The last_successful_update_time of this Variable.
         :rtype: datetime
@@ -738,7 +738,7 @@ class Variable(object):
     def last_successful_update_time(self, last_successful_update_time):
         """
         Sets the last_successful_update_time of this Variable.
-        last_successful_update_time
+        When this variable or its settings were last updated
 
         :param last_successful_update_time: The last_successful_update_time of this Variable.
         :type: datetime
@@ -749,7 +749,7 @@ class Variable(object):
     def created_at(self):
         """
         Gets the created_at of this Variable.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :return: The created_at of this Variable.
         :rtype: datetime
@@ -760,7 +760,7 @@ class Variable(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this Variable.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :param created_at: The created_at of this Variable.
         :type: datetime
@@ -771,7 +771,7 @@ class Variable(object):
     def updated_at(self):
         """
         Gets the updated_at of this Variable.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :return: The updated_at of this Variable.
         :rtype: datetime
@@ -782,7 +782,7 @@ class Variable(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this Variable.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :param updated_at: The updated_at of this Variable.
         :type: datetime
@@ -793,7 +793,7 @@ class Variable(object):
     def product_url(self):
         """
         Gets the product_url of this Variable.
-        product_url
+        Product URL
 
         :return: The product_url of this Variable.
         :rtype: str
@@ -804,7 +804,7 @@ class Variable(object):
     def product_url(self, product_url):
         """
         Sets the product_url of this Variable.
-        product_url
+        Product URL
 
         :param product_url: The product_url of this Variable.
         :type: str
@@ -815,7 +815,7 @@ class Variable(object):
     def image_url(self):
         """
         Gets the image_url of this Variable.
-        image_url
+        Image URL
 
         :return: The image_url of this Variable.
         :rtype: str
@@ -826,7 +826,7 @@ class Variable(object):
     def image_url(self, image_url):
         """
         Sets the image_url of this Variable.
-        image_url
+        Image URL
 
         :param image_url: The image_url of this Variable.
         :type: str
@@ -837,7 +837,7 @@ class Variable(object):
     def price(self):
         """
         Gets the price of this Variable.
-        price
+        Price
 
         :return: The price of this Variable.
         :rtype: float
@@ -848,7 +848,7 @@ class Variable(object):
     def price(self, price):
         """
         Sets the price of this Variable.
-        price
+        Price
 
         :param price: The price of this Variable.
         :type: float
@@ -859,7 +859,7 @@ class Variable(object):
     def number_of_user_variables(self):
         """
         Gets the number_of_user_variables of this Variable.
-        number_of_user_variables
+        Number of variables
 
         :return: The number_of_user_variables of this Variable.
         :rtype: int
@@ -870,7 +870,7 @@ class Variable(object):
     def number_of_user_variables(self, number_of_user_variables):
         """
         Sets the number_of_user_variables of this Variable.
-        number_of_user_variables
+        Number of variables
 
         :param number_of_user_variables: The number_of_user_variables of this Variable.
         :type: int
@@ -881,7 +881,7 @@ class Variable(object):
     def outcome(self):
         """
         Gets the outcome of this Variable.
-        outcome
+        Outcome variables (those with `outcome` == 1) are variables for which a human would generally want to identify the influencing factors.  These include symptoms of illness, physique, mood, cognitive performance, etc.  Generally correlation calculations are only performed on outcome variables.
 
         :return: The outcome of this Variable.
         :rtype: bool
@@ -892,7 +892,7 @@ class Variable(object):
     def outcome(self, outcome):
         """
         Sets the outcome of this Variable.
-        outcome
+        Outcome variables (those with `outcome` == 1) are variables for which a human would generally want to identify the influencing factors.  These include symptoms of illness, physique, mood, cognitive performance, etc.  Generally correlation calculations are only performed on outcome variables.
 
         :param outcome: The outcome of this Variable.
         :type: bool
@@ -903,7 +903,7 @@ class Variable(object):
     def minimum_recorded_value(self):
         """
         Gets the minimum_recorded_value of this Variable.
-        minimum_recorded_value
+        Minimum recorded value of this variable
 
         :return: The minimum_recorded_value of this Variable.
         :rtype: float
@@ -914,7 +914,7 @@ class Variable(object):
     def minimum_recorded_value(self, minimum_recorded_value):
         """
         Sets the minimum_recorded_value of this Variable.
-        minimum_recorded_value
+        Minimum recorded value of this variable
 
         :param minimum_recorded_value: The minimum_recorded_value of this Variable.
         :type: float
@@ -925,7 +925,7 @@ class Variable(object):
     def maximum_recorded_value(self):
         """
         Gets the maximum_recorded_value of this Variable.
-        maximum_recorded_value
+        Maximum recorded value of this variable
 
         :return: The maximum_recorded_value of this Variable.
         :rtype: float
@@ -936,7 +936,7 @@ class Variable(object):
     def maximum_recorded_value(self, maximum_recorded_value):
         """
         Sets the maximum_recorded_value of this Variable.
-        maximum_recorded_value
+        Maximum recorded value of this variable
 
         :param maximum_recorded_value: The maximum_recorded_value of this Variable.
         :type: float
@@ -958,6 +958,12 @@ class Variable(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -974,3 +980,16 @@ class Variable(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
+

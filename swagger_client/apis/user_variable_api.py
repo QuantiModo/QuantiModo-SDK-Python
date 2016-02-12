@@ -2,7 +2,7 @@
 
 """
 UserVariableApi.py
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -60,66 +60,70 @@ class UserVariableApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str client_id: client_id
-        :param int variable_id: variable_id
-        :param int default_unit_id: default_unit_id
-        :param float minimum_allowed_value: minimum_allowed_value
-        :param float maximum_allowed_value: maximum_allowed_value
-        :param float filling_value: filling_value
-        :param int join_with: join_with
-        :param int onset_delay: onset_delay
-        :param int duration_of_action: duration_of_action
-        :param int variable_category_id: variable_category_id
+        :param str access_token: User's OAuth2 access token
+        :param str client_id: The ID of the client application which last created or updated this user variable
+        :param int parent_id: ID of the parent variable if this variable has any parent
+        :param int variable_id: ID of variable
+        :param int user_id: User ID
+        :param int default_unit_id: D of unit to use for this variable
+        :param float minimum_allowed_value: Minimum reasonable value for this variable (uses default unit)
+        :param float maximum_allowed_value: Maximum reasonable value for this variable (uses default unit)
+        :param float filling_value: Value for replacing null measurements
+        :param int join_with: The Variable this Variable should be joined with. If the variable is joined with some other variable then it is not shown to user in the list of variables
+        :param int onset_delay: Estimated number of seconds that pass before a stimulus produces a perceivable effect
+        :param int duration_of_action: Estimated duration of time following the onset delay in which a stimulus produces a perceivable effect
+        :param int variable_category_id: ID of variable category
         :param int updated: updated
-        :param int public: public
-        :param bool cause_only: cause_only
-        :param str filling_type: filling_type
-        :param int number_of_measurements: number_of_measurements
-        :param int number_of_processed_measurements: number_of_processed_measurements
-        :param int measurements_at_last_analysis: measurements_at_last_analysis
-        :param int last_unit_id: last_unit_id
-        :param int last_original_unit_id: last_original_unit_id
-        :param int last_original_value: last_original_value
-        :param float last_value: last_value
-        :param int last_source_id: last_source_id
-        :param int number_of_correlations: number_of_correlations
+        :param int public: Is variable public
+        :param bool cause_only: A value of 1 indicates that this variable is generally a cause in a causal relationship.  An example of a causeOnly variable would be a variable such as Cloud Cover which would generally not be influenced by the behaviour of the user
+        :param str filling_type: 0 -> No filling, 1 -> Use filling-value
+        :param int number_of_measurements: Number of measurements
+        :param int number_of_processed_measurements: Number of processed measurements
+        :param int measurements_at_last_analysis: Number of measurements at last analysis
+        :param int last_unit_id: ID of last Unit
+        :param int last_original_unit_id: ID of last original Unit
+        :param int last_original_value: Last original value which is stored
+        :param float last_value: Last Value
+        :param float last_original_value2: Last original value which is stored
+        :param int last_source_id: ID of last source
+        :param int number_of_correlations: Number of correlations for this variable
         :param str status: status
         :param str error_message: error_message
-        :param str last_successful_update_time: last_successful_update_time
-        :param float standard_deviation: standard_deviation
-        :param float variance: variance
-        :param float minimum_recorded_daily_value: minimum_recorded_daily_value
-        :param float maximum_recorded_daily_value: maximum_recorded_daily_value
-        :param float mean: mean
-        :param float median: median
-        :param int most_common_unit_id: most_common_unit_id
-        :param float most_common_value: most_common_value
-        :param float number_of_unique_daily_values: number_of_unique_daily_values
-        :param int number_of_changes: number_of_changes
-        :param float skewness: skewness
-        :param float kurtosis: kurtosis
-        :param float latitude: latitude
-        :param float longitude: longitude
-        :param str location: location
-        :param str created_at: created_at
-        :param str updated_at: updated_at
-        :param bool outcome: outcome
-        :param str sources: sources
-        :param int earliest_source_time: earliest_source_time
-        :param int latest_source_time: latest_source_time
-        :param int earliest_measurement_time: earliest_measurement_time
-        :param int latest_measurement_time: latest_measurement_time
-        :param int earliest_filling_time: earliest_filling_time
-        :param int latest_filling_time: latest_filling_time
-        :param int limit: limit
-        :param int offset: offset
-        :param str sort: sort
-        :return: InlineResponse20021
+        :param str last_successful_update_time: When this variable or its settings were last updated
+        :param float standard_deviation: Standard deviation
+        :param float variance: Variance
+        :param float minimum_recorded_value: Minimum recorded value of this variable
+        :param float maximum_recorded_value: Maximum recorded value of this variable
+        :param float mean: Mean
+        :param float median: Median
+        :param int most_common_unit_id: Most common Unit ID
+        :param float most_common_value: Most common value
+        :param float number_of_unique_daily_values: Number of unique daily values
+        :param int number_of_changes: Number of changes
+        :param float skewness: Skewness
+        :param float kurtosis: Kurtosis
+        :param float latitude: Latitude
+        :param float longitude: Longitude
+        :param str location: Location
+        :param str created_at: When the record was first created. Use ISO 8601 datetime format
+        :param str updated_at: When the record was last updated. Use ISO 8601 datetime format
+        :param bool outcome: Outcome variables (those with `outcome` == 1) are variables for which a human would generally want to identify the influencing factors.  These include symptoms of illness, physique, mood, cognitive performance, etc.  Generally correlation calculations are only performed on outcome variables
+        :param str sources: Comma-separated list of source names to limit variables to those sources
+        :param int earliest_source_time: Earliest source time
+        :param int latest_source_time: Latest source time
+        :param int earliest_measurement_time: Earliest measurement time
+        :param int latest_measurement_time: Latest measurement time
+        :param int earliest_filling_time: Earliest filling time
+        :param int latest_filling_time: Latest filling time
+        :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.
+        :param int offset: OFFSET says to skip that many rows before beginning to return rows to the client. OFFSET 0 is the same as omitting the OFFSET clause. If both OFFSET and LIMIT appear, then OFFSET rows are skipped before starting to count the LIMIT rows that are returned.
+        :param str sort: Sort by given field. If the field is prefixed with '-', it will sort in descending order.
+        :return: InlineResponse2009
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['client_id', 'variable_id', 'default_unit_id', 'minimum_allowed_value', 'maximum_allowed_value', 'filling_value', 'join_with', 'onset_delay', 'duration_of_action', 'variable_category_id', 'updated', 'public', 'cause_only', 'filling_type', 'number_of_measurements', 'number_of_processed_measurements', 'measurements_at_last_analysis', 'last_unit_id', 'last_original_unit_id', 'last_original_value', 'last_value', 'last_source_id', 'number_of_correlations', 'status', 'error_message', 'last_successful_update_time', 'standard_deviation', 'variance', 'minimum_recorded_daily_value', 'maximum_recorded_daily_value', 'mean', 'median', 'most_common_unit_id', 'most_common_value', 'number_of_unique_daily_values', 'number_of_changes', 'skewness', 'kurtosis', 'latitude', 'longitude', 'location', 'created_at', 'updated_at', 'outcome', 'sources', 'earliest_source_time', 'latest_source_time', 'earliest_measurement_time', 'latest_measurement_time', 'earliest_filling_time', 'latest_filling_time', 'limit', 'offset', 'sort']
+        all_params = ['access_token', 'client_id', 'parent_id', 'variable_id', 'user_id', 'default_unit_id', 'minimum_allowed_value', 'maximum_allowed_value', 'filling_value', 'join_with', 'onset_delay', 'duration_of_action', 'variable_category_id', 'updated', 'public', 'cause_only', 'filling_type', 'number_of_measurements', 'number_of_processed_measurements', 'measurements_at_last_analysis', 'last_unit_id', 'last_original_unit_id', 'last_original_value', 'last_value', 'last_original_value2', 'last_source_id', 'number_of_correlations', 'status', 'error_message', 'last_successful_update_time', 'standard_deviation', 'variance', 'minimum_recorded_value', 'maximum_recorded_value', 'mean', 'median', 'most_common_unit_id', 'most_common_value', 'number_of_unique_daily_values', 'number_of_changes', 'skewness', 'kurtosis', 'latitude', 'longitude', 'location', 'created_at', 'updated_at', 'outcome', 'sources', 'earliest_source_time', 'latest_source_time', 'earliest_measurement_time', 'latest_measurement_time', 'earliest_filling_time', 'latest_filling_time', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -132,16 +136,23 @@ class UserVariableApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/userVariables'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'client_id' in params:
             query_params['client_id'] = params['client_id']
+        if 'parent_id' in params:
+            query_params['parent_id'] = params['parent_id']
         if 'variable_id' in params:
             query_params['variable_id'] = params['variable_id']
+        if 'user_id' in params:
+            query_params['user_id'] = params['user_id']
         if 'default_unit_id' in params:
             query_params['default_unit_id'] = params['default_unit_id']
         if 'minimum_allowed_value' in params:
@@ -180,6 +191,8 @@ class UserVariableApi(object):
             query_params['last_original_value'] = params['last_original_value']
         if 'last_value' in params:
             query_params['last_value'] = params['last_value']
+        if 'last_original_value2' in params:
+            query_params['last_original_value'] = params['last_original_value2']
         if 'last_source_id' in params:
             query_params['last_source_id'] = params['last_source_id']
         if 'number_of_correlations' in params:
@@ -194,10 +207,10 @@ class UserVariableApi(object):
             query_params['standard_deviation'] = params['standard_deviation']
         if 'variance' in params:
             query_params['variance'] = params['variance']
-        if 'minimum_recorded_daily_value' in params:
-            query_params['minimum_recorded_daily_value'] = params['minimum_recorded_daily_value']
-        if 'maximum_recorded_daily_value' in params:
-            query_params['maximum_recorded_daily_value'] = params['maximum_recorded_daily_value']
+        if 'minimum_recorded_value' in params:
+            query_params['minimum_recorded_value'] = params['minimum_recorded_value']
+        if 'maximum_recorded_value' in params:
+            query_params['maximum_recorded_value'] = params['maximum_recorded_value']
         if 'mean' in params:
             query_params['mean'] = params['mean']
         if 'median' in params:
@@ -249,7 +262,7 @@ class UserVariableApi(object):
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -265,7 +278,7 @@ class UserVariableApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -274,7 +287,7 @@ class UserVariableApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20021',
+                                            response_type='InlineResponse2009',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -282,7 +295,7 @@ class UserVariableApi(object):
     def user_variables_post(self, **kwargs):
         """
         Store UserVariable
-        Store UserVariable
+        Users can change things like the display name for a variable. They can also change the parameters used in analysis of that variable such as the expected duration of action for a variable to have an effect, the estimated delay before the onset of action. In order to filter out erroneous data, they are able to set the maximum and minimum reasonable daily values for a variable.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -294,13 +307,14 @@ class UserVariableApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param UserVariable body: UserVariable that should be stored
-        :return: InlineResponse20022
+        :return: InlineResponse20030
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -313,16 +327,19 @@ class UserVariableApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/userVariables'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -340,7 +357,7 @@ class UserVariableApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -349,7 +366,7 @@ class UserVariableApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20022',
+                                            response_type='InlineResponse20030',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -370,15 +387,13 @@ class UserVariableApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of UserVariable (required)
-        :return: InlineResponse20022
+        :param str access_token: User's OAuth2 access token
+        :return: InlineResponse20030
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `user_variables_id_get`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -391,6 +406,10 @@ class UserVariableApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `user_variables_id_get`")
+
         resource_path = '/userVariables/{id}'.replace('{format}', 'json')
         method = 'GET'
 
@@ -399,10 +418,12 @@ class UserVariableApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -418,7 +439,7 @@ class UserVariableApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -427,7 +448,7 @@ class UserVariableApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20022',
+                                            response_type='InlineResponse20030',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -448,16 +469,14 @@ class UserVariableApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of UserVariable (required)
+        :param str access_token: User's OAuth2 access token
         :param UserVariable body: UserVariable that should be updated
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `user_variables_id_put`")
 
-        all_params = ['id', 'body']
+        all_params = ['id', 'access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -470,6 +489,10 @@ class UserVariableApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `user_variables_id_put`")
+
         resource_path = '/userVariables/{id}'.replace('{format}', 'json')
         method = 'PUT'
 
@@ -478,10 +501,12 @@ class UserVariableApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -499,7 +524,7 @@ class UserVariableApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -529,15 +554,13 @@ class UserVariableApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of UserVariable (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `user_variables_id_delete`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -550,6 +573,10 @@ class UserVariableApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `user_variables_id_delete`")
+
         resource_path = '/userVariables/{id}'.replace('{format}', 'json')
         method = 'DELETE'
 
@@ -558,10 +585,12 @@ class UserVariableApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -577,7 +606,7 @@ class UserVariableApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,

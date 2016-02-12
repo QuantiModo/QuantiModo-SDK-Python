@@ -2,7 +2,7 @@
 
 """
 AggregatedCorrelationApi.py
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -60,40 +60,40 @@ class AggregatedCorrelationApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param float correlation: correlation
-        :param int cause_id: cause_id
-        :param int effect_id: effect_id
-        :param int onset_delay: onset_delay
-        :param int duration_of_action: duration_of_action
-        :param int number_of_pairs: number_of_pairs
-        :param float value_predicting_high_outcome: value_predicting_high_outcome
-        :param float value_predicting_low_outcome: value_predicting_low_outcome
-        :param float optimal_pearson_product: optimal_pearson_product
-        :param float vote: vote
-        :param int number_of_users: number_of_users
-        :param int number_of_correlations: number_of_correlations
-        :param float statistical_significance: statistical_significance
-        :param str cause_unit: cause_unit
-        :param int cause_unit_id: cause_unit_id
-        :param int cause_changes: cause_changes
-        :param int effect_changes: effect_changes
-        :param float aggregate_qm_score: aggregate_qm_score
-        :param str created_at: created_at
-        :param str updated_at: updated_at
-        :param str status: status
-        :param str error_message: error_message
-        :param str last_successful_update_time: last_successful_update_time
-        :param float reverse_pearson_correlation_coefficient: reverse_pearson_correlation_coefficient
-        :param float predictive_pearson_correlation_coefficient: predictive_pearson_correlation_coefficient
-        :param int limit: limit
-        :param int offset: offset
-        :param str sort: sort
+        :param str access_token: User's OAuth2 access token
+        :param float correlation: Pearson correlation coefficient between cause and effect measurements
+        :param int cause_id: Variable ID of the predictor variable for which the user desires correlations
+        :param int effect_id: Variable ID of the outcome variable for which the user desires correlations
+        :param int onset_delay: User estimated (or default number of seconds) after cause measurement before a perceivable effect is observed
+        :param int duration_of_action: Number of seconds over which the predictor variable event is expected to produce a perceivable effect following the onset delay
+        :param int number_of_pairs: Number of predictor/outcome data points used in the analysis
+        :param float value_predicting_high_outcome: Predictor daily aggregated measurement value that predicts an above average effect measurement value (in default unit for predictor variable)
+        :param float value_predicting_low_outcome: Predictor daily aggregated measurement value that predicts a below average effect measurement value (in default unit for outcome variable)
+        :param float optimal_pearson_product: Optimal Pearson Product
+        :param int number_of_users: Number of users whose data was used in this aggregation
+        :param int number_of_correlations: Number of correlational analyses used in this aggregation
+        :param float statistical_significance: A function of the effect size and sample size
+        :param str cause_unit: Abbreviated unit name for the predictor variable
+        :param int cause_unit_id: Unit ID for the predictor variable
+        :param int cause_changes: Number of times that the predictor time series changes
+        :param int effect_changes: Number of times that the predictor time series changes
+        :param float aggregate_qm_score: Aggregated QM Score which is directly proportional with the relevance of each predictor or outcome
+        :param str created_at: Date at which the analysis was first performed
+        :param str updated_at: Date at which the analysis was last updated
+        :param str status: Indicates whether an analysis is up to date (UPDATED), needs to be updated (WAITING), or had an error (ERROR)
+        :param str error_message: Message describing any problems encountered during the analysis
+        :param str last_successful_update_time: Last Successful update time
+        :param float reverse_pearson_correlation_coefficient: Correlation when cause and effect are reversed. For any causal relationship, the forward correlation should exceed the reverse correlation
+        :param float predictive_pearson_correlation_coefficient: Predictive Pearson Correlation Coefficient
+        :param int limit: Limit the number of results returned
+        :param int offset: Records from give Offset
+        :param str sort: Sort records by given field
         :return: InlineResponse200
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['correlation', 'cause_id', 'effect_id', 'onset_delay', 'duration_of_action', 'number_of_pairs', 'value_predicting_high_outcome', 'value_predicting_low_outcome', 'optimal_pearson_product', 'vote', 'number_of_users', 'number_of_correlations', 'statistical_significance', 'cause_unit', 'cause_unit_id', 'cause_changes', 'effect_changes', 'aggregate_qm_score', 'created_at', 'updated_at', 'status', 'error_message', 'last_successful_update_time', 'reverse_pearson_correlation_coefficient', 'predictive_pearson_correlation_coefficient', 'limit', 'offset', 'sort']
+        all_params = ['access_token', 'correlation', 'cause_id', 'effect_id', 'onset_delay', 'duration_of_action', 'number_of_pairs', 'value_predicting_high_outcome', 'value_predicting_low_outcome', 'optimal_pearson_product', 'number_of_users', 'number_of_correlations', 'statistical_significance', 'cause_unit', 'cause_unit_id', 'cause_changes', 'effect_changes', 'aggregate_qm_score', 'created_at', 'updated_at', 'status', 'error_message', 'last_successful_update_time', 'reverse_pearson_correlation_coefficient', 'predictive_pearson_correlation_coefficient', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -106,12 +106,15 @@ class AggregatedCorrelationApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/aggregatedCorrelations'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'correlation' in params:
             query_params['correlation'] = params['correlation']
         if 'cause_id' in params:
@@ -130,8 +133,6 @@ class AggregatedCorrelationApi(object):
             query_params['value_predicting_low_outcome'] = params['value_predicting_low_outcome']
         if 'optimal_pearson_product' in params:
             query_params['optimal_pearson_product'] = params['optimal_pearson_product']
-        if 'vote' in params:
-            query_params['vote'] = params['vote']
         if 'number_of_users' in params:
             query_params['number_of_users'] = params['number_of_users']
         if 'number_of_correlations' in params:
@@ -171,7 +172,7 @@ class AggregatedCorrelationApi(object):
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -187,7 +188,7 @@ class AggregatedCorrelationApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -216,13 +217,14 @@ class AggregatedCorrelationApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param AggregatedCorrelation body: AggregatedCorrelation that should be stored
         :return: InlineResponse2001
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -235,16 +237,19 @@ class AggregatedCorrelationApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/aggregatedCorrelations'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -262,7 +267,7 @@ class AggregatedCorrelationApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -292,15 +297,13 @@ class AggregatedCorrelationApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of AggregatedCorrelation (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2001
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `aggregated_correlations_id_get`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -313,6 +316,10 @@ class AggregatedCorrelationApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `aggregated_correlations_id_get`")
+
         resource_path = '/aggregatedCorrelations/{id}'.replace('{format}', 'json')
         method = 'GET'
 
@@ -321,10 +328,12 @@ class AggregatedCorrelationApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -340,7 +349,7 @@ class AggregatedCorrelationApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -370,16 +379,14 @@ class AggregatedCorrelationApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of AggregatedCorrelation (required)
+        :param str access_token: User's OAuth2 access token
         :param AggregatedCorrelation body: AggregatedCorrelation that should be updated
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `aggregated_correlations_id_put`")
 
-        all_params = ['id', 'body']
+        all_params = ['id', 'access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -392,6 +399,10 @@ class AggregatedCorrelationApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `aggregated_correlations_id_put`")
+
         resource_path = '/aggregatedCorrelations/{id}'.replace('{format}', 'json')
         method = 'PUT'
 
@@ -400,10 +411,12 @@ class AggregatedCorrelationApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -421,7 +434,7 @@ class AggregatedCorrelationApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -451,15 +464,13 @@ class AggregatedCorrelationApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of AggregatedCorrelation (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `aggregated_correlations_id_delete`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -472,6 +483,10 @@ class AggregatedCorrelationApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `aggregated_correlations_id_delete`")
+
         resource_path = '/aggregatedCorrelations/{id}'.replace('{format}', 'json')
         method = 'DELETE'
 
@@ -480,10 +495,12 @@ class AggregatedCorrelationApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -499,7 +516,7 @@ class AggregatedCorrelationApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,

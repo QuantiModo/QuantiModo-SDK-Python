@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ class InlineResponse20021(object):
                                   and the value is json key in definition.
         """
         self.swagger_types = {
-            'data': 'list[UserVariable]',
+            'data': 'list[Source]',
             'success': 'bool'
         }
 
@@ -56,7 +56,7 @@ class InlineResponse20021(object):
 
 
         :return: The data of this InlineResponse20021.
-        :rtype: list[UserVariable]
+        :rtype: list[Source]
         """
         return self._data
 
@@ -67,7 +67,7 @@ class InlineResponse20021(object):
 
 
         :param data: The data of this InlineResponse20021.
-        :type: list[UserVariable]
+        :type: list[Source]
         """
         self._data = data
 
@@ -108,6 +108,12 @@ class InlineResponse20021(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -124,3 +130,16 @@ class InlineResponse20021(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
+

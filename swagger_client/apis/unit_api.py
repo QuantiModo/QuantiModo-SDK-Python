@@ -2,7 +2,7 @@
 
 """
 UnitApi.py
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -47,8 +47,8 @@ class UnitApi(object):
 
     def units_get(self, **kwargs):
         """
-        Get all Units
-        Get all Units
+        Get all available units
+        Get all available units
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -60,26 +60,28 @@ class UnitApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str client_id: client_id
-        :param str name: name
-        :param str abbreviated_name: abbreviated_name
-        :param bool category_id: category_id
-        :param float minimum_value: minimum_value
-        :param float maximum_value: maximum_value
+        :param str access_token: User's OAuth2 access token
+        :param str client_id: The ID of the client application which last created or updated this unit
+        :param str name: Unit name
+        :param str abbreviated_name: Unit abbreviation
+        :param int category_id: Unit category ID
+        :param float minimum_value: Minimum value permitted for this unit
+        :param float maximum_value: Maximum value permitted for this unit
         :param int updated: updated
-        :param float multiply: multiply
-        :param float add: add
-        :param str created_at: created_at
-        :param str updated_at: updated_at
-        :param int limit: limit
-        :param int offset: offset
-        :param str sort: sort
-        :return: InlineResponse20017
+        :param int default_unit_id: ID of default unit for this units category
+        :param float multiply: Value multiplied to convert to default unit in this unit category
+        :param float add: Value which should be added to convert to default unit
+        :param str created_at: When the record was first created. Use ISO 8601 datetime format
+        :param str updated_at: When the record was last updated. Use ISO 8601 datetime format
+        :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.
+        :param int offset: OFFSET says to skip that many rows before beginning to return rows to the client. OFFSET 0 is the same as omitting the OFFSET clause. If both OFFSET and LIMIT appear, then OFFSET rows are skipped before starting to count the LIMIT rows that are returned.
+        :param str sort: Sort by given field. If the field is prefixed with '-', it will sort in descending order.
+        :return: InlineResponse20026
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['client_id', 'name', 'abbreviated_name', 'category_id', 'minimum_value', 'maximum_value', 'updated', 'multiply', 'add', 'created_at', 'updated_at', 'limit', 'offset', 'sort']
+        all_params = ['access_token', 'client_id', 'name', 'abbreviated_name', 'category_id', 'minimum_value', 'maximum_value', 'updated', 'default_unit_id', 'multiply', 'add', 'created_at', 'updated_at', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -92,12 +94,15 @@ class UnitApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/units'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'client_id' in params:
             query_params['client_id'] = params['client_id']
         if 'name' in params:
@@ -112,6 +117,8 @@ class UnitApi(object):
             query_params['maximum_value'] = params['maximum_value']
         if 'updated' in params:
             query_params['updated'] = params['updated']
+        if 'default_unit_id' in params:
+            query_params['default_unit_id'] = params['default_unit_id']
         if 'multiply' in params:
             query_params['multiply'] = params['multiply']
         if 'add' in params:
@@ -129,7 +136,7 @@ class UnitApi(object):
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -145,7 +152,7 @@ class UnitApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -154,7 +161,7 @@ class UnitApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20017',
+                                            response_type='InlineResponse20026',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -174,13 +181,14 @@ class UnitApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param Unit body: Unit that should be stored
-        :return: InlineResponse20018
+        :return: InlineResponse20027
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -193,16 +201,19 @@ class UnitApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/units'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -220,7 +231,7 @@ class UnitApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -229,7 +240,7 @@ class UnitApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20018',
+                                            response_type='InlineResponse20027',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -250,15 +261,13 @@ class UnitApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Unit (required)
-        :return: InlineResponse20018
+        :param str access_token: User's OAuth2 access token
+        :return: InlineResponse20027
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `units_id_get`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -271,6 +280,10 @@ class UnitApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `units_id_get`")
+
         resource_path = '/units/{id}'.replace('{format}', 'json')
         method = 'GET'
 
@@ -279,10 +292,12 @@ class UnitApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -298,7 +313,7 @@ class UnitApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -307,7 +322,7 @@ class UnitApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20018',
+                                            response_type='InlineResponse20027',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -328,16 +343,14 @@ class UnitApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Unit (required)
+        :param str access_token: User's OAuth2 access token
         :param Unit body: Unit that should be updated
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `units_id_put`")
 
-        all_params = ['id', 'body']
+        all_params = ['id', 'access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -350,6 +363,10 @@ class UnitApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `units_id_put`")
+
         resource_path = '/units/{id}'.replace('{format}', 'json')
         method = 'PUT'
 
@@ -358,10 +375,12 @@ class UnitApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -379,7 +398,7 @@ class UnitApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -409,15 +428,13 @@ class UnitApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of Unit (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `units_id_delete`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -430,6 +447,10 @@ class UnitApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `units_id_delete`")
+
         resource_path = '/units/{id}'.replace('{format}', 'json')
         method = 'DELETE'
 
@@ -438,10 +459,12 @@ class UnitApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -457,7 +480,7 @@ class UnitApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,

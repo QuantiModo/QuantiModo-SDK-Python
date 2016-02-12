@@ -2,7 +2,7 @@
 
 """
 VariableCategoryApi.py
-Copyright 2015 SmartBear Software
+Copyright 2016 SmartBear Software
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ class VariableCategoryApi(object):
     def variable_categories_get(self, **kwargs):
         """
         Get all VariableCategories
-        Get all VariableCategories
+        The variable categories include Activity, Causes of Illness, Cognitive Performance, Conditions, Environment, Foods, Location, Miscellaneous, Mood, Nutrition, Physical Activity, Physique, Sleep, Social Interactions, Symptoms, Treatments, Vital Signs, and Work.
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
@@ -60,30 +60,31 @@ class VariableCategoryApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str name: name
-        :param float filling_value: filling_value
-        :param float maximum_allowed_value: maximum_allowed_value
-        :param float minimum_allowed_value: minimum_allowed_value
-        :param int duration_of_action: duration_of_action
-        :param int onset_delay: onset_delay
-        :param str combination_operation: combination_operation
+        :param str access_token: User's OAuth2 access token
+        :param str name: Name of the category
+        :param float filling_value: Value for replacing null measurements
+        :param float maximum_allowed_value: Maximum recorded value of this category
+        :param float minimum_allowed_value: Minimum recorded value of this category
+        :param int duration_of_action: Estimated number of seconds following the onset delay in which a stimulus produces a perceivable effect
+        :param int onset_delay: Estimated number of seconds that pass before a stimulus produces a perceivable effect
+        :param str combination_operation: How to combine values of this variable (for instance, to see a summary of the values over a month) SUM or MEAN
         :param int updated: updated
-        :param bool cause_only: cause_only
-        :param int public: public
+        :param bool cause_only: A value of 1 indicates that this category is generally a cause in a causal relationship.  An example of a causeOnly category would be a category such as Work which would generally not be influenced by the behaviour of the user
+        :param int public: Is category public
         :param bool outcome: outcome
-        :param str created_at: created_at
-        :param str updated_at: updated_at
-        :param str image_url: image_url
-        :param int default_unit_id: default_unit_id
-        :param int limit: limit
-        :param int offset: offset
-        :param str sort: sort
-        :return: InlineResponse20023
+        :param str created_at: When the record was first created. Use ISO 8601 datetime format
+        :param str updated_at: When the record was last updated. Use ISO 8601 datetime format
+        :param str image_url: Image URL
+        :param int default_unit_id: ID of the default unit for the category
+        :param int limit: The LIMIT is used to limit the number of results returned. So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.
+        :param int offset: OFFSET says to skip that many rows before beginning to return rows to the client. OFFSET 0 is the same as omitting the OFFSET clause. If both OFFSET and LIMIT appear, then OFFSET rows are skipped before starting to count the LIMIT rows that are returned.
+        :param str sort: Sort by given field. If the field is prefixed with '-', it will sort in descending order.
+        :return: InlineResponse20031
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['name', 'filling_value', 'maximum_allowed_value', 'minimum_allowed_value', 'duration_of_action', 'onset_delay', 'combination_operation', 'updated', 'cause_only', 'public', 'outcome', 'created_at', 'updated_at', 'image_url', 'default_unit_id', 'limit', 'offset', 'sort']
+        all_params = ['access_token', 'name', 'filling_value', 'maximum_allowed_value', 'minimum_allowed_value', 'duration_of_action', 'onset_delay', 'combination_operation', 'updated', 'cause_only', 'public', 'outcome', 'created_at', 'updated_at', 'image_url', 'default_unit_id', 'limit', 'offset', 'sort']
         all_params.append('callback')
 
         params = locals()
@@ -96,12 +97,15 @@ class VariableCategoryApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/variableCategories'.replace('{format}', 'json')
         method = 'GET'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
         if 'name' in params:
             query_params['name'] = params['name']
         if 'filling_value' in params:
@@ -141,7 +145,7 @@ class VariableCategoryApi(object):
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -157,7 +161,7 @@ class VariableCategoryApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -166,7 +170,7 @@ class VariableCategoryApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20023',
+                                            response_type='InlineResponse20031',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -186,13 +190,14 @@ class VariableCategoryApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str access_token: User's OAuth2 access token
         :param VariableCategory body: VariableCategory that should be stored
-        :return: InlineResponse20024
+        :return: InlineResponse20032
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -205,16 +210,19 @@ class VariableCategoryApi(object):
             params[key] = val
         del params['kwargs']
 
+
         resource_path = '/variableCategories'.replace('{format}', 'json')
         method = 'POST'
 
         path_params = {}
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -232,7 +240,7 @@ class VariableCategoryApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -241,7 +249,7 @@ class VariableCategoryApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20024',
+                                            response_type='InlineResponse20032',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -262,15 +270,13 @@ class VariableCategoryApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of VariableCategory (required)
-        :return: InlineResponse20024
+        :param str access_token: User's OAuth2 access token
+        :return: InlineResponse20032
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `variable_categories_id_get`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -283,6 +289,10 @@ class VariableCategoryApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `variable_categories_id_get`")
+
         resource_path = '/variableCategories/{id}'.replace('{format}', 'json')
         method = 'GET'
 
@@ -291,10 +301,12 @@ class VariableCategoryApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -310,7 +322,7 @@ class VariableCategoryApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -319,7 +331,7 @@ class VariableCategoryApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=files,
-                                            response_type='InlineResponse20024',
+                                            response_type='InlineResponse20032',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -340,16 +352,14 @@ class VariableCategoryApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of VariableCategory (required)
+        :param str access_token: User's OAuth2 access token
         :param VariableCategory body: VariableCategory that should be updated
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `variable_categories_id_put`")
 
-        all_params = ['id', 'body']
+        all_params = ['id', 'access_token', 'body']
         all_params.append('callback')
 
         params = locals()
@@ -362,6 +372,10 @@ class VariableCategoryApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `variable_categories_id_put`")
+
         resource_path = '/variableCategories/{id}'.replace('{format}', 'json')
         method = 'PUT'
 
@@ -370,10 +384,12 @@ class VariableCategoryApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -391,7 +407,7 @@ class VariableCategoryApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,
@@ -421,15 +437,13 @@ class VariableCategoryApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param int id: id of VariableCategory (required)
+        :param str access_token: User's OAuth2 access token
         :return: InlineResponse2002
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        # verify the required parameter 'id' is set
-        if id is None:
-            raise ValueError("Missing the required parameter `id` when calling `variable_categories_id_delete`")
 
-        all_params = ['id']
+        all_params = ['id', 'access_token']
         all_params.append('callback')
 
         params = locals()
@@ -442,6 +456,10 @@ class VariableCategoryApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'id' is set
+        if ('id' not in params) or (params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `variable_categories_id_delete`")
+
         resource_path = '/variableCategories/{id}'.replace('{format}', 'json')
         method = 'DELETE'
 
@@ -450,10 +468,12 @@ class VariableCategoryApi(object):
             path_params['id'] = params['id']
 
         query_params = {}
+        if 'access_token' in params:
+            query_params['access_token'] = params['access_token']
 
         header_params = {}
 
-        form_params = {}
+        form_params = []
         files = {}
 
         body_params = None
@@ -469,7 +489,7 @@ class VariableCategoryApi(object):
             select_header_content_type(['application/json'])
 
         # Authentication setting
-        auth_settings = []
+        auth_settings = ['quantimodo_oauth2']
 
         response = self.api_client.call_api(resource_path, method,
                                             path_params,

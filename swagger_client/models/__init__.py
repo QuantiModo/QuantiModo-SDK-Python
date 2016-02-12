@@ -4,6 +4,7 @@ from __future__ import absolute_import
 from .measurement_value import MeasurementValue
 from .measurement_post import MeasurementPost
 from .aggregated_correlation import AggregatedCorrelation
+from .common_variable_relationship import CommonVariableRelationship
 from .connection import Connection
 from .connector import Connector
 from .correlation import Correlation
@@ -11,11 +12,13 @@ from .credential import Credential
 from .measurement import Measurement
 from .measurement_export import MeasurementExport
 from .source import Source
+from .tracking_reminder import TrackingReminder
 from .unit import Unit
 from .unit_category import UnitCategory
 from .unit_conversion import UnitConversion
 from .update import Update
 from .user_variable import UserVariable
+from .user_variable_relationship import UserVariableRelationship
 from .variable import Variable
 from .variable_category import VariableCategory
 from .variable_user_source import VariableUserSource
@@ -51,3 +54,9 @@ from .inline_response_200_27 import InlineResponse20027
 from .inline_response_200_28 import InlineResponse20028
 from .inline_response_200_29 import InlineResponse20029
 from .inline_response_200_30 import InlineResponse20030
+from .inline_response_200_31 import InlineResponse20031
+from .inline_response_200_32 import InlineResponse20032
+from .inline_response_200_33 import InlineResponse20033
+from .inline_response_200_34 import InlineResponse20034
+from .inline_response_200_35 import InlineResponse20035
+from .inline_response_200_36 import InlineResponse20036
