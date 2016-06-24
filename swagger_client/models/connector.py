@@ -1,7 +1,13 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+    QuantiModo
+
+    Welcome to QuantiModo API! QuantiModo makes it easy to retrieve normalized user data from a wide array of devices and applications. [Learn about QuantiModo](https://quantimo.do) or contact us at <api@quantimo.do>.         Before you get started, you will need to: * Sign in/Sign up, and add some data at [https://app.quantimo.do/api/v2/account/connectors](https://app.quantimo.do/api/v2/account/connectors) to try out the API for yourself * Create an app to get your client id and secret at [https://app.quantimo.do/api/v2/apps](https://app.quantimo.do/api/v2/apps) * As long as you're signed in, it will use your browser's cookie for authentication.  However, client applications must use OAuth2 tokens to access the API.     ## Application Endpoints These endpoints give you access to all authorized users' data for that application. ### Getting Application Token Make a `POST` request to `/api/v2/oauth/access_token`         * `grant_type` Must be `client_credentials`.         * `clientId` Your application's clientId.         * `client_secret` Your application's client_secret.         * `redirect_uri` Your application's redirect url.                ## Example Queries ### Query Options The standard query options for QuantiModo API are as described in the table below. These are the available query options in QuantiModo API: <table>            <thead>                <tr>                    <th>Parameter</th>                    <th>Description</th>                </tr>            </thead>            <tbody>                <tr>                    <td>limit</td>                    <td>The LIMIT is used to limit the number of results returned.  So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.</td>                </tr>                <tr>                    <td>offset</td>                    <td>Suppose you wanted to show results 11-20. You'd set the    offset to 10 and the limit to 10.</td>                </tr>                <tr>                    <td>sort</td>                    <td>Sort by given field. If the field is prefixed with '-', it    will sort in descending order.</td>                </tr>            </tbody>        </table>         ### Pagination Conventions Since the maximum limit is 200 records, to get more than that you'll have to make multiple API calls and page through the results. To retrieve all the data, you can iterate through data by using the `limit` and `offset` query parameters.For example, if you want to retrieve data from 61-80 then you can use a query with the following parameters,         `/v2/variables?limit=20&offset=60`         Generally, you'll be retrieving new or updated user data. To avoid unnecessary API calls, you'll want to store your last refresh time locally.  Initially, it should be set to 0. Then whenever you make a request to get new data, you should limit the returned results to those updated since your last refresh by appending append         `?lastUpdated=(ge)&quot2013-01-D01T01:01:01&quot`         to your request.         Also for better pagination, you can get link to the records of first, last, next and previous page from response headers: * `Total-Count` - Total number of results for given query * `Link-First` - Link to get first page records * `Link-Last` - Link to get last page records * `Link-Prev` - Link to get previous records set * `Link-Next` - Link to get next records set         Remember, response header will be only sent when the record set is available. e.g. You will not get a ```Link-Last``` & ```Link-Next``` when you query for the last page.         ### Filter operators support API supports the following operators with filter parameters: <br> **Comparison operators**         Comparison operators allow you to limit results to those greater than, less than, or equal to a specified value for a specified attribute. These operators can be used with strings, numbers, and dates. The following comparison operators are available: * `gt` for `greater than` comparison * `ge` for `greater than or equal` comparison * `lt` for `less than` comparison * `le` for `less than or equal` comparison         They are included in queries using the following format:         `(<operator>)<value>`         For example, in order to filter value which is greater than 21, the following query parameter should be used:         `?value=(gt)21` <br><br> **Equals/In Operators**         It also allows filtering by the exact value of an attribute or by a set of values, depending on the type of value passed as a query parameter. If the value contains commas, the parameter is split on commas and used as array input for `IN` filtering, otherwise the exact match is applied. In order to only show records which have the value 42, the following query should be used:         `?value=42`         In order to filter records which have value 42 or 43, the following query should be used:         `?value=42,43` <br><br> **Like operators**         Like operators allow filtering using `LIKE` query. This operator is triggered if exact match operator is used, but value contains `%` sign as the first or last character. In order to filter records which category that start with `Food`, the following query should be used:         `?category=Food%` <br><br> **Negation operator**         It is possible to get negated results of a query by prefixed the operator with `!`. Some examples:         `//filter records except those with value are not 42 or 43`<br> `?value=!42,43`         `//filter records with value not greater than 21`<br> `?value=!(ge)21` <br><br> **Multiple constraints for single attribute**         It is possible to apply multiple constraints by providing an array of query filters:         Filter all records which value is greater than 20.2 and less than 20.3<br> `?value[]=(gt)20.2&value[]=(lt)20.3`         Filter all records which value is greater than 20.2 and less than 20.3 but not 20.2778<br> `?value[]=(gt)20.2&value[]=(lt)20.3&value[]=!20.2778`<br><br> 
+
+    OpenAPI spec version: 2.0.6
+    
+    Generated by: https://github.com/swagger-api/swagger-codegen.git
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -14,12 +20,11 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
-    Ref: https://github.com/swagger-api/swagger-codegen
 """
 
 from pprint import pformat
 from six import iteritems
+import re
 
 
 class Connector(object):
@@ -27,7 +32,7 @@ class Connector(object):
     NOTE: This class is auto generated by the swagger code generator program.
     Do not edit the class manually.
     """
-    def __init__(self):
+    def __init__(self, id=None, name=None, display_name=None, image=None, get_it_url=None, connected=None, connect_instructions=None, last_update=None, total_measurements_in_last_update=None, no_data_yet=None):
         """
         Connector - a model defined in Swagger
 
@@ -42,33 +47,36 @@ class Connector(object):
             'display_name': 'str',
             'image': 'str',
             'get_it_url': 'str',
-            'short_description': 'str',
-            'long_description': 'str',
-            'enabled': 'bool',
-            'oauth': 'bool'
+            'connected': 'str',
+            'connect_instructions': 'str',
+            'last_update': 'int',
+            'total_measurements_in_last_update': 'int',
+            'no_data_yet': 'bool'
         }
 
         self.attribute_map = {
             'id': 'id',
             'name': 'name',
-            'display_name': 'display_name',
+            'display_name': 'displayName',
             'image': 'image',
-            'get_it_url': 'get_it_url',
-            'short_description': 'short_description',
-            'long_description': 'long_description',
-            'enabled': 'enabled',
-            'oauth': 'oauth'
+            'get_it_url': 'getItUrl',
+            'connected': 'connected',
+            'connect_instructions': 'connectInstructions',
+            'last_update': 'lastUpdate',
+            'total_measurements_in_last_update': 'totalMeasurementsInLastUpdate',
+            'no_data_yet': 'noDataYet'
         }
 
-        self._id = None
-        self._name = None
-        self._display_name = None
-        self._image = None
-        self._get_it_url = None
-        self._short_description = None
-        self._long_description = None
-        self._enabled = None
-        self._oauth = None
+        self._id = id
+        self._name = name
+        self._display_name = display_name
+        self._image = image
+        self._get_it_url = get_it_url
+        self._connected = connected
+        self._connect_instructions = connect_instructions
+        self._last_update = last_update
+        self._total_measurements_in_last_update = total_measurements_in_last_update
+        self._no_data_yet = no_data_yet
 
     @property
     def id(self):
@@ -90,6 +98,7 @@ class Connector(object):
         :param id: The id of this Connector.
         :type: int
         """
+
         self._id = id
 
     @property
@@ -112,6 +121,7 @@ class Connector(object):
         :param name: The name of this Connector.
         :type: str
         """
+
         self._name = name
 
     @property
@@ -134,6 +144,7 @@ class Connector(object):
         :param display_name: The display_name of this Connector.
         :type: str
         """
+
         self._display_name = display_name
 
     @property
@@ -156,6 +167,7 @@ class Connector(object):
         :param image: The image of this Connector.
         :type: str
         """
+
         self._image = image
 
     @property
@@ -178,95 +190,123 @@ class Connector(object):
         :param get_it_url: The get_it_url of this Connector.
         :type: str
         """
+
         self._get_it_url = get_it_url
 
     @property
-    def short_description(self):
+    def connected(self):
         """
-        Gets the short_description of this Connector.
-        Short description
+        Gets the connected of this Connector.
+        True if the authenticated user has this connector enabled
 
-        :return: The short_description of this Connector.
+        :return: The connected of this Connector.
         :rtype: str
         """
-        return self._short_description
+        return self._connected
 
-    @short_description.setter
-    def short_description(self, short_description):
+    @connected.setter
+    def connected(self, connected):
         """
-        Sets the short_description of this Connector.
-        Short description
+        Sets the connected of this Connector.
+        True if the authenticated user has this connector enabled
 
-        :param short_description: The short_description of this Connector.
+        :param connected: The connected of this Connector.
         :type: str
         """
-        self._short_description = short_description
+
+        self._connected = connected
 
     @property
-    def long_description(self):
+    def connect_instructions(self):
         """
-        Gets the long_description of this Connector.
-        Long description
+        Gets the connect_instructions of this Connector.
+        URL and parameters used when connecting to a service
 
-        :return: The long_description of this Connector.
+        :return: The connect_instructions of this Connector.
         :rtype: str
         """
-        return self._long_description
+        return self._connect_instructions
 
-    @long_description.setter
-    def long_description(self, long_description):
+    @connect_instructions.setter
+    def connect_instructions(self, connect_instructions):
         """
-        Sets the long_description of this Connector.
-        Long description
+        Sets the connect_instructions of this Connector.
+        URL and parameters used when connecting to a service
 
-        :param long_description: The long_description of this Connector.
+        :param connect_instructions: The connect_instructions of this Connector.
         :type: str
         """
-        self._long_description = long_description
+
+        self._connect_instructions = connect_instructions
 
     @property
-    def enabled(self):
+    def last_update(self):
         """
-        Gets the enabled of this Connector.
-        enabled
+        Gets the last_update of this Connector.
+        Epoch timestamp of last sync
 
-        :return: The enabled of this Connector.
-        :rtype: bool
+        :return: The last_update of this Connector.
+        :rtype: int
         """
-        return self._enabled
+        return self._last_update
 
-    @enabled.setter
-    def enabled(self, enabled):
+    @last_update.setter
+    def last_update(self, last_update):
         """
-        Sets the enabled of this Connector.
-        enabled
+        Sets the last_update of this Connector.
+        Epoch timestamp of last sync
 
-        :param enabled: The enabled of this Connector.
-        :type: bool
+        :param last_update: The last_update of this Connector.
+        :type: int
         """
-        self._enabled = enabled
+
+        self._last_update = last_update
 
     @property
-    def oauth(self):
+    def total_measurements_in_last_update(self):
         """
-        Gets the oauth of this Connector.
-        oauth
+        Gets the total_measurements_in_last_update of this Connector.
+        Number of measurements obtained during latest update
 
-        :return: The oauth of this Connector.
+        :return: The total_measurements_in_last_update of this Connector.
+        :rtype: int
+        """
+        return self._total_measurements_in_last_update
+
+    @total_measurements_in_last_update.setter
+    def total_measurements_in_last_update(self, total_measurements_in_last_update):
+        """
+        Sets the total_measurements_in_last_update of this Connector.
+        Number of measurements obtained during latest update
+
+        :param total_measurements_in_last_update: The total_measurements_in_last_update of this Connector.
+        :type: int
+        """
+
+        self._total_measurements_in_last_update = total_measurements_in_last_update
+
+    @property
+    def no_data_yet(self):
+        """
+        Gets the no_data_yet of this Connector.
+        True if user has no measurements for this connector
+
+        :return: The no_data_yet of this Connector.
         :rtype: bool
         """
-        return self._oauth
+        return self._no_data_yet
 
-    @oauth.setter
-    def oauth(self, oauth):
+    @no_data_yet.setter
+    def no_data_yet(self, no_data_yet):
         """
-        Sets the oauth of this Connector.
-        oauth
+        Sets the no_data_yet of this Connector.
+        True if user has no measurements for this connector
 
-        :param oauth: The oauth of this Connector.
+        :param no_data_yet: The no_data_yet of this Connector.
         :type: bool
         """
-        self._oauth = oauth
+
+        self._no_data_yet = no_data_yet
 
     def to_dict(self):
         """
@@ -283,6 +323,12 @@ class Connector(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -299,3 +345,15 @@ class Connector(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other

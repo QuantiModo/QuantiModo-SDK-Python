@@ -1,7 +1,13 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+    QuantiModo
+
+    Welcome to QuantiModo API! QuantiModo makes it easy to retrieve normalized user data from a wide array of devices and applications. [Learn about QuantiModo](https://quantimo.do) or contact us at <api@quantimo.do>.         Before you get started, you will need to: * Sign in/Sign up, and add some data at [https://app.quantimo.do/api/v2/account/connectors](https://app.quantimo.do/api/v2/account/connectors) to try out the API for yourself * Create an app to get your client id and secret at [https://app.quantimo.do/api/v2/apps](https://app.quantimo.do/api/v2/apps) * As long as you're signed in, it will use your browser's cookie for authentication.  However, client applications must use OAuth2 tokens to access the API.     ## Application Endpoints These endpoints give you access to all authorized users' data for that application. ### Getting Application Token Make a `POST` request to `/api/v2/oauth/access_token`         * `grant_type` Must be `client_credentials`.         * `clientId` Your application's clientId.         * `client_secret` Your application's client_secret.         * `redirect_uri` Your application's redirect url.                ## Example Queries ### Query Options The standard query options for QuantiModo API are as described in the table below. These are the available query options in QuantiModo API: <table>            <thead>                <tr>                    <th>Parameter</th>                    <th>Description</th>                </tr>            </thead>            <tbody>                <tr>                    <td>limit</td>                    <td>The LIMIT is used to limit the number of results returned.  So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.</td>                </tr>                <tr>                    <td>offset</td>                    <td>Suppose you wanted to show results 11-20. You'd set the    offset to 10 and the limit to 10.</td>                </tr>                <tr>                    <td>sort</td>                    <td>Sort by given field. If the field is prefixed with '-', it    will sort in descending order.</td>                </tr>            </tbody>        </table>         ### Pagination Conventions Since the maximum limit is 200 records, to get more than that you'll have to make multiple API calls and page through the results. To retrieve all the data, you can iterate through data by using the `limit` and `offset` query parameters.For example, if you want to retrieve data from 61-80 then you can use a query with the following parameters,         `/v2/variables?limit=20&offset=60`         Generally, you'll be retrieving new or updated user data. To avoid unnecessary API calls, you'll want to store your last refresh time locally.  Initially, it should be set to 0. Then whenever you make a request to get new data, you should limit the returned results to those updated since your last refresh by appending append         `?lastUpdated=(ge)&quot2013-01-D01T01:01:01&quot`         to your request.         Also for better pagination, you can get link to the records of first, last, next and previous page from response headers: * `Total-Count` - Total number of results for given query * `Link-First` - Link to get first page records * `Link-Last` - Link to get last page records * `Link-Prev` - Link to get previous records set * `Link-Next` - Link to get next records set         Remember, response header will be only sent when the record set is available. e.g. You will not get a ```Link-Last``` & ```Link-Next``` when you query for the last page.         ### Filter operators support API supports the following operators with filter parameters: <br> **Comparison operators**         Comparison operators allow you to limit results to those greater than, less than, or equal to a specified value for a specified attribute. These operators can be used with strings, numbers, and dates. The following comparison operators are available: * `gt` for `greater than` comparison * `ge` for `greater than or equal` comparison * `lt` for `less than` comparison * `le` for `less than or equal` comparison         They are included in queries using the following format:         `(<operator>)<value>`         For example, in order to filter value which is greater than 21, the following query parameter should be used:         `?value=(gt)21` <br><br> **Equals/In Operators**         It also allows filtering by the exact value of an attribute or by a set of values, depending on the type of value passed as a query parameter. If the value contains commas, the parameter is split on commas and used as array input for `IN` filtering, otherwise the exact match is applied. In order to only show records which have the value 42, the following query should be used:         `?value=42`         In order to filter records which have value 42 or 43, the following query should be used:         `?value=42,43` <br><br> **Like operators**         Like operators allow filtering using `LIKE` query. This operator is triggered if exact match operator is used, but value contains `%` sign as the first or last character. In order to filter records which category that start with `Food`, the following query should be used:         `?category=Food%` <br><br> **Negation operator**         It is possible to get negated results of a query by prefixed the operator with `!`. Some examples:         `//filter records except those with value are not 42 or 43`<br> `?value=!42,43`         `//filter records with value not greater than 21`<br> `?value=!(ge)21` <br><br> **Multiple constraints for single attribute**         It is possible to apply multiple constraints by providing an array of query filters:         Filter all records which value is greater than 20.2 and less than 20.3<br> `?value[]=(gt)20.2&value[]=(lt)20.3`         Filter all records which value is greater than 20.2 and less than 20.3 but not 20.2778<br> `?value[]=(gt)20.2&value[]=(lt)20.3&value[]=!20.2778`<br><br> 
+
+    OpenAPI spec version: 2.0.6
+    
+    Generated by: https://github.com/swagger-api/swagger-codegen.git
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -14,12 +20,11 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
-    Ref: https://github.com/swagger-api/swagger-codegen
 """
 
 from pprint import pformat
 from six import iteritems
+import re
 
 
 class VariableCategory(object):
@@ -27,7 +32,7 @@ class VariableCategory(object):
     NOTE: This class is auto generated by the swagger code generator program.
     Do not edit the class manually.
     """
-    def __init__(self):
+    def __init__(self, name=None):
         """
         VariableCategory - a model defined in Swagger
 
@@ -37,87 +42,20 @@ class VariableCategory(object):
                                   and the value is json key in definition.
         """
         self.swagger_types = {
-            'id': 'int',
-            'name': 'str',
-            'filling_value': 'float',
-            'maximum_allowed_value': 'float',
-            'minimum_allowed_value': 'float',
-            'duration_of_action': 'int',
-            'onset_delay': 'int',
-            'combination_operation': 'str',
-            'updated': 'int',
-            'cause_only': 'bool',
-            'public': 'int',
-            'outcome': 'bool',
-            'created_at': 'datetime',
-            'updated_at': 'datetime',
-            'image_url': 'str',
-            'default_unit_id': 'int'
+            'name': 'str'
         }
 
         self.attribute_map = {
-            'id': 'id',
-            'name': 'name',
-            'filling_value': 'filling_value',
-            'maximum_allowed_value': 'maximum_allowed_value',
-            'minimum_allowed_value': 'minimum_allowed_value',
-            'duration_of_action': 'duration_of_action',
-            'onset_delay': 'onset_delay',
-            'combination_operation': 'combination_operation',
-            'updated': 'updated',
-            'cause_only': 'cause_only',
-            'public': 'public',
-            'outcome': 'outcome',
-            'created_at': 'created_at',
-            'updated_at': 'updated_at',
-            'image_url': 'image_url',
-            'default_unit_id': 'default_unit_id'
+            'name': 'name'
         }
 
-        self._id = None
-        self._name = None
-        self._filling_value = None
-        self._maximum_allowed_value = None
-        self._minimum_allowed_value = None
-        self._duration_of_action = None
-        self._onset_delay = None
-        self._combination_operation = None
-        self._updated = None
-        self._cause_only = None
-        self._public = None
-        self._outcome = None
-        self._created_at = None
-        self._updated_at = None
-        self._image_url = None
-        self._default_unit_id = None
-
-    @property
-    def id(self):
-        """
-        Gets the id of this VariableCategory.
-        id
-
-        :return: The id of this VariableCategory.
-        :rtype: int
-        """
-        return self._id
-
-    @id.setter
-    def id(self, id):
-        """
-        Sets the id of this VariableCategory.
-        id
-
-        :param id: The id of this VariableCategory.
-        :type: int
-        """
-        self._id = id
+        self._name = name
 
     @property
     def name(self):
         """
         Gets the name of this VariableCategory.
-        Name of the category
+        Category name
 
         :return: The name of this VariableCategory.
         :rtype: str
@@ -128,320 +66,13 @@ class VariableCategory(object):
     def name(self, name):
         """
         Sets the name of this VariableCategory.
-        Name of the category
+        Category name
 
         :param name: The name of this VariableCategory.
         :type: str
         """
+
         self._name = name
-
-    @property
-    def filling_value(self):
-        """
-        Gets the filling_value of this VariableCategory.
-        Value for replacing null measurements
-
-        :return: The filling_value of this VariableCategory.
-        :rtype: float
-        """
-        return self._filling_value
-
-    @filling_value.setter
-    def filling_value(self, filling_value):
-        """
-        Sets the filling_value of this VariableCategory.
-        Value for replacing null measurements
-
-        :param filling_value: The filling_value of this VariableCategory.
-        :type: float
-        """
-        self._filling_value = filling_value
-
-    @property
-    def maximum_allowed_value(self):
-        """
-        Gets the maximum_allowed_value of this VariableCategory.
-        Maximum recorded value of this category
-
-        :return: The maximum_allowed_value of this VariableCategory.
-        :rtype: float
-        """
-        return self._maximum_allowed_value
-
-    @maximum_allowed_value.setter
-    def maximum_allowed_value(self, maximum_allowed_value):
-        """
-        Sets the maximum_allowed_value of this VariableCategory.
-        Maximum recorded value of this category
-
-        :param maximum_allowed_value: The maximum_allowed_value of this VariableCategory.
-        :type: float
-        """
-        self._maximum_allowed_value = maximum_allowed_value
-
-    @property
-    def minimum_allowed_value(self):
-        """
-        Gets the minimum_allowed_value of this VariableCategory.
-        Minimum recorded value of this category
-
-        :return: The minimum_allowed_value of this VariableCategory.
-        :rtype: float
-        """
-        return self._minimum_allowed_value
-
-    @minimum_allowed_value.setter
-    def minimum_allowed_value(self, minimum_allowed_value):
-        """
-        Sets the minimum_allowed_value of this VariableCategory.
-        Minimum recorded value of this category
-
-        :param minimum_allowed_value: The minimum_allowed_value of this VariableCategory.
-        :type: float
-        """
-        self._minimum_allowed_value = minimum_allowed_value
-
-    @property
-    def duration_of_action(self):
-        """
-        Gets the duration_of_action of this VariableCategory.
-        How long the effect of a measurement in this variable lasts
-
-        :return: The duration_of_action of this VariableCategory.
-        :rtype: int
-        """
-        return self._duration_of_action
-
-    @duration_of_action.setter
-    def duration_of_action(self, duration_of_action):
-        """
-        Sets the duration_of_action of this VariableCategory.
-        How long the effect of a measurement in this variable lasts
-
-        :param duration_of_action: The duration_of_action of this VariableCategory.
-        :type: int
-        """
-        self._duration_of_action = duration_of_action
-
-    @property
-    def onset_delay(self):
-        """
-        Gets the onset_delay of this VariableCategory.
-        How long it takes for a measurement in this variable to take effect
-
-        :return: The onset_delay of this VariableCategory.
-        :rtype: int
-        """
-        return self._onset_delay
-
-    @onset_delay.setter
-    def onset_delay(self, onset_delay):
-        """
-        Sets the onset_delay of this VariableCategory.
-        How long it takes for a measurement in this variable to take effect
-
-        :param onset_delay: The onset_delay of this VariableCategory.
-        :type: int
-        """
-        self._onset_delay = onset_delay
-
-    @property
-    def combination_operation(self):
-        """
-        Gets the combination_operation of this VariableCategory.
-        How to combine values of this variable (for instance, to see a summary of the values over a month) 0 for sum OR 1 for mean
-
-        :return: The combination_operation of this VariableCategory.
-        :rtype: str
-        """
-        return self._combination_operation
-
-    @combination_operation.setter
-    def combination_operation(self, combination_operation):
-        """
-        Sets the combination_operation of this VariableCategory.
-        How to combine values of this variable (for instance, to see a summary of the values over a month) 0 for sum OR 1 for mean
-
-        :param combination_operation: The combination_operation of this VariableCategory.
-        :type: str
-        """
-        self._combination_operation = combination_operation
-
-    @property
-    def updated(self):
-        """
-        Gets the updated of this VariableCategory.
-        updated
-
-        :return: The updated of this VariableCategory.
-        :rtype: int
-        """
-        return self._updated
-
-    @updated.setter
-    def updated(self, updated):
-        """
-        Sets the updated of this VariableCategory.
-        updated
-
-        :param updated: The updated of this VariableCategory.
-        :type: int
-        """
-        self._updated = updated
-
-    @property
-    def cause_only(self):
-        """
-        Gets the cause_only of this VariableCategory.
-        A value of 1 indicates that this category is generally a cause in a causal relationship.  An example of a causeOnly category would be a category such as Work which would generally not be influenced by the behaviour of the user
-
-        :return: The cause_only of this VariableCategory.
-        :rtype: bool
-        """
-        return self._cause_only
-
-    @cause_only.setter
-    def cause_only(self, cause_only):
-        """
-        Sets the cause_only of this VariableCategory.
-        A value of 1 indicates that this category is generally a cause in a causal relationship.  An example of a causeOnly category would be a category such as Work which would generally not be influenced by the behaviour of the user
-
-        :param cause_only: The cause_only of this VariableCategory.
-        :type: bool
-        """
-        self._cause_only = cause_only
-
-    @property
-    def public(self):
-        """
-        Gets the public of this VariableCategory.
-        Is category public
-
-        :return: The public of this VariableCategory.
-        :rtype: int
-        """
-        return self._public
-
-    @public.setter
-    def public(self, public):
-        """
-        Sets the public of this VariableCategory.
-        Is category public
-
-        :param public: The public of this VariableCategory.
-        :type: int
-        """
-        self._public = public
-
-    @property
-    def outcome(self):
-        """
-        Gets the outcome of this VariableCategory.
-        outcome
-
-        :return: The outcome of this VariableCategory.
-        :rtype: bool
-        """
-        return self._outcome
-
-    @outcome.setter
-    def outcome(self, outcome):
-        """
-        Sets the outcome of this VariableCategory.
-        outcome
-
-        :param outcome: The outcome of this VariableCategory.
-        :type: bool
-        """
-        self._outcome = outcome
-
-    @property
-    def created_at(self):
-        """
-        Gets the created_at of this VariableCategory.
-        created_at
-
-        :return: The created_at of this VariableCategory.
-        :rtype: datetime
-        """
-        return self._created_at
-
-    @created_at.setter
-    def created_at(self, created_at):
-        """
-        Sets the created_at of this VariableCategory.
-        created_at
-
-        :param created_at: The created_at of this VariableCategory.
-        :type: datetime
-        """
-        self._created_at = created_at
-
-    @property
-    def updated_at(self):
-        """
-        Gets the updated_at of this VariableCategory.
-        updated_at
-
-        :return: The updated_at of this VariableCategory.
-        :rtype: datetime
-        """
-        return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """
-        Sets the updated_at of this VariableCategory.
-        updated_at
-
-        :param updated_at: The updated_at of this VariableCategory.
-        :type: datetime
-        """
-        self._updated_at = updated_at
-
-    @property
-    def image_url(self):
-        """
-        Gets the image_url of this VariableCategory.
-        Image URL
-
-        :return: The image_url of this VariableCategory.
-        :rtype: str
-        """
-        return self._image_url
-
-    @image_url.setter
-    def image_url(self, image_url):
-        """
-        Sets the image_url of this VariableCategory.
-        Image URL
-
-        :param image_url: The image_url of this VariableCategory.
-        :type: str
-        """
-        self._image_url = image_url
-
-    @property
-    def default_unit_id(self):
-        """
-        Gets the default_unit_id of this VariableCategory.
-        ID of the default unit for the category
-
-        :return: The default_unit_id of this VariableCategory.
-        :rtype: int
-        """
-        return self._default_unit_id
-
-    @default_unit_id.setter
-    def default_unit_id(self, default_unit_id):
-        """
-        Sets the default_unit_id of this VariableCategory.
-        ID of the default unit for the category
-
-        :param default_unit_id: The default_unit_id of this VariableCategory.
-        :type: int
-        """
-        self._default_unit_id = default_unit_id
 
     def to_dict(self):
         """
@@ -458,6 +89,12 @@ class VariableCategory(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -474,3 +111,15 @@ class VariableCategory(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other

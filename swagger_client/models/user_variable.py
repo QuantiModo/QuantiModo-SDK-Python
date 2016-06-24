@@ -1,7 +1,13 @@
 # coding: utf-8
 
 """
-Copyright 2015 SmartBear Software
+    QuantiModo
+
+    Welcome to QuantiModo API! QuantiModo makes it easy to retrieve normalized user data from a wide array of devices and applications. [Learn about QuantiModo](https://quantimo.do) or contact us at <api@quantimo.do>.         Before you get started, you will need to: * Sign in/Sign up, and add some data at [https://app.quantimo.do/api/v2/account/connectors](https://app.quantimo.do/api/v2/account/connectors) to try out the API for yourself * Create an app to get your client id and secret at [https://app.quantimo.do/api/v2/apps](https://app.quantimo.do/api/v2/apps) * As long as you're signed in, it will use your browser's cookie for authentication.  However, client applications must use OAuth2 tokens to access the API.     ## Application Endpoints These endpoints give you access to all authorized users' data for that application. ### Getting Application Token Make a `POST` request to `/api/v2/oauth/access_token`         * `grant_type` Must be `client_credentials`.         * `clientId` Your application's clientId.         * `client_secret` Your application's client_secret.         * `redirect_uri` Your application's redirect url.                ## Example Queries ### Query Options The standard query options for QuantiModo API are as described in the table below. These are the available query options in QuantiModo API: <table>            <thead>                <tr>                    <th>Parameter</th>                    <th>Description</th>                </tr>            </thead>            <tbody>                <tr>                    <td>limit</td>                    <td>The LIMIT is used to limit the number of results returned.  So if you have 1000 results, but only want to the first 10, you would set this to 10 and offset to 0. The maximum limit is 200 records.</td>                </tr>                <tr>                    <td>offset</td>                    <td>Suppose you wanted to show results 11-20. You'd set the    offset to 10 and the limit to 10.</td>                </tr>                <tr>                    <td>sort</td>                    <td>Sort by given field. If the field is prefixed with '-', it    will sort in descending order.</td>                </tr>            </tbody>        </table>         ### Pagination Conventions Since the maximum limit is 200 records, to get more than that you'll have to make multiple API calls and page through the results. To retrieve all the data, you can iterate through data by using the `limit` and `offset` query parameters.For example, if you want to retrieve data from 61-80 then you can use a query with the following parameters,         `/v2/variables?limit=20&offset=60`         Generally, you'll be retrieving new or updated user data. To avoid unnecessary API calls, you'll want to store your last refresh time locally.  Initially, it should be set to 0. Then whenever you make a request to get new data, you should limit the returned results to those updated since your last refresh by appending append         `?lastUpdated=(ge)&quot2013-01-D01T01:01:01&quot`         to your request.         Also for better pagination, you can get link to the records of first, last, next and previous page from response headers: * `Total-Count` - Total number of results for given query * `Link-First` - Link to get first page records * `Link-Last` - Link to get last page records * `Link-Prev` - Link to get previous records set * `Link-Next` - Link to get next records set         Remember, response header will be only sent when the record set is available. e.g. You will not get a ```Link-Last``` & ```Link-Next``` when you query for the last page.         ### Filter operators support API supports the following operators with filter parameters: <br> **Comparison operators**         Comparison operators allow you to limit results to those greater than, less than, or equal to a specified value for a specified attribute. These operators can be used with strings, numbers, and dates. The following comparison operators are available: * `gt` for `greater than` comparison * `ge` for `greater than or equal` comparison * `lt` for `less than` comparison * `le` for `less than or equal` comparison         They are included in queries using the following format:         `(<operator>)<value>`         For example, in order to filter value which is greater than 21, the following query parameter should be used:         `?value=(gt)21` <br><br> **Equals/In Operators**         It also allows filtering by the exact value of an attribute or by a set of values, depending on the type of value passed as a query parameter. If the value contains commas, the parameter is split on commas and used as array input for `IN` filtering, otherwise the exact match is applied. In order to only show records which have the value 42, the following query should be used:         `?value=42`         In order to filter records which have value 42 or 43, the following query should be used:         `?value=42,43` <br><br> **Like operators**         Like operators allow filtering using `LIKE` query. This operator is triggered if exact match operator is used, but value contains `%` sign as the first or last character. In order to filter records which category that start with `Food`, the following query should be used:         `?category=Food%` <br><br> **Negation operator**         It is possible to get negated results of a query by prefixed the operator with `!`. Some examples:         `//filter records except those with value are not 42 or 43`<br> `?value=!42,43`         `//filter records with value not greater than 21`<br> `?value=!(ge)21` <br><br> **Multiple constraints for single attribute**         It is possible to apply multiple constraints by providing an array of query filters:         Filter all records which value is greater than 20.2 and less than 20.3<br> `?value[]=(gt)20.2&value[]=(lt)20.3`         Filter all records which value is greater than 20.2 and less than 20.3 but not 20.2778<br> `?value[]=(gt)20.2&value[]=(lt)20.3&value[]=!20.2778`<br><br> 
+
+    OpenAPI spec version: 2.0.6
+    
+    Generated by: https://github.com/swagger-api/swagger-codegen.git
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -14,12 +20,11 @@ Copyright 2015 SmartBear Software
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
-    Ref: https://github.com/swagger-api/swagger-codegen
 """
 
 from pprint import pformat
 from six import iteritems
+import re
 
 
 class UserVariable(object):
@@ -27,7 +32,7 @@ class UserVariable(object):
     NOTE: This class is auto generated by the swagger code generator program.
     Do not edit the class manually.
     """
-    def __init__(self):
+    def __init__(self, parent_id=None, user_id=None, client_id=None, variable_id=None, default_unit_id=None, minimum_allowed_value=None, maximum_allowed_value=None, filling_value=None, join_with=None, onset_delay=None, duration_of_action=None, variable_category_id=None, updated=None, public=None, cause_only=None, filling_type=None, number_of_measurements=None, number_of_processed_measurements=None, measurements_at_last_analysis=None, last_unit_id=None, last_original_unit_id=None, last_value=None, last_original_value=None, last_source_id=None, number_of_correlations=None, status=None, error_message=None, last_successful_update_time=None, standard_deviation=None, variance=None, minimum_recorded_value=None, maximum_recorded_daily_value=None, mean=None, median=None, most_common_unit_id=None, most_common_value=None, number_of_unique_daily_values=None, number_of_changes=None, skewness=None, kurtosis=None, latitude=None, longitude=None, location=None, experiment_start_time=None, experiment_end_time=None, created_at=None, updated_at=None, outcome=None, sources=None, earliest_source_time=None, latest_source_time=None, earliest_measurement_time=None, latest_measurement_time=None, earliest_filling_time=None, latest_filling_time=None):
         """
         UserVariable - a model defined in Swagger
 
@@ -38,6 +43,7 @@ class UserVariable(object):
         """
         self.swagger_types = {
             'parent_id': 'int',
+            'user_id': 'int',
             'client_id': 'str',
             'variable_id': 'int',
             'default_unit_id': 'int',
@@ -66,7 +72,7 @@ class UserVariable(object):
             'last_successful_update_time': 'datetime',
             'standard_deviation': 'float',
             'variance': 'float',
-            'minimum_recorded_daily_value': 'float',
+            'minimum_recorded_value': 'float',
             'maximum_recorded_daily_value': 'float',
             'mean': 'float',
             'median': 'float',
@@ -79,6 +85,8 @@ class UserVariable(object):
             'latitude': 'float',
             'longitude': 'float',
             'location': 'str',
+            'experiment_start_time': 'datetime',
+            'experiment_end_time': 'datetime',
             'created_at': 'datetime',
             'updated_at': 'datetime',
             'outcome': 'bool',
@@ -93,6 +101,7 @@ class UserVariable(object):
 
         self.attribute_map = {
             'parent_id': 'parent_id',
+            'user_id': 'user_id',
             'client_id': 'client_id',
             'variable_id': 'variable_id',
             'default_unit_id': 'default_unit_id',
@@ -121,7 +130,7 @@ class UserVariable(object):
             'last_successful_update_time': 'last_successful_update_time',
             'standard_deviation': 'standard_deviation',
             'variance': 'variance',
-            'minimum_recorded_daily_value': 'minimum_recorded_daily_value',
+            'minimum_recorded_value': 'minimum_recorded_value',
             'maximum_recorded_daily_value': 'maximum_recorded_daily_value',
             'mean': 'mean',
             'median': 'median',
@@ -134,6 +143,8 @@ class UserVariable(object):
             'latitude': 'latitude',
             'longitude': 'longitude',
             'location': 'location',
+            'experiment_start_time': 'experiment_start_time',
+            'experiment_end_time': 'experiment_end_time',
             'created_at': 'created_at',
             'updated_at': 'updated_at',
             'outcome': 'outcome',
@@ -146,58 +157,61 @@ class UserVariable(object):
             'latest_filling_time': 'latest_filling_time'
         }
 
-        self._parent_id = None
-        self._client_id = None
-        self._variable_id = None
-        self._default_unit_id = None
-        self._minimum_allowed_value = None
-        self._maximum_allowed_value = None
-        self._filling_value = None
-        self._join_with = None
-        self._onset_delay = None
-        self._duration_of_action = None
-        self._variable_category_id = None
-        self._updated = None
-        self._public = None
-        self._cause_only = None
-        self._filling_type = None
-        self._number_of_measurements = None
-        self._number_of_processed_measurements = None
-        self._measurements_at_last_analysis = None
-        self._last_unit_id = None
-        self._last_original_unit_id = None
-        self._last_value = None
-        self._last_original_value = None
-        self._last_source_id = None
-        self._number_of_correlations = None
-        self._status = None
-        self._error_message = None
-        self._last_successful_update_time = None
-        self._standard_deviation = None
-        self._variance = None
-        self._minimum_recorded_daily_value = None
-        self._maximum_recorded_daily_value = None
-        self._mean = None
-        self._median = None
-        self._most_common_unit_id = None
-        self._most_common_value = None
-        self._number_of_unique_daily_values = None
-        self._number_of_changes = None
-        self._skewness = None
-        self._kurtosis = None
-        self._latitude = None
-        self._longitude = None
-        self._location = None
-        self._created_at = None
-        self._updated_at = None
-        self._outcome = None
-        self._sources = None
-        self._earliest_source_time = None
-        self._latest_source_time = None
-        self._earliest_measurement_time = None
-        self._latest_measurement_time = None
-        self._earliest_filling_time = None
-        self._latest_filling_time = None
+        self._parent_id = parent_id
+        self._user_id = user_id
+        self._client_id = client_id
+        self._variable_id = variable_id
+        self._default_unit_id = default_unit_id
+        self._minimum_allowed_value = minimum_allowed_value
+        self._maximum_allowed_value = maximum_allowed_value
+        self._filling_value = filling_value
+        self._join_with = join_with
+        self._onset_delay = onset_delay
+        self._duration_of_action = duration_of_action
+        self._variable_category_id = variable_category_id
+        self._updated = updated
+        self._public = public
+        self._cause_only = cause_only
+        self._filling_type = filling_type
+        self._number_of_measurements = number_of_measurements
+        self._number_of_processed_measurements = number_of_processed_measurements
+        self._measurements_at_last_analysis = measurements_at_last_analysis
+        self._last_unit_id = last_unit_id
+        self._last_original_unit_id = last_original_unit_id
+        self._last_value = last_value
+        self._last_original_value = last_original_value
+        self._last_source_id = last_source_id
+        self._number_of_correlations = number_of_correlations
+        self._status = status
+        self._error_message = error_message
+        self._last_successful_update_time = last_successful_update_time
+        self._standard_deviation = standard_deviation
+        self._variance = variance
+        self._minimum_recorded_value = minimum_recorded_value
+        self._maximum_recorded_daily_value = maximum_recorded_daily_value
+        self._mean = mean
+        self._median = median
+        self._most_common_unit_id = most_common_unit_id
+        self._most_common_value = most_common_value
+        self._number_of_unique_daily_values = number_of_unique_daily_values
+        self._number_of_changes = number_of_changes
+        self._skewness = skewness
+        self._kurtosis = kurtosis
+        self._latitude = latitude
+        self._longitude = longitude
+        self._location = location
+        self._experiment_start_time = experiment_start_time
+        self._experiment_end_time = experiment_end_time
+        self._created_at = created_at
+        self._updated_at = updated_at
+        self._outcome = outcome
+        self._sources = sources
+        self._earliest_source_time = earliest_source_time
+        self._latest_source_time = latest_source_time
+        self._earliest_measurement_time = earliest_measurement_time
+        self._latest_measurement_time = latest_measurement_time
+        self._earliest_filling_time = earliest_filling_time
+        self._latest_filling_time = latest_filling_time
 
     @property
     def parent_id(self):
@@ -219,7 +233,31 @@ class UserVariable(object):
         :param parent_id: The parent_id of this UserVariable.
         :type: int
         """
+
         self._parent_id = parent_id
+
+    @property
+    def user_id(self):
+        """
+        Gets the user_id of this UserVariable.
+        User ID
+
+        :return: The user_id of this UserVariable.
+        :rtype: int
+        """
+        return self._user_id
+
+    @user_id.setter
+    def user_id(self, user_id):
+        """
+        Sets the user_id of this UserVariable.
+        User ID
+
+        :param user_id: The user_id of this UserVariable.
+        :type: int
+        """
+
+        self._user_id = user_id
 
     @property
     def client_id(self):
@@ -241,6 +279,7 @@ class UserVariable(object):
         :param client_id: The client_id of this UserVariable.
         :type: str
         """
+
         self._client_id = client_id
 
     @property
@@ -263,6 +302,7 @@ class UserVariable(object):
         :param variable_id: The variable_id of this UserVariable.
         :type: int
         """
+
         self._variable_id = variable_id
 
     @property
@@ -285,6 +325,7 @@ class UserVariable(object):
         :param default_unit_id: The default_unit_id of this UserVariable.
         :type: int
         """
+
         self._default_unit_id = default_unit_id
 
     @property
@@ -307,6 +348,7 @@ class UserVariable(object):
         :param minimum_allowed_value: The minimum_allowed_value of this UserVariable.
         :type: float
         """
+
         self._minimum_allowed_value = minimum_allowed_value
 
     @property
@@ -329,6 +371,7 @@ class UserVariable(object):
         :param maximum_allowed_value: The maximum_allowed_value of this UserVariable.
         :type: float
         """
+
         self._maximum_allowed_value = maximum_allowed_value
 
     @property
@@ -351,6 +394,7 @@ class UserVariable(object):
         :param filling_value: The filling_value of this UserVariable.
         :type: float
         """
+
         self._filling_value = filling_value
 
     @property
@@ -373,6 +417,7 @@ class UserVariable(object):
         :param join_with: The join_with of this UserVariable.
         :type: int
         """
+
         self._join_with = join_with
 
     @property
@@ -395,6 +440,7 @@ class UserVariable(object):
         :param onset_delay: The onset_delay of this UserVariable.
         :type: int
         """
+
         self._onset_delay = onset_delay
 
     @property
@@ -417,6 +463,7 @@ class UserVariable(object):
         :param duration_of_action: The duration_of_action of this UserVariable.
         :type: int
         """
+
         self._duration_of_action = duration_of_action
 
     @property
@@ -439,6 +486,7 @@ class UserVariable(object):
         :param variable_category_id: The variable_category_id of this UserVariable.
         :type: int
         """
+
         self._variable_category_id = variable_category_id
 
     @property
@@ -461,6 +509,7 @@ class UserVariable(object):
         :param updated: The updated of this UserVariable.
         :type: int
         """
+
         self._updated = updated
 
     @property
@@ -483,6 +532,7 @@ class UserVariable(object):
         :param public: The public of this UserVariable.
         :type: int
         """
+
         self._public = public
 
     @property
@@ -505,6 +555,7 @@ class UserVariable(object):
         :param cause_only: The cause_only of this UserVariable.
         :type: bool
         """
+
         self._cause_only = cause_only
 
     @property
@@ -527,6 +578,7 @@ class UserVariable(object):
         :param filling_type: The filling_type of this UserVariable.
         :type: str
         """
+
         self._filling_type = filling_type
 
     @property
@@ -549,6 +601,7 @@ class UserVariable(object):
         :param number_of_measurements: The number_of_measurements of this UserVariable.
         :type: int
         """
+
         self._number_of_measurements = number_of_measurements
 
     @property
@@ -571,6 +624,7 @@ class UserVariable(object):
         :param number_of_processed_measurements: The number_of_processed_measurements of this UserVariable.
         :type: int
         """
+
         self._number_of_processed_measurements = number_of_processed_measurements
 
     @property
@@ -593,6 +647,7 @@ class UserVariable(object):
         :param measurements_at_last_analysis: The measurements_at_last_analysis of this UserVariable.
         :type: int
         """
+
         self._measurements_at_last_analysis = measurements_at_last_analysis
 
     @property
@@ -615,6 +670,7 @@ class UserVariable(object):
         :param last_unit_id: The last_unit_id of this UserVariable.
         :type: int
         """
+
         self._last_unit_id = last_unit_id
 
     @property
@@ -637,6 +693,7 @@ class UserVariable(object):
         :param last_original_unit_id: The last_original_unit_id of this UserVariable.
         :type: int
         """
+
         self._last_original_unit_id = last_original_unit_id
 
     @property
@@ -659,6 +716,7 @@ class UserVariable(object):
         :param last_value: The last_value of this UserVariable.
         :type: float
         """
+
         self._last_value = last_value
 
     @property
@@ -681,6 +739,7 @@ class UserVariable(object):
         :param last_original_value: The last_original_value of this UserVariable.
         :type: int
         """
+
         self._last_original_value = last_original_value
 
     @property
@@ -703,6 +762,7 @@ class UserVariable(object):
         :param last_source_id: The last_source_id of this UserVariable.
         :type: int
         """
+
         self._last_source_id = last_source_id
 
     @property
@@ -725,6 +785,7 @@ class UserVariable(object):
         :param number_of_correlations: The number_of_correlations of this UserVariable.
         :type: int
         """
+
         self._number_of_correlations = number_of_correlations
 
     @property
@@ -747,6 +808,7 @@ class UserVariable(object):
         :param status: The status of this UserVariable.
         :type: str
         """
+
         self._status = status
 
     @property
@@ -769,6 +831,7 @@ class UserVariable(object):
         :param error_message: The error_message of this UserVariable.
         :type: str
         """
+
         self._error_message = error_message
 
     @property
@@ -791,6 +854,7 @@ class UserVariable(object):
         :param last_successful_update_time: The last_successful_update_time of this UserVariable.
         :type: datetime
         """
+
         self._last_successful_update_time = last_successful_update_time
 
     @property
@@ -813,6 +877,7 @@ class UserVariable(object):
         :param standard_deviation: The standard_deviation of this UserVariable.
         :type: float
         """
+
         self._standard_deviation = standard_deviation
 
     @property
@@ -835,29 +900,31 @@ class UserVariable(object):
         :param variance: The variance of this UserVariable.
         :type: float
         """
+
         self._variance = variance
 
     @property
-    def minimum_recorded_daily_value(self):
+    def minimum_recorded_value(self):
         """
-        Gets the minimum_recorded_daily_value of this UserVariable.
-        Minimum recorded daily value of this variable
+        Gets the minimum_recorded_value of this UserVariable.
+        Minimum recorded value of this variable
 
-        :return: The minimum_recorded_daily_value of this UserVariable.
+        :return: The minimum_recorded_value of this UserVariable.
         :rtype: float
         """
-        return self._minimum_recorded_daily_value
+        return self._minimum_recorded_value
 
-    @minimum_recorded_daily_value.setter
-    def minimum_recorded_daily_value(self, minimum_recorded_daily_value):
+    @minimum_recorded_value.setter
+    def minimum_recorded_value(self, minimum_recorded_value):
         """
-        Sets the minimum_recorded_daily_value of this UserVariable.
-        Minimum recorded daily value of this variable
+        Sets the minimum_recorded_value of this UserVariable.
+        Minimum recorded value of this variable
 
-        :param minimum_recorded_daily_value: The minimum_recorded_daily_value of this UserVariable.
+        :param minimum_recorded_value: The minimum_recorded_value of this UserVariable.
         :type: float
         """
-        self._minimum_recorded_daily_value = minimum_recorded_daily_value
+
+        self._minimum_recorded_value = minimum_recorded_value
 
     @property
     def maximum_recorded_daily_value(self):
@@ -879,6 +946,7 @@ class UserVariable(object):
         :param maximum_recorded_daily_value: The maximum_recorded_daily_value of this UserVariable.
         :type: float
         """
+
         self._maximum_recorded_daily_value = maximum_recorded_daily_value
 
     @property
@@ -901,6 +969,7 @@ class UserVariable(object):
         :param mean: The mean of this UserVariable.
         :type: float
         """
+
         self._mean = mean
 
     @property
@@ -923,6 +992,7 @@ class UserVariable(object):
         :param median: The median of this UserVariable.
         :type: float
         """
+
         self._median = median
 
     @property
@@ -945,6 +1015,7 @@ class UserVariable(object):
         :param most_common_unit_id: The most_common_unit_id of this UserVariable.
         :type: int
         """
+
         self._most_common_unit_id = most_common_unit_id
 
     @property
@@ -967,6 +1038,7 @@ class UserVariable(object):
         :param most_common_value: The most_common_value of this UserVariable.
         :type: float
         """
+
         self._most_common_value = most_common_value
 
     @property
@@ -989,6 +1061,7 @@ class UserVariable(object):
         :param number_of_unique_daily_values: The number_of_unique_daily_values of this UserVariable.
         :type: float
         """
+
         self._number_of_unique_daily_values = number_of_unique_daily_values
 
     @property
@@ -1011,6 +1084,7 @@ class UserVariable(object):
         :param number_of_changes: The number_of_changes of this UserVariable.
         :type: int
         """
+
         self._number_of_changes = number_of_changes
 
     @property
@@ -1033,6 +1107,7 @@ class UserVariable(object):
         :param skewness: The skewness of this UserVariable.
         :type: float
         """
+
         self._skewness = skewness
 
     @property
@@ -1055,6 +1130,7 @@ class UserVariable(object):
         :param kurtosis: The kurtosis of this UserVariable.
         :type: float
         """
+
         self._kurtosis = kurtosis
 
     @property
@@ -1077,6 +1153,7 @@ class UserVariable(object):
         :param latitude: The latitude of this UserVariable.
         :type: float
         """
+
         self._latitude = latitude
 
     @property
@@ -1099,6 +1176,7 @@ class UserVariable(object):
         :param longitude: The longitude of this UserVariable.
         :type: float
         """
+
         self._longitude = longitude
 
     @property
@@ -1121,13 +1199,60 @@ class UserVariable(object):
         :param location: The location of this UserVariable.
         :type: str
         """
+
         self._location = location
+
+    @property
+    def experiment_start_time(self):
+        """
+        Gets the experiment_start_time of this UserVariable.
+        Earliest measurement start_time to be used in analysis. Use ISO 8601 datetime format
+
+        :return: The experiment_start_time of this UserVariable.
+        :rtype: datetime
+        """
+        return self._experiment_start_time
+
+    @experiment_start_time.setter
+    def experiment_start_time(self, experiment_start_time):
+        """
+        Sets the experiment_start_time of this UserVariable.
+        Earliest measurement start_time to be used in analysis. Use ISO 8601 datetime format
+
+        :param experiment_start_time: The experiment_start_time of this UserVariable.
+        :type: datetime
+        """
+
+        self._experiment_start_time = experiment_start_time
+
+    @property
+    def experiment_end_time(self):
+        """
+        Gets the experiment_end_time of this UserVariable.
+        Latest measurement start_time to be used in analysis. Use ISO 8601 datetime format
+
+        :return: The experiment_end_time of this UserVariable.
+        :rtype: datetime
+        """
+        return self._experiment_end_time
+
+    @experiment_end_time.setter
+    def experiment_end_time(self, experiment_end_time):
+        """
+        Sets the experiment_end_time of this UserVariable.
+        Latest measurement start_time to be used in analysis. Use ISO 8601 datetime format
+
+        :param experiment_end_time: The experiment_end_time of this UserVariable.
+        :type: datetime
+        """
+
+        self._experiment_end_time = experiment_end_time
 
     @property
     def created_at(self):
         """
         Gets the created_at of this UserVariable.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :return: The created_at of this UserVariable.
         :rtype: datetime
@@ -1138,18 +1263,19 @@ class UserVariable(object):
     def created_at(self, created_at):
         """
         Sets the created_at of this UserVariable.
-        created_at
+        When the record was first created. Use ISO 8601 datetime format
 
         :param created_at: The created_at of this UserVariable.
         :type: datetime
         """
+
         self._created_at = created_at
 
     @property
     def updated_at(self):
         """
         Gets the updated_at of this UserVariable.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :return: The updated_at of this UserVariable.
         :rtype: datetime
@@ -1160,11 +1286,12 @@ class UserVariable(object):
     def updated_at(self, updated_at):
         """
         Sets the updated_at of this UserVariable.
-        updated_at
+        When the record in the database was last updated. Use ISO 8601 datetime format
 
         :param updated_at: The updated_at of this UserVariable.
         :type: datetime
         """
+
         self._updated_at = updated_at
 
     @property
@@ -1187,6 +1314,7 @@ class UserVariable(object):
         :param outcome: The outcome of this UserVariable.
         :type: bool
         """
+
         self._outcome = outcome
 
     @property
@@ -1209,6 +1337,7 @@ class UserVariable(object):
         :param sources: The sources of this UserVariable.
         :type: str
         """
+
         self._sources = sources
 
     @property
@@ -1231,6 +1360,7 @@ class UserVariable(object):
         :param earliest_source_time: The earliest_source_time of this UserVariable.
         :type: int
         """
+
         self._earliest_source_time = earliest_source_time
 
     @property
@@ -1253,6 +1383,7 @@ class UserVariable(object):
         :param latest_source_time: The latest_source_time of this UserVariable.
         :type: int
         """
+
         self._latest_source_time = latest_source_time
 
     @property
@@ -1275,6 +1406,7 @@ class UserVariable(object):
         :param earliest_measurement_time: The earliest_measurement_time of this UserVariable.
         :type: int
         """
+
         self._earliest_measurement_time = earliest_measurement_time
 
     @property
@@ -1297,6 +1429,7 @@ class UserVariable(object):
         :param latest_measurement_time: The latest_measurement_time of this UserVariable.
         :type: int
         """
+
         self._latest_measurement_time = latest_measurement_time
 
     @property
@@ -1319,6 +1452,7 @@ class UserVariable(object):
         :param earliest_filling_time: The earliest_filling_time of this UserVariable.
         :type: int
         """
+
         self._earliest_filling_time = earliest_filling_time
 
     @property
@@ -1341,6 +1475,7 @@ class UserVariable(object):
         :param latest_filling_time: The latest_filling_time of this UserVariable.
         :type: int
         """
+
         self._latest_filling_time = latest_filling_time
 
     def to_dict(self):
@@ -1358,6 +1493,12 @@ class UserVariable(object):
                 ))
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
+            elif isinstance(value, dict):
+                result[attr] = dict(map(
+                    lambda item: (item[0], item[1].to_dict())
+                    if hasattr(item[1], "to_dict") else item,
+                    value.items()
+                ))
             else:
                 result[attr] = value
 
@@ -1374,3 +1515,15 @@ class UserVariable(object):
         For `print` and `pprint`
         """
         return self.to_str()
+
+    def __eq__(self, other):
+        """
+        Returns true if both objects are equal
+        """
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """
+        Returns true if both objects are not equal
+        """
+        return not self == other
